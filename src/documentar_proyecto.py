@@ -25,7 +25,7 @@ Se utilizan 768 simulaciones de Energy Efficiency (UCI), ocho entradas X1-X8 y d
 | Dataset original intacto | `data/raw/ENB2012_data.xlsx` |
 | Preparación y dataset procesado | `src/preparacion_datos.py`, `data/processed/eficiencia_energetica_procesada.csv` |
 | SQL Server ejecutado | Base `REC_ECBD_Energia` en `localhost`; `docs/verificacion_sqlserver.json` |
-| Copo de nieve | `sql/datamart.sql`, `docs/diagrama_copo_nieve.svg`, `data/processed/copo_nieve/` |
+| Modelo estrella | `sql/datamart.sql`, `docs/diagrama_estrella.svg`, `data/processed/estrella/` |
 | Regresión y clasificación | `src/modelos_supervisados.py`, `modelos/`, `docs/metricas_*.csv` |
 | K-Means y PCA | `src/modelos_no_supervisados.py`, `docs/resultados_no_supervisados.json` |
 | Power BI | `dashboard/Energia.pbip` y sus carpetas Report/SemanticModel |
@@ -62,7 +62,7 @@ sqlcmd -S localhost -E -C -b -f 65001 -i sql/validar_datamart.sql
 
 Abrir `dashboard/Energia.pbip`. Mantener junto al archivo las carpetas `Energia.Report` y `Energia.SemanticModel`. Actualizar datos desde SQL Server con autenticación Windows. Si se requiere el formato monolítico, usar **Archivo > Guardar como > PBIX**. Consultar `dashboard/README.md` para las páginas y comprobaciones.
 
-El modelo tiene **HECHOS** con 768 filas y nueve relaciones 1:N de filtro simple. No se usa una tabla plana para sustituir el copo de nieve. Las tablas de métricas globales quedan separadas para no confundir medidas del conjunto de prueba con filtros exploratorios.
+El modelo tiene **HECHOS** con 768 filas y seis relaciones 1:N de filtro simple. Todas las dimensiones se conectan directamente con HECHOS; altura se integra en geometría y los atributos de cristal en acristalamiento. Las tablas de métricas globales quedan separadas para no confundir medidas del conjunto de prueba con filtros exploratorios.
 
 ## Resultados reproducidos
 
@@ -85,7 +85,7 @@ K-Means y PCA utilizan X1-X5 y X7 estandarizadas, sin las cargas ni los códigos
 ## Notebooks y documentos
 
 - `Gonzalez_Coronado_Ulises_U2_AE1_Exploracion.ipynb`: diagnóstico, diccionario, estadística y gráficos interpretados.
-- `Gonzalez_Coronado_Ulises_U2_AE2_ETL.ipynb`: comparación original/procesado, carga SQL y copo de nieve.
+- `Gonzalez_Coronado_Ulises_U2_AE2_ETL.ipynb`: comparación original/procesado, carga SQL y modelo estrella.
 - `Gonzalez_Coronado_Ulises_U3_AnalisisSupervisado.ipynb`: selección, ajuste, métricas, importancia e interpretación.
 - `Gonzalez_Coronado_Ulises_U4_AnalisisNoSupervisado.ipynb`: selección de k, perfiles, PCA y conclusiones.
 - `01_preparacion_datos.ipynb` y `02_analisis_supervisado.ipynb`: evidencias iniciales conservadas y verificadas.
@@ -96,7 +96,7 @@ Los cuatro informes de actividad están en `docs/`, junto con `Informe_Final.pdf
 
 ```text
 data/raw/                 Dataset original
-data/processed/           Derivados, predicciones y exportaciones del copo de nieve
+data/processed/           Derivados, predicciones y exportaciones del modelo estrella
 notebooks/                Evidencias ejecutables por actividad
 src/                      Análisis, ETL, validación y generadores
 sql/                      Creación, carga y validación del Data Mart
@@ -134,10 +134,7 @@ La base final es **REC_ECBD_Energia**, en SQL Server. `src/etl_sqlserver.py` gen
 
 ```mermaid
 erDiagram
-    DimAltura ||--o{ DimGeometria : id_altura
     DimGeometria ||--o{ HECHOS : id_geometria
-    DimPorcentajeCristal ||--o{ DimAcristalamiento : id_porcentaje
-    DimDistribucion ||--o{ DimAcristalamiento : id_distribucion
     DimAcristalamiento ||--o{ HECHOS : id_acristalamiento
     DimOrientacion ||--o{ HECHOS : id_orientacion
     DimClase ||--o{ HECHOS : id_clase
@@ -147,11 +144,11 @@ erDiagram
 
 El grano de HECHOS es una simulación por `id_registro`. Contiene Y1/Y2, predicciones, errores absolutos y PC1/PC2. Las predicciones de las 576 filas de entrenamiento son NULL por diseño; las 192 filas de prueba sí tienen predicción. Esto evita presentar evaluación de entrenamiento como prueba.
 
-Las cargas son medidas no aditivas entre escenarios alternativos: se muestran medias. DimGeometria separa altura y DimAcristalamiento separa proporción y distribución; esto convierte el esquema en copo de nieve. Los códigos X6/X8 se conservan sin inventar etiquetas cardinales. Las tablas de métricas son auxiliares, con grano propio por algoritmo/objetivo o componente; no se mezclan con HECHOS.
+Las cargas son medidas no aditivas entre escenarios alternativos: se muestran medias. DimGeometria incluye altura y DimAcristalamiento incluye proporción y distribución; esto mantiene un esquema estrella. Los códigos X6/X8 se conservan sin inventar etiquetas cardinales. Las tablas de métricas son auxiliares, con grano propio por algoritmo/objetivo o componente; no se mezclan con HECHOS.
 
 La carga es idempotente: reconstruye únicamente las tablas dedicadas de la base del proyecto. `SET XACT_ABORT ON` y TRY/CATCH revierten cambios ante fallos. `sql/validar_datamart.sql` comprueba el resultado. La evidencia de ejecución real está en `verificacion_sqlserver.json`.
 
-El SQLite y los scripts antiguos se conservan como antecedente. El esquema final y la defensa utilizan `sql/datamart.sql` y `diagrama_copo_nieve.svg`.
+El SQLite y los scripts antiguos se conservan como antecedente. El esquema final y la defensa utilizan `sql/datamart.sql` y `diagrama_estrella.svg`.
 ''',
 'docs/guia_revision_proyecto.md':r'''# Guion para ejecutar y defender el proyecto
 
@@ -160,14 +157,14 @@ El SQLite y los scripts antiguos se conservan como antecedente. El esquema final
 1. **Problema (1 min).** Explicar la relación entre geometría y cargas. Cada fila es una simulación; Y1/Y2 no son años. No prometer ahorro real.
 2. **Datos y calidad (1 min).** Abrir el Excel original y el notebook AE1. Mostrar 768 filas, diez variables, ausencia de nulos/duplicados y una gráfica interpretada.
 3. **ETL (2 min).** Abrir AE2. Comparar columnas originales y derivadas. Explicar por qué se conservan los atípicos sin justificación para borrarlos.
-4. **SQL Server (2 min).** En SSMS conectar a `localhost` con Windows. Abrir la base `REC_ECBD_Energia`, expandir Tablas y mostrar `dbo.HECHOS`, `dbo.DimGeometria`, `dbo.DimAltura` y las ramas de acristalamiento. Ejecutar `sql/consulta_defensa.sql` y mostrar llaves 1:N y 768 hechos.
+4. **SQL Server (2 min).** En SSMS conectar a `localhost` con Windows. Abrir la base `REC_ECBD_Energia`, expandir Tablas y mostrar `dbo.HECHOS`, `dbo.DimGeometria` y `dbo.DimAcristalamiento`. Ejecutar `sql/consulta_defensa.sql` y mostrar las seis llaves 1:N y 768 hechos.
 5. **Supervisado (2 min).** Explicar X/y, separación por geometría, optimización dentro de entrenamiento y diferencia entre MAE y accuracy. Reconocer 40 falsos negativos de clase alta.
 6. **No supervisado (2 min).** Explicar StandardScaler, por qué no usar Y1/Y2 ni códigos nominales, selección k=2 por silhouette y varianza 82.38% de PC1/PC2.
-7. **Power BI y decisiones (2 min).** Recorrer las cuatro páginas. Filtrar por altura; abrir Vista de modelo para mostrar el copo de nieve. Presentar tres conclusiones y dos recomendaciones del informe final.
+7. **Power BI y decisiones (2 min).** Recorrer las cuatro páginas. Filtrar por altura; abrir Vista de modelo para mostrar la estrella. Presentar tres conclusiones y dos recomendaciones del informe final.
 
 ## Preguntas esenciales
 
-- **¿Por qué copo de nieve?** Las dimensiones se normalizan en niveles: altura pertenece a geometría; porcentaje y distribución pertenecen a acristalamiento. No todas se conectan directamente a HECHOS.
+- **¿Por qué estrella?** Las dimensiones se desnormalizan para consulta y visualización: altura está en geometría y los atributos de cristal en acristalamiento. Todas se conectan directamente a HECHOS.
 - **¿Cuál es el grano?** Una configuración simulada por id_registro. No existen fechas de consumo real.
 - **¿Por qué no sumar Y1/Y2?** Son cargas de diseños alternativos, no consumos aditivos de un edificio durante varios periodos.
 - **¿Por qué no eliminaste filas?** Las comprobaciones no identifican errores que lo justifiquen; se preserva la fuente.
@@ -196,7 +193,7 @@ Actualización: 16 de noviembre de 2026. Esta matriz describe evidencias técnic
 | Original frente a procesado | assert_frame_equal en U2_AE2 y SHA-256 |
 | ETL y dataset procesado | src/preparacion_datos.py, src/etl_sqlserver.py, data/processed/ |
 | HECHOS, dimensiones, PK/FK, medidas | SQL Server REC_ECBD_Energia; sql/datamart.sql |
-| Copo de nieve y diagrama | docs/diagrama_copo_nieve.svg; 9 relaciones SQL y Power BI |
+| Modelo estrella y diagrama | docs/diagrama_estrella.svg; 6 relaciones SQL y Power BI |
 | Regresión con MAE y RMSE/R² | U3; metricas_regresion.csv |
 | Clasificación con accuracy, precision, recall, F1 y matriz | U3; metricas_clasificacion.csv; reporte_clasificacion.json |
 | Comparación, optimización y relevancia | GridSearchCV/GroupKFold; validacion_*.csv; importancia_variables.csv |
@@ -242,11 +239,11 @@ El proyecto editable es `Energia.pbip`, con `Energia.Report/` (PBIR) y `Energia.
 1. **Edificios y demanda energética:** 768 simulaciones, 12 geometrías, medias de cargas, altura, compacidad y acristalamiento; segmentación por altura.
 2. **Predicción y evaluación:** MAE, accuracy, F1, real frente a predicho, matriz de confusión y referencia de regresión. Las predicciones de entrenamiento son nulas; solo se evalúan 192 casos de prueba.
 3. **Patrones y componentes:** selección de k, silhouette, perfiles, dispersión PCA y varianza explicada.
-4. **Del Excel al conocimiento:** ETL, estructura copo de nieve, controles de calidad, conclusiones y recomendaciones.
+4. **Del Excel al conocimiento:** ETL, estructura estrella, controles de calidad, conclusiones y recomendaciones.
 
 ## Modelo real
 
-Abrir **Vista de modelo**. HECHOS se conecta a DimGeometria, DimOrientacion, DimAcristalamiento, DimClase, DimConjunto y DimCluster. DimGeometria se conecta a DimAltura. DimAcristalamiento se conecta a DimPorcentajeCristal y DimDistribucion. Son nueve relaciones 1:N con filtro simple, iguales a las llaves de SQL Server.
+Abrir **Vista de modelo**. HECHOS se conecta directamente a DimGeometria, DimOrientacion, DimAcristalamiento, DimClase, DimConjunto y DimCluster. Son seis relaciones 1:N con filtro simple, iguales a las llaves de SQL Server.
 
 Las tablas de métricas globales permanecen separadas: muestran la evaluación fija sobre prueba, no métricas recalculadas por cada filtro exploratorio. Las medidas de cargas utilizan medias. `F1 macro global` se etiqueta como global para evitar una interpretación filtrada.
 
@@ -261,11 +258,11 @@ GO
 -- 1. Hechos y medidas al grano de una simulacion.
 SELECT TOP (10) * FROM dbo.HECHOS ORDER BY id_registro;
 SELECT COUNT(*) simulaciones, AVG(Y1) calefaccion_media, AVG(Y2) refrigeracion_media FROM dbo.HECHOS;
--- 2. Recorrido del copo de nieve: Altura -> Geometria -> HECHOS.
-SELECT a.altura, COUNT(*) simulaciones, AVG(h.Y1) calefaccion_media, AVG(h.Y2) refrigeracion_media
+-- 2. Estrella: Altura dentro de DimGeometria -> HECHOS.
+SELECT g.altura, COUNT(*) simulaciones, AVG(h.Y1) calefaccion_media, AVG(h.Y2) refrigeracion_media
 FROM dbo.HECHOS h JOIN dbo.DimGeometria g ON h.id_geometria=g.id_geometria
-JOIN dbo.DimAltura a ON g.id_altura=a.id_altura GROUP BY a.altura;
--- 3. Relaciones fisicas; las nueve FK estan implementadas.
+GROUP BY g.altura;
+-- 3. Relaciones físicas; las seis FK directas a HECHOS están implementadas.
 SELECT fk.name, OBJECT_NAME(fk.parent_object_id) tabla_hija,
 OBJECT_NAME(fk.referenced_object_id) tabla_padre, fk.is_disabled, fk.is_not_trusted
 FROM sys.foreign_keys fk;

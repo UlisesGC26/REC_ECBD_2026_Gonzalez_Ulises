@@ -1,10 +1,11 @@
 {
-  "fecha_utc": "2026-11-17T01:22:38.254311+00:00",
+  "fecha_utc": "2026-11-17T06:58:36.677672+00:00",
   "servidor": "localhost",
   "base": "REC_ECBD_Energia",
   "motor": "Microsoft SQL Server",
   "autenticacion": "Windows integrada",
+  "modelo": "estrella",
   "codigo_salida": 0,
-  "verificacion": "Changed database context to 'master'.\nChanged database context to 'REC_ECBD_Energia'.\nWarning: Null value is eliminated by an aggregate or other SET operation.\ntabla|filas\n-----|-----\nHECHOS|768\ntabla|filas\n-----|-----\nDatasetOriginal|768\ncontrol|valor\n-------|-----\nLlaves foraneas activas|9\ncontrol|valor\n-------|-----\nPredicciones de prueba|192\ncalefaccion_media|refrigeracion_media\n-----------------|-------------------\n22.307195312499971|24.587760416666711\nresultado\n---------\nRECONSTRUCCION_EXACTA_OK",
+  "verificacion": "Changed database context to 'master'.\nChanged database context to 'REC_ECBD_Energia'.\nWarning: Null value is eliminated by an aggregate or other SET operation.\ntabla|filas\n-----|-----\nHECHOS|768\ntabla|filas\n-----|-----\nDatasetOriginal|768\ncontrol|valor\n-------|-----\nLlaves foraneas activas|6\ncontrol|valor\n-------|-----\nPredicciones de prueba|192\ncalefaccion_media|refrigeracion_media\n-----------------|-------------------\n22.307195312499971|24.587760416666711\nresultado\n---------\nRECONSTRUCCION_EXACTA_OK",
   "sha256_original": "0089fcffc1415e41e2ff63730cca5280efe54fc43d722dfde1b0aaa808e35dc4"
 }

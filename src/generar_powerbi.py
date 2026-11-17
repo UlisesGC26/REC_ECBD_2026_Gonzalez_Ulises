@@ -8,7 +8,7 @@ import uuid
 from pathlib import Path
 import pandas as pd
 from src.preparacion_datos import ROOT
-from src.etl_sqlserver import tablas_copo, RELACIONES, BASE
+from src.etl_sqlserver import tablas_estrella, RELACIONES, BASE
 
 DASH = ROOT / 'dashboard'
 REPORT = DASH / 'Energia.Report'
@@ -78,7 +78,7 @@ def pagina(name, title, subtitle):
 
 
 def generar():
-    tablas = tablas_copo()
+    tablas = tablas_estrella()
     medidas = {
         'Simulaciones': ('COUNTROWS(HECHOS)', '#,0'),
         'Calefaccion media': ('AVERAGE(HECHOS[Y1])', '0.00'),
@@ -129,15 +129,15 @@ def generar():
     escribir(REPORT / 'definition/pages/pages.json', {'$schema': SCHEMA+'pagesMetadata/1.0.0/schema.json',
         'pageOrder': nombres, 'activePageName': nombres[0]})
     p=nombres[0]
-    pagina(p, '01 | Edificios y demanda energética', 'Ulises González Coronado · 768 simulaciones UCI · SQL Server / Data Mart copo de nieve')
+    pagina(p, '01 | Edificios y demanda energética', 'Ulises González Coronado · 768 simulaciones UCI · SQL Server / Data Mart estrella')
     for i,(m,t) in enumerate([('Simulaciones','Simulaciones'),('Geometrias','Geometrías'),('Calefaccion media','Y1 | calefacción media'),('Refrigeracion media','Y2 | refrigeración media')]):
         visual(p,'kpi'+str(i),'card',24+i*250,130,236,106,{'Values':[medida(m)]},t)
-    visual(p,'altura','slicer',1030,130,226,106,{'Values':[field('DimAltura','altura')]},'Filtrar por altura')
-    visual(p,'cargas_altura','clusteredColumnChart',24,254,600,270,{'Category':[field('DimAltura','altura')],
+    visual(p,'altura','slicer',1030,130,226,106,{'Values':[field('DimGeometria','altura')]},'Filtrar por altura')
+    visual(p,'cargas_altura','clusteredColumnChart',24,254,600,270,{'Category':[field('DimGeometria','altura')],
         'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Cargas medias por altura')
     visual(p,'cargas_compacidad','lineChart',646,254,610,270,{'Category':[field('DimGeometria','compacidad')],
         'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Compacidad y cargas: asociación observada')
-    visual(p,'cristal','clusteredColumnChart',24,542,600,220,{'Category':[field('DimPorcentajeCristal','proporcion_cristal')],
+    visual(p,'cristal','clusteredColumnChart',24,542,600,220,{'Category':[field('DimAcristalamiento','proporcion_cristal')],
         'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Cargas por proporción de cristal')
     texto(p,'hallazgo','LECTURA DEL RESULTADO\nLos diseños de altura 7 tienen cargas medias mayores. También cambia su geometría: no se puede aislar un efecto causal de altura o compacidad.\nLas cargas se muestran en la escala original del dataset.',646,542,610,220,16)
     p=nombres[1]
@@ -165,8 +165,8 @@ def generar():
     visual(p,'perfiles','tableEx',24,566,600,204,{'Values':[field('PerfilesClusters',c) for c in ['id_cluster','registros','altura_media','compacidad_media','calefaccion_media']]},'Perfil de los grupos')
     texto(p,'patron','CONOCIMIENTO Y USO\nLos dos clusters separan las alturas y sus geometrías. Ambos tienen 384 casos. La correlación geométrica domina este resultado.\nUsar grupos para comparar diseños similares; validar con datos reales antes de recomendar una construcción.',646,566,610,204,15)
     p=nombres[3]
-    pagina(p,'04 | Del Excel al conocimiento','Extracción → validación → dimensiones normalizadas → HECHOS → SQL Server → Power BI')
-    texto(p,'modelo','MODELO COPO DE NIEVE\nDimAltura → DimGeometria → HECHOS\nDimPorcentajeCristal → DimAcristalamiento → HECHOS\nDimDistribucion → DimAcristalamiento → HECHOS\nDimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS\n\nGrano: una simulación por id_registro. 768 hechos, 9 relaciones, llaves primarias y foráneas.\nAbrir la Vista de modelo para inspeccionar las relaciones reales.',24,136,720,330,19)
+    pagina(p,'04 | Del Excel al conocimiento','Extracción → validación → dimensiones → HECHOS → SQL Server → Power BI')
+    texto(p,'modelo','MODELO ESTRELLA\nDimGeometria (incluye altura) → HECHOS\nDimAcristalamiento (incluye proporción y distribución) → HECHOS\nDimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS\n\nGrano: una simulación por id_registro. 768 hechos, 6 relaciones, llaves primarias y foráneas.\nAbrir la Vista de modelo para inspeccionar las relaciones reales.',24,136,720,330,19)
     visual(p,'filas','card',770,136,230,120,{'Values':[medida('Simulaciones')]},'Filas en HECHOS')
     visual(p,'prueba','card',1020,136,236,120,{'Values':[medida('Casos de prueba')]},'Filas de prueba')
     texto(p,'calidad','CALIDAD\nOriginal intacto.\nSin nulos ni duplicados.\nSin imputaciones ni filas eliminadas.\nReconstrucción SQL idéntica al original.',770,276,486,190,17)

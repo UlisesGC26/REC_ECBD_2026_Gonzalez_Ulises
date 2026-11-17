@@ -1,4 +1,4 @@
--- Esquema de referencia. Para crear Y cargar ejecutar datamart.sql.
+-- Esquema de referencia. Para crear y cargar ejecutar datamart.sql.
 USE [REC_ECBD_Energia];
 GO
 CREATE TABLE dbo.[DatasetOriginal] (
@@ -15,43 +15,25 @@ CREATE TABLE dbo.[DatasetOriginal] (
     [Y2] FLOAT NOT NULL,
     CONSTRAINT [PK_DatasetOriginal] PRIMARY KEY ([id_registro])
 );
-CREATE TABLE dbo.[DimAltura] (
-    [id_altura] INT NOT NULL,
-    [altura] FLOAT NOT NULL,
-    CONSTRAINT [PK_DimAltura] PRIMARY KEY ([id_altura])
-);
 CREATE TABLE dbo.[DimGeometria] (
     [id_geometria] INT NOT NULL,
     [compacidad] FLOAT NOT NULL,
     [superficie] FLOAT NOT NULL,
     [area_pared] FLOAT NOT NULL,
     [area_techo] FLOAT NOT NULL,
-    [id_altura] INT NOT NULL,
-    CONSTRAINT [PK_DimGeometria] PRIMARY KEY ([id_geometria]),
-    CONSTRAINT [FK_DimGeometria_DimAltura] FOREIGN KEY ([id_altura]) REFERENCES dbo.[DimAltura]([id_altura])
+    [altura] FLOAT NOT NULL,
+    CONSTRAINT [PK_DimGeometria] PRIMARY KEY ([id_geometria])
 );
 CREATE TABLE dbo.[DimOrientacion] (
     [id_orientacion] INT NOT NULL,
     [orientacion] NVARCHAR(120) NOT NULL,
     CONSTRAINT [PK_DimOrientacion] PRIMARY KEY ([id_orientacion])
 );
-CREATE TABLE dbo.[DimPorcentajeCristal] (
-    [id_porcentaje] INT NOT NULL,
-    [proporcion_cristal] FLOAT NOT NULL,
-    CONSTRAINT [PK_DimPorcentajeCristal] PRIMARY KEY ([id_porcentaje])
-);
-CREATE TABLE dbo.[DimDistribucion] (
-    [id_distribucion] INT NOT NULL,
-    [distribucion] NVARCHAR(120) NOT NULL,
-    CONSTRAINT [PK_DimDistribucion] PRIMARY KEY ([id_distribucion])
-);
 CREATE TABLE dbo.[DimAcristalamiento] (
     [id_acristalamiento] INT NOT NULL,
-    [id_porcentaje] INT NOT NULL,
-    [id_distribucion] INT NOT NULL,
-    CONSTRAINT [PK_DimAcristalamiento] PRIMARY KEY ([id_acristalamiento]),
-    CONSTRAINT [FK_DimAcristalamiento_DimPorcentajeCristal] FOREIGN KEY ([id_porcentaje]) REFERENCES dbo.[DimPorcentajeCristal]([id_porcentaje]),
-    CONSTRAINT [FK_DimAcristalamiento_DimDistribucion] FOREIGN KEY ([id_distribucion]) REFERENCES dbo.[DimDistribucion]([id_distribucion])
+    [proporcion_cristal] FLOAT NOT NULL,
+    [distribucion_codigo] INT NOT NULL,
+    CONSTRAINT [PK_DimAcristalamiento] PRIMARY KEY ([id_acristalamiento])
 );
 CREATE TABLE dbo.[DimClase] (
     [id_clase] INT NOT NULL,

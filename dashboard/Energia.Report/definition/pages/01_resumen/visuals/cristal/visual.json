@@ -21,13 +21,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimPorcentajeCristal"
+                      "Entity": "DimAcristalamiento"
                     }
                   },
                   "Property": "proporcion_cristal"
                 }
               },
-              "queryRef": "DimPorcentajeCristal.proporcion_cristal",
+              "queryRef": "DimAcristalamiento.proporcion_cristal",
               "nativeQueryRef": "proporcion_cristal"
             }
           ]

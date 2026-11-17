@@ -6,7 +6,7 @@ Ulises González Coronado · Actualización técnica: 16 de noviembre de 2026
 
 Pregunta: ¿cómo cambian las cargas de calefacción y refrigeración entre edificios con distinta compacidad relativa y altura total? Se analizan 768 simulaciones de 12 geometrías. Y1 e Y2 son cargas, no años. Los resultados usan la escala original porque la ficha consultada no declara las unidades.
 
-El proyecto integra exploración, preparación, SQL Server, un Data Mart copo de nieve, modelos supervisados, K-Means, PCA y un dashboard de cuatro páginas en Power BI. Se conserva el dataset original y el código permite reconstruir las evidencias.
+El proyecto integra exploración, preparación, SQL Server, un Data Mart en estrella, modelos supervisados, K-Means, PCA y un dashboard de cuatro páginas en Power BI. Se conserva el dataset original y el código permite reconstruir las evidencias.
 
 ## Tres conclusiones sustentadas
 
@@ -37,17 +37,17 @@ El ETL lee el Excel en data/raw, crea una copia y valida columnas, tipos, domini
 
 El SHA-256 del original es 0089fcffc1415e41e2ff63730cca5280efe54fc43d722dfde1b0aaa808e35dc4. Los valores X1-X8/Y1-Y2 se comparan directamente con el archivo procesado. Los derivados se guardan en data/processed.
 
-## Modelo dimensional copo de nieve
+## Modelo dimensional en estrella
 
-![Figura](figuras/08_copo_nieve.png)
+![Figura](figuras/08_estrella.png)
 
-Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. DimGeometria referencia DimAltura; DimAcristalamiento referencia DimPorcentajeCristal y DimDistribucion. HECHOS referencia geometría, orientación, acristalamiento, clase, conjunto y cluster. Se implementan nueve llaves foráneas. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.
+Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. La altura se integra en DimGeometria y la proporción/distribución de cristal se integran en DimAcristalamiento. HECHOS referencia directamente seis dimensiones: geometría, orientación, acristalamiento, clase, conjunto y cluster. Se implementan seis llaves foráneas. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.
 
 ## Carga y validación en SQL Server
 
-La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. El script sql/datamart.sql crea la base si hace falta y reemplaza únicamente las tablas del proyecto en una transacción con XACT_ABORT y manejo de errores. No modifica otras bases. Se conserva evidencia de la carga real en docs/verificacion_sqlserver.json.
+La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. El script sql/datamart.sql crea la base si hace falta y reemplaza únicamente las tablas del proyecto en transacciones con XACT_ABORT y manejo de errores. No modifica otras bases. Se conserva evidencia de la carga real en docs/verificacion_sqlserver.json.
 
-La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, nueve llaves foráneas activas y 192 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.
+La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, seis llaves foráneas directas a HECHOS y 192 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.
 
 ## Diseño y prevención de fuga
 
@@ -139,7 +139,7 @@ Tres componentes conservan al menos el 95% de la varianza. El análisis permite 
 
 ## Dashboard y storytelling
 
-Abrir dashboard/Energia.pbip (proyecto editable) o el PBIX guardado, y actualizar desde SQL Server. Página 1: problema y datos, indicadores, altura, compacidad y cristal. Página 2: predicciones, métricas y matriz de confusión. Página 3: elección de k, perfiles, PCA y varianza. Página 4: ETL, copo de nieve, conclusiones y recomendaciones. La Vista de modelo permite inspeccionar las relaciones reales.
+Abrir dashboard/Energia.pbip (proyecto editable) o el PBIX guardado, y actualizar desde SQL Server. Página 1: problema y datos, indicadores, altura, compacidad y cristal. Página 2: predicciones, métricas y matriz de confusión. Página 3: elección de k, perfiles, PCA y varianza. Página 4: ETL, estrella, conclusiones y recomendaciones. La Vista de modelo permite inspeccionar las relaciones reales.
 
 ## Reproducibilidad y defensa
 

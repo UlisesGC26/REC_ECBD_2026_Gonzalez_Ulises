@@ -19,7 +19,7 @@ Se utilizan 768 simulaciones de Energy Efficiency (UCI), ocho entradas X1-X8 y d
 | Dataset original intacto | `data/raw/ENB2012_data.xlsx` |
 | Preparación y dataset procesado | `src/preparacion_datos.py`, `data/processed/eficiencia_energetica_procesada.csv` |
 | SQL Server ejecutado | Base `REC_ECBD_Energia` en `localhost`; `docs/verificacion_sqlserver.json` |
-| Copo de nieve | `sql/datamart.sql`, `docs/diagrama_copo_nieve.svg`, `data/processed/copo_nieve/` |
+| Modelo estrella | `sql/datamart.sql`, `docs/diagrama_estrella.svg`, `data/processed/estrella/` |
 | Regresión y clasificación | `src/modelos_supervisados.py`, `modelos/`, `docs/metricas_*.csv` |
 | K-Means y PCA | `src/modelos_no_supervisados.py`, `docs/resultados_no_supervisados.json` |
 | Power BI | `dashboard/Energia.pbip` y sus carpetas Report/SemanticModel |
@@ -57,7 +57,7 @@ sqlcmd -S localhost -E -C -b -f 65001 -i sql/validar_datamart.sql
 
 Abrir `dashboard/Energia.pbip`. Mantener junto al archivo las carpetas `Energia.Report` y `Energia.SemanticModel`. El 17 de noviembre se abrió y actualizó en Power BI Desktop contra SQL Server local: se verificaron sus cuatro páginas y el filtro de altura. Actualizar datos desde SQL Server con autenticación Windows. Si se requiere el formato monolítico, usar **Archivo > Guardar como > PBIX**. Consultar `dashboard/README.md` para las páginas y comprobaciones.
 
-El modelo tiene **HECHOS** con 768 filas y nueve relaciones 1:N de filtro simple. No se usa una tabla plana para sustituir el copo de nieve. Las tablas de métricas globales quedan separadas para no confundir medidas del conjunto de prueba con filtros exploratorios.
+El modelo tiene **HECHOS** con 768 filas y seis relaciones 1:N de filtro simple. Es una estrella: todas las dimensiones se conectan directamente a HECHOS; altura está integrada en geometría y los atributos de cristal en acristalamiento. Las tablas de métricas globales quedan separadas para no confundir medidas del conjunto de prueba con filtros exploratorios.
 
 ## Resultados reproducidos
 
@@ -80,7 +80,7 @@ K-Means y PCA utilizan X1-X5 y X7 estandarizadas, sin las cargas ni los códigos
 ## Notebooks y documentos
 
 - `Gonzalez_Coronado_Ulises_U2_AE1_Exploracion.ipynb`: diagnóstico, diccionario, estadística y gráficos interpretados.
-- `Gonzalez_Coronado_Ulises_U2_AE2_ETL.ipynb`: comparación original/procesado, carga SQL y copo de nieve.
+- `Gonzalez_Coronado_Ulises_U2_AE2_ETL.ipynb`: comparación original/procesado, carga SQL y modelo estrella.
 - `Gonzalez_Coronado_Ulises_U3_AnalisisSupervisado.ipynb`: selección, ajuste, métricas, importancia e interpretación.
 - `Gonzalez_Coronado_Ulises_U4_AnalisisNoSupervisado.ipynb`: selección de k, perfiles, PCA y conclusiones.
 - `01_preparacion_datos.ipynb` y `02_analisis_supervisado.ipynb`: evidencias iniciales conservadas y verificadas.
@@ -91,7 +91,7 @@ Los cuatro informes de actividad están en `docs/`, junto con `Informe_Final.pdf
 
 ```text
 data/raw/                 Dataset original
-data/processed/           Derivados, predicciones y exportaciones del copo de nieve
+data/processed/           Derivados, predicciones y exportaciones del modelo estrella
 notebooks/                Evidencias ejecutables por actividad
 src/                      Análisis, ETL, validación y generadores
 sql/                      Creación, carga y validación del Data Mart

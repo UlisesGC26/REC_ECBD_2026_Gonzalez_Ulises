@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "MODELO COPO DE NIEVE",
+                    "value": "MODELO ESTRELLA",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "19pt",
@@ -33,7 +33,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "DimAltura → DimGeometria → HECHOS",
+                    "value": "DimGeometria (incluye altura) → HECHOS",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "19pt",
@@ -46,20 +46,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "DimPorcentajeCristal → DimAcristalamiento → HECHOS",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
-                      "fontWeight": "normal",
-                      "color": "#516572"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "DimDistribucion → DimAcristalamiento → HECHOS",
+                    "value": "DimAcristalamiento (incluye proporción y distribución) → HECHOS",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "19pt",
@@ -98,7 +85,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Grano: una simulación por id_registro. 768 hechos, 9 relaciones, llaves primarias y foráneas.",
+                    "value": "Grano: una simulación por id_registro. 768 hechos, 6 relaciones, llaves primarias y foráneas.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "19pt",

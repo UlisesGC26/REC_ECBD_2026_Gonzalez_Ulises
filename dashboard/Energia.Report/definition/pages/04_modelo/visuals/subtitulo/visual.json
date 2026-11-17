@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Extracción → validación → dimensiones normalizadas → HECHOS → SQL Server → Power BI",
+                    "value": "Extracción → validación → dimensiones → HECHOS → SQL Server → Power BI",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",

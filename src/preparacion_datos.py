@@ -84,7 +84,7 @@ def preparar():
     print(f"Preparación terminada: {len(df)} registros, 8 entradas y 2 objetivos.")
     print("Faltantes: 0. Duplicados: 0. No se eliminaron ni imputaron datos.")
     print("Compacidad y altura: no existen compacidades compartidas por ambas alturas.")
-    print("SQLite complementario validado. Para el copo de nieve en SQL Server: python -m src.etl_sqlserver --cargar")
+    print("SQLite complementario validado. Para el modelo estrella en SQL Server: python -m src.etl_sqlserver --cargar")
     return df, calidad
 
 
@@ -156,12 +156,12 @@ def crear_datamart(df):
         GROUP BY g.X1, g.X5 ORDER BY g.X1;'''
         pd.read_sql_query(consulta, conn).to_csv(destino / "consulta_datamart.csv", index=False)
     (ROOT / "sql/03_consultar_cargas.sql").write_text(consulta, encoding="utf-8")
-    # Conservar el primer esquema estrella como antecedente; el vigente es datamart.sql.
+    # Conservar el esquema SQLite como antecedente; el vigente es datamart.sql en SQL Server.
     (ROOT / "sql/legacy").mkdir(exist_ok=True)
     sql_server = esquema.replace("REAL", "FLOAT").replace("INTEGER", "INT").replace("TEXT", "VARCHAR(10)")
     (ROOT / "sql/legacy/01_crear_datamart_sqlserver.sql").write_text(
         "-- Ejecutar en una base de trabajo VACIA elegida en SQL Server.\n"
-        "-- Antecedente historico. Esquema vigente: ../datamart.sql (copo de nieve).\n" + sql_server, encoding="utf-8")
+        "-- Antecedente historico. Esquema vigente: ../datamart.sql (estrella).\n" + sql_server, encoding="utf-8")
     cargas = ["-- Ejecutar una sola vez después del esquema, en la misma base.\nSET XACT_ABORT ON;\nBEGIN TRANSACTION;"]
     for nombre, tabla in tablas.items():
         for fila in tabla.itertuples(index=False, name=None):

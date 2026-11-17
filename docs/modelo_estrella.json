@@ -1,0 +1,198 @@
+{
+  "base": "REC_ECBD_Energia",
+  "tipo_modelo": "estrella",
+  "grano": "Una simulación de edificio por id_registro",
+  "tablas": {
+    "DatasetOriginal": {
+      "filas": 768,
+      "columnas": [
+        "id_registro",
+        "X1",
+        "X2",
+        "X3",
+        "X4",
+        "X5",
+        "X6",
+        "X7",
+        "X8",
+        "Y1",
+        "Y2"
+      ]
+    },
+    "DimGeometria": {
+      "filas": 12,
+      "columnas": [
+        "id_geometria",
+        "compacidad",
+        "superficie",
+        "area_pared",
+        "area_techo",
+        "altura"
+      ]
+    },
+    "DimOrientacion": {
+      "filas": 4,
+      "columnas": [
+        "id_orientacion",
+        "orientacion"
+      ]
+    },
+    "DimAcristalamiento": {
+      "filas": 16,
+      "columnas": [
+        "id_acristalamiento",
+        "proporcion_cristal",
+        "distribucion_codigo"
+      ]
+    },
+    "DimClase": {
+      "filas": 2,
+      "columnas": [
+        "id_clase",
+        "clase",
+        "regla"
+      ]
+    },
+    "DimConjunto": {
+      "filas": 2,
+      "columnas": [
+        "id_conjunto",
+        "conjunto"
+      ]
+    },
+    "DimCluster": {
+      "filas": 2,
+      "columnas": [
+        "id_cluster",
+        "cluster"
+      ]
+    },
+    "HECHOS": {
+      "filas": 768,
+      "columnas": [
+        "id_registro",
+        "id_geometria",
+        "id_orientacion",
+        "id_acristalamiento",
+        "id_clase",
+        "id_conjunto",
+        "id_cluster",
+        "Y1",
+        "Y2",
+        "Y1_predicha",
+        "Y2_predicha",
+        "clase_predicha",
+        "error_absoluto_Y1",
+        "error_absoluto_Y2",
+        "PC1",
+        "PC2"
+      ]
+    },
+    "MetricasRegresion": {
+      "filas": 4,
+      "columnas": [
+        "modelo",
+        "objetivo",
+        "MAE",
+        "RMSE",
+        "R2"
+      ]
+    },
+    "MetricasClasificacion": {
+      "filas": 2,
+      "columnas": [
+        "modelo",
+        "accuracy",
+        "precision_macro",
+        "recall_macro",
+        "F1_macro"
+      ]
+    },
+    "EvaluacionClusters": {
+      "filas": 7,
+      "columnas": [
+        "k",
+        "inercia",
+        "silhouette"
+      ]
+    },
+    "VarianzaPCA": {
+      "filas": 6,
+      "columnas": [
+        "componente",
+        "varianza_explicada",
+        "varianza_acumulada"
+      ]
+    },
+    "PerfilesClusters": {
+      "filas": 2,
+      "columnas": [
+        "id_cluster",
+        "registros",
+        "compacidad_media",
+        "superficie_media",
+        "pared_media",
+        "techo_medio",
+        "altura_media",
+        "cristal_medio",
+        "calefaccion_media",
+        "refrigeracion_media"
+      ]
+    },
+    "ImportanciaVariables": {
+      "filas": 16,
+      "columnas": [
+        "tarea",
+        "variable",
+        "importancia_media",
+        "desviacion"
+      ]
+    },
+    "MatrizConfusion": {
+      "filas": 3,
+      "columnas": [
+        "clase_real",
+        "clase_predicha",
+        "registros"
+      ]
+    }
+  },
+  "relaciones": [
+    {
+      "tabla_hija": "HECHOS",
+      "llave_foranea": "id_geometria",
+      "tabla_padre": "DimGeometria",
+      "llave_primaria": "id_geometria"
+    },
+    {
+      "tabla_hija": "HECHOS",
+      "llave_foranea": "id_orientacion",
+      "tabla_padre": "DimOrientacion",
+      "llave_primaria": "id_orientacion"
+    },
+    {
+      "tabla_hija": "HECHOS",
+      "llave_foranea": "id_acristalamiento",
+      "tabla_padre": "DimAcristalamiento",
+      "llave_primaria": "id_acristalamiento"
+    },
+    {
+      "tabla_hija": "HECHOS",
+      "llave_foranea": "id_clase",
+      "tabla_padre": "DimClase",
+      "llave_primaria": "id_clase"
+    },
+    {
+      "tabla_hija": "HECHOS",
+      "llave_foranea": "id_conjunto",
+      "tabla_padre": "DimConjunto",
+      "llave_primaria": "id_conjunto"
+    },
+    {
+      "tabla_hija": "HECHOS",
+      "llave_foranea": "id_cluster",
+      "tabla_padre": "DimCluster",
+      "llave_primaria": "id_cluster"
+    }
+  ]
+}

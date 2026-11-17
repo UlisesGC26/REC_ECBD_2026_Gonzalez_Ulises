@@ -13,7 +13,7 @@ Actualización: 16 de noviembre de 2026. Esta matriz describe evidencias técnic
 | Original frente a procesado | assert_frame_equal en U2_AE2 y SHA-256 |
 | ETL y dataset procesado | src/preparacion_datos.py, src/etl_sqlserver.py, data/processed/ |
 | HECHOS, dimensiones, PK/FK, medidas | SQL Server REC_ECBD_Energia; sql/datamart.sql |
-| Copo de nieve y diagrama | docs/diagrama_copo_nieve.svg; 9 relaciones SQL y Power BI |
+| Modelo estrella y diagrama | docs/diagrama_estrella.svg; 6 relaciones SQL y Power BI |
 | Regresión con MAE y RMSE/R² | U3; metricas_regresion.csv |
 | Clasificación con accuracy, precision, recall, F1 y matriz | U3; metricas_clasificacion.csv; reporte_clasificacion.json |
 | Comparación, optimización y relevancia | GridSearchCV/GroupKFold; validacion_*.csv; importancia_variables.csv |

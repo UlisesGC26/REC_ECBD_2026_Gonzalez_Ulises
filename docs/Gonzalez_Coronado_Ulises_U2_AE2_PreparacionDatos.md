@@ -19,14 +19,14 @@ El ETL lee el Excel en data/raw, crea una copia y valida columnas, tipos, domini
 
 El SHA-256 del original es 0089fcffc1415e41e2ff63730cca5280efe54fc43d722dfde1b0aaa808e35dc4. Los valores X1-X8/Y1-Y2 se comparan directamente con el archivo procesado. Los derivados se guardan en data/processed.
 
-## Modelo dimensional copo de nieve
+## Modelo dimensional en estrella
 
-![Figura](figuras/08_copo_nieve.png)
+![Figura](figuras/08_estrella.png)
 
-Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. DimGeometria referencia DimAltura; DimAcristalamiento referencia DimPorcentajeCristal y DimDistribucion. HECHOS referencia geometría, orientación, acristalamiento, clase, conjunto y cluster. Se implementan nueve llaves foráneas. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.
+Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. La altura se integra en DimGeometria y la proporción/distribución de cristal se integran en DimAcristalamiento. HECHOS referencia directamente seis dimensiones: geometría, orientación, acristalamiento, clase, conjunto y cluster. Se implementan seis llaves foráneas. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.
 
 ## Carga y validación en SQL Server
 
-La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. El script sql/datamart.sql crea la base si hace falta y reemplaza únicamente las tablas del proyecto en una transacción con XACT_ABORT y manejo de errores. No modifica otras bases. Se conserva evidencia de la carga real en docs/verificacion_sqlserver.json.
+La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. El script sql/datamart.sql crea la base si hace falta y reemplaza únicamente las tablas del proyecto en transacciones con XACT_ABORT y manejo de errores. No modifica otras bases. Se conserva evidencia de la carga real en docs/verificacion_sqlserver.json.
 
-La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, nueve llaves foráneas activas y 192 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.
+La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, seis llaves foráneas directas a HECHOS y 192 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.

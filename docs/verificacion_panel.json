@@ -20,9 +20,9 @@
   "power_bi": {
     "archivo": "dashboard/Energia.pbip",
     "conexion": "SQL Server localhost; REC_ECBD_Energia; autenticación Windows",
-    "tablas_importadas": 17,
+    "tablas_importadas": 14,
     "paginas": 4,
-    "modelo": "HECHOS con 768 filas y 9 relaciones 1:N de copo de nieve",
+    "modelo": "HECHOS con 768 filas y 6 relaciones 1:N directas del modelo estrella",
     "interaccion_comprobada": "Filtro de altura 3.50: 768 a 384 simulaciones; Y1=13.34 y Y2=16.07, consistente con data/processed/resumen_altura.csv",
     "evidencias": ["docs/evidencia_powerbi/01_descriptivo.png", "docs/evidencia_powerbi/02_filtro_altura.png"]
   },

@@ -1,6 +1,5 @@
--- Data Mart copo de nieve. Base dedicada: REC_ECBD_Energia.
+-- Data Mart en estrella. Base dedicada: REC_ECBD_Energia.
 -- Regenera únicamente tablas de este proyecto dentro de una transacción.
--- Ejecutar con sqlcmd -S localhost -E -C -b -f 65001 -i sql/datamart.sql
 USE master;
 GO
 IF DB_ID(N'REC_ECBD_Energia') IS NULL CREATE DATABASE [REC_ECBD_Energia];
@@ -11,6 +10,7 @@ SET NOCOUNT ON;
 SET XACT_ABORT ON;
 BEGIN TRY
 BEGIN TRANSACTION;
+IF OBJECT_ID(N'dbo.vDatasetReconstruido', N'V') IS NOT NULL DROP VIEW dbo.vDatasetReconstruido;
 IF OBJECT_ID(N'dbo.MatrizConfusion', N'U') IS NOT NULL DROP TABLE dbo.[MatrizConfusion];
 IF OBJECT_ID(N'dbo.ImportanciaVariables', N'U') IS NOT NULL DROP TABLE dbo.[ImportanciaVariables];
 IF OBJECT_ID(N'dbo.PerfilesClusters', N'U') IS NOT NULL DROP TABLE dbo.[PerfilesClusters];
@@ -23,12 +23,12 @@ IF OBJECT_ID(N'dbo.DimCluster', N'U') IS NOT NULL DROP TABLE dbo.[DimCluster];
 IF OBJECT_ID(N'dbo.DimConjunto', N'U') IS NOT NULL DROP TABLE dbo.[DimConjunto];
 IF OBJECT_ID(N'dbo.DimClase', N'U') IS NOT NULL DROP TABLE dbo.[DimClase];
 IF OBJECT_ID(N'dbo.DimAcristalamiento', N'U') IS NOT NULL DROP TABLE dbo.[DimAcristalamiento];
-IF OBJECT_ID(N'dbo.DimDistribucion', N'U') IS NOT NULL DROP TABLE dbo.[DimDistribucion];
-IF OBJECT_ID(N'dbo.DimPorcentajeCristal', N'U') IS NOT NULL DROP TABLE dbo.[DimPorcentajeCristal];
 IF OBJECT_ID(N'dbo.DimOrientacion', N'U') IS NOT NULL DROP TABLE dbo.[DimOrientacion];
 IF OBJECT_ID(N'dbo.DimGeometria', N'U') IS NOT NULL DROP TABLE dbo.[DimGeometria];
-IF OBJECT_ID(N'dbo.DimAltura', N'U') IS NOT NULL DROP TABLE dbo.[DimAltura];
 IF OBJECT_ID(N'dbo.DatasetOriginal', N'U') IS NOT NULL DROP TABLE dbo.[DatasetOriginal];
+IF OBJECT_ID(N'dbo.DimAltura', N'U') IS NOT NULL DROP TABLE dbo.[DimAltura];
+IF OBJECT_ID(N'dbo.DimPorcentajeCristal', N'U') IS NOT NULL DROP TABLE dbo.[DimPorcentajeCristal];
+IF OBJECT_ID(N'dbo.DimDistribucion', N'U') IS NOT NULL DROP TABLE dbo.[DimDistribucion];
 CREATE TABLE dbo.[DatasetOriginal] (
     [id_registro] INT NOT NULL,
     [X1] FLOAT NOT NULL,
@@ -43,43 +43,25 @@ CREATE TABLE dbo.[DatasetOriginal] (
     [Y2] FLOAT NOT NULL,
     CONSTRAINT [PK_DatasetOriginal] PRIMARY KEY ([id_registro])
 );
-CREATE TABLE dbo.[DimAltura] (
-    [id_altura] INT NOT NULL,
-    [altura] FLOAT NOT NULL,
-    CONSTRAINT [PK_DimAltura] PRIMARY KEY ([id_altura])
-);
 CREATE TABLE dbo.[DimGeometria] (
     [id_geometria] INT NOT NULL,
     [compacidad] FLOAT NOT NULL,
     [superficie] FLOAT NOT NULL,
     [area_pared] FLOAT NOT NULL,
     [area_techo] FLOAT NOT NULL,
-    [id_altura] INT NOT NULL,
-    CONSTRAINT [PK_DimGeometria] PRIMARY KEY ([id_geometria]),
-    CONSTRAINT [FK_DimGeometria_DimAltura] FOREIGN KEY ([id_altura]) REFERENCES dbo.[DimAltura]([id_altura])
+    [altura] FLOAT NOT NULL,
+    CONSTRAINT [PK_DimGeometria] PRIMARY KEY ([id_geometria])
 );
 CREATE TABLE dbo.[DimOrientacion] (
     [id_orientacion] INT NOT NULL,
     [orientacion] NVARCHAR(120) NOT NULL,
     CONSTRAINT [PK_DimOrientacion] PRIMARY KEY ([id_orientacion])
 );
-CREATE TABLE dbo.[DimPorcentajeCristal] (
-    [id_porcentaje] INT NOT NULL,
-    [proporcion_cristal] FLOAT NOT NULL,
-    CONSTRAINT [PK_DimPorcentajeCristal] PRIMARY KEY ([id_porcentaje])
-);
-CREATE TABLE dbo.[DimDistribucion] (
-    [id_distribucion] INT NOT NULL,
-    [distribucion] NVARCHAR(120) NOT NULL,
-    CONSTRAINT [PK_DimDistribucion] PRIMARY KEY ([id_distribucion])
-);
 CREATE TABLE dbo.[DimAcristalamiento] (
     [id_acristalamiento] INT NOT NULL,
-    [id_porcentaje] INT NOT NULL,
-    [id_distribucion] INT NOT NULL,
-    CONSTRAINT [PK_DimAcristalamiento] PRIMARY KEY ([id_acristalamiento]),
-    CONSTRAINT [FK_DimAcristalamiento_DimPorcentajeCristal] FOREIGN KEY ([id_porcentaje]) REFERENCES dbo.[DimPorcentajeCristal]([id_porcentaje]),
-    CONSTRAINT [FK_DimAcristalamiento_DimDistribucion] FOREIGN KEY ([id_distribucion]) REFERENCES dbo.[DimDistribucion]([id_distribucion])
+    [proporcion_cristal] FLOAT NOT NULL,
+    [distribucion_codigo] INT NOT NULL,
+    CONSTRAINT [PK_DimAcristalamiento] PRIMARY KEY ([id_acristalamiento])
 );
 CREATE TABLE dbo.[DimClase] (
     [id_clase] INT NOT NULL,
@@ -171,6 +153,15 @@ CREATE TABLE dbo.[MatrizConfusion] (
     [clase_predicha] NVARCHAR(120) NOT NULL,
     [registros] INT NOT NULL
 );
+COMMIT;
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0 ROLLBACK;
+    THROW;
+END CATCH;
+GO
+BEGIN TRY
+BEGIN TRANSACTION;
 INSERT INTO dbo.[DatasetOriginal] ([id_registro],[X1],[X2],[X3],[X4],[X5],[X6],[X7],[X8],[Y1],[Y2]) VALUES
 (1,0.98,514.5,294.0,110.25,7.0,2,0.0,0,15.55,21.33),
 (2,0.98,514.5,294.0,110.25,7.0,3,0.0,0,15.55,21.33),
@@ -943,56 +934,41 @@ INSERT INTO dbo.[DatasetOriginal] ([id_registro],[X1],[X2],[X3],[X4],[X5],[X6],[
 (766,0.62,808.5,367.5,220.5,3.5,3,0.4,5,16.44,17.11),
 (767,0.62,808.5,367.5,220.5,3.5,4,0.4,5,16.48,16.61),
 (768,0.62,808.5,367.5,220.5,3.5,5,0.4,5,16.64,16.03);
-INSERT INTO dbo.[DimAltura] ([id_altura],[altura]) VALUES
-(1,3.5),
-(2,7.0);
-INSERT INTO dbo.[DimGeometria] ([id_geometria],[compacidad],[superficie],[area_pared],[area_techo],[id_altura]) VALUES
-(12,0.98,514.5,294.0,110.25,2),
-(11,0.9,563.5,318.5,122.5,2),
-(10,0.86,588.0,294.0,147.0,2),
-(9,0.82,612.5,318.5,147.0,2),
-(8,0.79,637.0,343.0,147.0,2),
-(7,0.76,661.5,416.5,122.5,2),
-(6,0.74,686.0,245.0,220.5,1),
-(5,0.71,710.5,269.5,220.5,1),
-(4,0.69,735.0,294.0,220.5,1),
-(3,0.66,759.5,318.5,220.5,1),
-(2,0.64,784.0,343.0,220.5,1),
-(1,0.62,808.5,367.5,220.5,1);
+INSERT INTO dbo.[DimGeometria] ([id_geometria],[compacidad],[superficie],[area_pared],[area_techo],[altura]) VALUES
+(1,0.62,808.5,367.5,220.5,3.5),
+(2,0.64,784.0,343.0,220.5,3.5),
+(3,0.66,759.5,318.5,220.5,3.5),
+(4,0.69,735.0,294.0,220.5,3.5),
+(5,0.71,710.5,269.5,220.5,3.5),
+(6,0.74,686.0,245.0,220.5,3.5),
+(7,0.76,661.5,416.5,122.5,7.0),
+(8,0.79,637.0,343.0,147.0,7.0),
+(9,0.82,612.5,318.5,147.0,7.0),
+(10,0.86,588.0,294.0,147.0,7.0),
+(11,0.9,563.5,318.5,122.5,7.0),
+(12,0.98,514.5,294.0,110.25,7.0);
 INSERT INTO dbo.[DimOrientacion] ([id_orientacion],[orientacion]) VALUES
 (2,N'Código 2'),
 (3,N'Código 3'),
 (4,N'Código 4'),
 (5,N'Código 5');
-INSERT INTO dbo.[DimPorcentajeCristal] ([id_porcentaje],[proporcion_cristal]) VALUES
-(1,0.0),
-(2,0.1),
-(3,0.25),
-(4,0.4);
-INSERT INTO dbo.[DimDistribucion] ([id_distribucion],[distribucion]) VALUES
-(0,N'Código 0'),
-(1,N'Código 1'),
-(2,N'Código 2'),
-(3,N'Código 3'),
-(4,N'Código 4'),
-(5,N'Código 5');
-INSERT INTO dbo.[DimAcristalamiento] ([id_acristalamiento],[id_porcentaje],[id_distribucion]) VALUES
-(1,1,0),
-(2,2,1),
-(3,2,2),
-(4,2,3),
-(5,2,4),
-(6,2,5),
-(7,3,1),
-(8,3,2),
-(9,3,3),
-(10,3,4),
-(11,3,5),
-(12,4,1),
-(13,4,2),
-(14,4,3),
-(15,4,4),
-(16,4,5);
+INSERT INTO dbo.[DimAcristalamiento] ([id_acristalamiento],[proporcion_cristal],[distribucion_codigo]) VALUES
+(1,0.0,0),
+(2,0.1,1),
+(3,0.1,2),
+(4,0.1,3),
+(5,0.1,4),
+(6,0.1,5),
+(7,0.25,1),
+(8,0.25,2),
+(9,0.25,3),
+(10,0.25,4),
+(11,0.25,5),
+(12,0.4,1),
+(13,0.4,2),
+(14,0.4,3),
+(15,0.4,4),
+(16,0.4,5);
 INSERT INTO dbo.[DimClase] ([id_clase],[clase],[regla]) VALUES
 (1,N'baja',N'Y1 < 25'),
 (2,N'alta',N'Y1 >= 25');
@@ -1832,21 +1808,18 @@ END CATCH;
 GO
 CREATE OR ALTER VIEW dbo.vDatasetReconstruido AS
 SELECT h.id_registro, g.compacidad X1, g.superficie X2, g.area_pared X3, g.area_techo X4,
-       alt.altura X5, o.id_orientacion X6, p.proporcion_cristal X7, d.id_distribucion X8, h.Y1, h.Y2
+       g.altura X5, o.id_orientacion X6, a.proporcion_cristal X7, a.distribucion_codigo X8, h.Y1, h.Y2
 FROM dbo.HECHOS h
 JOIN dbo.DimGeometria g ON h.id_geometria=g.id_geometria
-JOIN dbo.DimAltura alt ON g.id_altura=alt.id_altura
 JOIN dbo.DimOrientacion o ON h.id_orientacion=o.id_orientacion
-JOIN dbo.DimAcristalamiento a ON h.id_acristalamiento=a.id_acristalamiento
-JOIN dbo.DimPorcentajeCristal p ON a.id_porcentaje=p.id_porcentaje
-JOIN dbo.DimDistribucion d ON a.id_distribucion=d.id_distribucion;
+JOIN dbo.DimAcristalamiento a ON h.id_acristalamiento=a.id_acristalamiento;
 GO
 SET NOCOUNT ON;
 IF EXISTS (SELECT * FROM dbo.DatasetOriginal EXCEPT SELECT * FROM dbo.vDatasetReconstruido)
  OR EXISTS (SELECT * FROM dbo.vDatasetReconstruido EXCEPT SELECT * FROM dbo.DatasetOriginal)
  THROW 51002, 'La reconstruccion difiere del dataset original', 1;
-IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE is_disabled=1 OR is_not_trusted=1)
- THROW 51003, 'Hay llaves foraneas deshabilitadas o no confiables', 1;
+IF (SELECT COUNT(*) FROM sys.foreign_keys WHERE parent_object_id=OBJECT_ID(N'dbo.HECHOS') AND is_disabled=0 AND is_not_trusted=0) <> 6
+ THROW 51003, 'HECHOS debe tener seis llaves foraneas activas', 1;
 SELECT 'HECHOS' tabla, COUNT(*) filas FROM dbo.HECHOS;
 SELECT 'DatasetOriginal' tabla, COUNT(*) filas FROM dbo.DatasetOriginal;
 SELECT 'Llaves foraneas activas' control, COUNT(*) valor FROM sys.foreign_keys WHERE is_disabled=0 AND is_not_trusted=0;

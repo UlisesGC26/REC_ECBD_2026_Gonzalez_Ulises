@@ -21,16 +21,13 @@ DOC = ROOT / 'docs'
 def diagrama():
     fig, ax = plt.subplots(figsize=(15,9)); ax.set(xlim=(0,15),ylim=(0,9)); ax.axis('off')
     cajas = {
-        'DimAltura': (0.3,7.0,2.4,1.2,'PK id_altura\naltura'),
-        'DimGeometria': (4.0,7.0,3.0,1.2,'PK id_geometria · FK id_altura\ncompacidad, superficies'),
-        'DimOrientacion': (10.5,7.0,3.8,1.2,'PK id_orientacion\ncódigo nominal'),
-        'DimPorcentajeCristal': (.3,4.8,3.1,1.2,'PK id_porcentaje\nproporcion_cristal'),
-        'DimDistribucion': (.3,2.9,3.1,1.2,'PK id_distribucion\ncódigo nominal'),
-        'DimAcristalamiento': (4.1,3.9,3.1,1.5,'PK id_acristalamiento\nFK id_porcentaje\nFK id_distribucion'),
-        'HECHOS': (8.2,3.2,6.1,2.5,'PK id_registro · 768 simulaciones\nFK geometría, orientación, acristalamiento\nFK clase, conjunto, cluster\nY1, Y2, predicciones de prueba\nerrores absolutos, PC1, PC2'),
-        'DimClase': (3.0,.4,3.0,1.3,'PK id_clase\nbaja / alta (Y1 ≥ 25)'),
-        'DimConjunto': (7.0,.4,3.1,1.3,'PK id_conjunto\nentrenamiento / prueba'),
-        'DimCluster': (11.1,.4,3.2,1.3,'PK id_cluster\ngrupo K-Means'),
+        'DimGeometria': (.5,6.8,3.4,1.5,'PK id_geometria\ncompacidad, superficies, altura'),
+        'DimOrientacion': (5.7,7.0,3.1,1.25,'PK id_orientacion\ncódigo nominal'),
+        'DimAcristalamiento': (10.6,6.8,3.8,1.5,'PK id_acristalamiento\nproporción de cristal, distribución'),
+        'HECHOS': (4.3,3.1,6.3,2.5,'PK id_registro · 768 simulaciones\nFK geometría, orientación, acristalamiento\nFK clase, conjunto, cluster\nY1, Y2, predicciones de prueba\nerrores absolutos, PC1, PC2'),
+        'DimClase': (.5,.5,2.9,1.25,'PK id_clase\nbaja / alta (Y1 ≥ 25)'),
+        'DimConjunto': (4.5,.5,3.0,1.25,'PK id_conjunto\nentrenamiento / prueba'),
+        'DimCluster': (10.6,.5,3.1,1.25,'PK id_cluster\ngrupo K-Means'),
     }
     for name,(x,y,w,h,body) in cajas.items():
         ax.add_patch(FancyBboxPatch((x,y),w,h,boxstyle='round,pad=0.08',linewidth=1.4,
@@ -38,16 +35,15 @@ def diagrama():
         fg='white' if name=='HECHOS' else '#173848'
         ax.text(x+.15,y+h-.28,name,fontsize=11,weight='bold',color=fg,va='center')
         ax.text(x+.15,y+h-.52,body,fontsize=9.5,color=fg,va='top',linespacing=1.6)
-    enlaces=[((2.8,7.6),(3.9,7.6)),((5.5,6.9),(8.7,5.8)),((12.2,6.9),(12.2,5.8)),
-             ((3.5,5.4),(4,5)),((3.5,3.5),(4,4.2)),((7.3,4.6),(8.1,4.6)),
-             ((4.5,1.8),(8.6,3.1)),((8.5,1.8),(10.3,3.1)),((12.7,1.8),(12.7,3.1))]
+    enlaces=[((2.2,6.8),(5.4,5.7)),((7.2,7.0),(7.2,5.7)),((12.5,6.8),(9.8,5.7)),
+             ((2.0,1.8),(5.4,3.1)),((6.0,1.8),(6.8,3.1)),((12.1,1.8),(9.8,3.1))]
     for a,b in enlaces:
         ax.add_patch(FancyArrowPatch(a,b,arrowstyle='-|>',mutation_scale=15,color='#ca673b',lw=1.8))
         ax.text(a[0]+.05,a[1]+.1,'1',fontsize=9,color='#a64b26')
         ax.text(b[0]-.12,b[1]-.16,'N',fontsize=9,color='#a64b26')
-    ax.set_title('Data Mart copo de nieve · SQL Server y Power BI',fontsize=19,color='#173848',weight='bold',pad=14)
-    fig.tight_layout(); fig.savefig(DOC/'figuras/08_copo_nieve.png',dpi=170,bbox_inches='tight')
-    fig.savefig(DOC/'diagrama_copo_nieve.svg',bbox_inches='tight'); plt.close(fig)
+    ax.set_title('Data Mart en estrella · SQL Server y Power BI',fontsize=19,color='#173848',weight='bold',pad=14)
+    fig.tight_layout(); fig.savefig(DOC/'figuras/08_estrella.png',dpi=170,bbox_inches='tight')
+    fig.savefig(DOC/'diagrama_estrella.svg',bbox_inches='tight'); plt.close(fig)
 
 
 def generar():
@@ -101,10 +97,10 @@ def generar():
             ('h','Extracción y preparación'),('p',intro),('p','El ETL lee el Excel en data/raw, crea una copia y valida columnas, tipos, dominios, duplicados, nulos y valores finitos. X6/X8 se conservan como enteros nominales. No hay imputaciones ni eliminaciones. Se agregan id_registro, grupo_geometria y clase_calefaccion; la clase es alta cuando Y1 >= 25. En los modelos se aplica OneHotEncoder a las categorías y escalamiento dentro del Pipeline.'),
             ('t',pd.DataFrame({'Control':['Filas originales','Filas procesadas','Faltantes','Duplicados','Imputaciones','Eliminaciones'],'Resultado':[768,768,0,0,0,0]})),
             ('p','El SHA-256 del original es '+quality['sha256_original']+'. Los valores X1-X8/Y1-Y2 se comparan directamente con el archivo procesado. Los derivados se guardan en data/processed.'),
-            ('page',None),('h','Modelo dimensional copo de nieve'),('img','figuras/08_copo_nieve.png'),
-            ('p','Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. DimGeometria referencia DimAltura; DimAcristalamiento referencia DimPorcentajeCristal y DimDistribucion. HECHOS referencia geometría, orientación, acristalamiento, clase, conjunto y cluster. Se implementan nueve llaves foráneas. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.'),
-            ('h','Carga y validación en SQL Server'),('p','La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. El script sql/datamart.sql crea la base si hace falta y reemplaza únicamente las tablas del proyecto en una transacción con XACT_ABORT y manejo de errores. No modifica otras bases. Se conserva evidencia de la carga real en docs/verificacion_sqlserver.json.'),
-            ('p','La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, nueve llaves foráneas activas y 192 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.')],
+            ('page',None),('h','Modelo dimensional en estrella'),('img','figuras/08_estrella.png'),
+            ('p','Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. La altura se integra en DimGeometria y la proporción/distribución de cristal se integran en DimAcristalamiento. HECHOS referencia directamente seis dimensiones: geometría, orientación, acristalamiento, clase, conjunto y cluster. Se implementan seis llaves foráneas. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.'),
+            ('h','Carga y validación en SQL Server'),('p','La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. El script sql/datamart.sql crea la base si hace falta y reemplaza únicamente las tablas del proyecto en transacciones con XACT_ABORT y manejo de errores. No modifica otras bases. Se conserva evidencia de la carga real en docs/verificacion_sqlserver.json.'),
+            ('p','La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, seis llaves foráneas directas a HECHOS y 192 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.')],
         'supervisado':[
             ('h','Diseño y prevención de fuga'),('p',intro),('p','Las entradas son X1-X8. La regresión estima Y1/Y2; la clasificación usa alta si Y1 >= 25. El corte se fija antes de entrenar y no es una norma energética. GroupShuffleSplit reserva tres geometrías completas: 576 filas de entrenamiento y 192 de prueba, sin geometrías compartidas. El preprocesamiento se ajusta dentro de cada fold.'),
             ('h','Comparación y optimización justificada'),('p','GroupKFold de tres particiones compara Ridge con Random Forest y logística con Random Forest. Se prueban alpha, C, profundidad máxima y tamaño mínimo de hoja. En validación, el MAE conjunto del bosque con profundidad 8 y hoja 1 es 3.5896, frente a 3.5935 sin límite de profundidad. Se elige la opción ligeramente más simple. En logística, C=1 mejora F1 macro de validación de 0.8413 (C=0.1) a 0.8847; C=10 baja a 0.8500. La prueba no interviene en la elección.'),
@@ -128,13 +124,13 @@ def generar():
     for ax,c in zip(axes,['Y1','Y2']):
         ax.hist(raw[c],bins=16,color='#147d92',edgecolor='white');ax.set(title=c,xlabel='Carga (escala original)',ylabel='Simulaciones')
     fig.tight_layout();fig.savefig(DOC/'figuras/09_histograma.png',dpi=170);plt.close(fig)
-    final=[('h','Resumen ejecutivo'),('p',intro),('p','El proyecto integra exploración, preparación, SQL Server, un Data Mart copo de nieve, modelos supervisados, K-Means, PCA y un dashboard de cuatro páginas en Power BI. Se conserva el dataset original y el código permite reconstruir las evidencias.'),
+    final=[('h','Resumen ejecutivo'),('p',intro),('p','El proyecto integra exploración, preparación, SQL Server, un Data Mart en estrella, modelos supervisados, K-Means, PCA y un dashboard de cuatro páginas en Power BI. Se conserva el dataset original y el código permite reconstruir las evidencias.'),
         ('h','Tres conclusiones sustentadas'),('p','1. La calefacción media es 13.34 para altura 3.5 y 31.28 para altura 7; refrigeración media 16.07 y 33.10. Las geometrías también cambian, por lo que no puede aislarse causalmente la altura.'),
         ('p','2. Random Forest obtiene MAE 3.3304 en calefacción y 4.3288 en refrigeración, inferiores a 8.2677 y 8.5548 de la referencia de la media. La logística logra 79.17% de exactitud y deja 40 cargas altas como bajas.'),
         ('p','3. K-Means selecciona dos grupos de 384 casos, con silhouette 0.5244. Coinciden con alturas y geometrías distintas. PC1/PC2 explican 82.38% de la varianza; tres componentes superan el 95%.'),
         ('h','Recomendaciones de decisión'),('p','Comparar configuraciones dentro de geometrías semejantes y considerar simultáneamente calefacción y refrigeración. Revisar falsos negativos antes de usar la clasificación para descartar diseños. Incorporar clima, materiales y mediciones reales antes de extrapolar a construcción.'),('page',None)]
     final += secciones['etl'] + [('page',None)] + secciones['supervisado'] + [('page',None)] + secciones['no_supervisado']
-    final += [('page',None),('h','Dashboard y storytelling'),('p','Abrir dashboard/Energia.pbip (proyecto editable) o el PBIX guardado, y actualizar desde SQL Server. Página 1: problema y datos, indicadores, altura, compacidad y cristal. Página 2: predicciones, métricas y matriz de confusión. Página 3: elección de k, perfiles, PCA y varianza. Página 4: ETL, copo de nieve, conclusiones y recomendaciones. La Vista de modelo permite inspeccionar las relaciones reales.'),
+    final += [('page',None),('h','Dashboard y storytelling'),('p','Abrir dashboard/Energia.pbip (proyecto editable) o el PBIX guardado, y actualizar desde SQL Server. Página 1: problema y datos, indicadores, altura, compacidad y cristal. Página 2: predicciones, métricas y matriz de confusión. Página 3: elección de k, perfiles, PCA y varianza. Página 4: ETL, estrella, conclusiones y recomendaciones. La Vista de modelo permite inspeccionar las relaciones reales.'),
         ('h','Reproducibilidad y defensa'),('p','Instalar requirements_notebooks.txt, ejecutar python -m src.ejecutar_proyecto, después python -m src.etl_sqlserver --cargar y ejecutar todos los notebooks. Las evidencias automáticas están en docs/verificacion_sqlserver.json y docs/verificacion_notebooks.json. El guion de defensa explica el orden y las decisiones. No se acredita una defensa oral ni observaciones futuras por generar estos archivos.'),
         ('h','Calendario y observaciones'),('p','Los dos documentos recibidos difieren: el programa de trabajo continuo fija revisión formal el 17 de noviembre, mientras el programa de actividades restantes indica revisión integradora el 18. Ambos fijan cierre el 20 de noviembre de 2026. Se conserva esa diferencia en la matriz de cumplimiento. Las observaciones del docente se registrarán cuando ocurran y deberán resolverse antes del cierre.'),
         ('h','Fuentes'),('p',fuente),('p','Scikit-learn: documentación de GroupKFold, GridSearchCV, KMeans, silhouette_score y PCA, https://scikit-learn.org/stable/. Microsoft Learn: proyectos Power BI, https://learn.microsoft.com/power-bi/developer/projects/projects-overview. Los requisitos académicos proceden de los dos programas proporcionados por el estudiante. Repositorio: https://github.com/UlisesGC26/REC_ECBD_2026_Gonzalez_Ulises.')]

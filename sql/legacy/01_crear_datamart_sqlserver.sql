@@ -1,5 +1,5 @@
 -- Ejecutar en una base de trabajo VACIA elegida en SQL Server.
--- Antecedente historico. Esquema vigente: ../datamart.sql (copo de nieve).
+-- Antecedente historico. Esquema vigente: ../datamart.sql (estrella).
 
     CREATE TABLE dim_geometria (id_geometria INT PRIMARY KEY,
         X1 FLOAT NOT NULL, X2 FLOAT NOT NULL, X3 FLOAT NOT NULL, X4 FLOAT NOT NULL, X5 FLOAT NOT NULL);

@@ -7,44 +7,6 @@
     "sourceQueryCulture": "es-MX",
     "tables": [
       {
-        "name": "DimAltura",
-        "lineageTag": "1b99c479-b9be-5985-b705-8a42f1ab7b2f",
-        "columns": [
-          {
-            "name": "id_altura",
-            "dataType": "int64",
-            "sourceColumn": "id_altura",
-            "summarizeBy": "none",
-            "lineageTag": "2104ce27-9753-536c-830c-949bc5a02cb0",
-            "formatString": "0"
-          },
-          {
-            "name": "altura",
-            "dataType": "double",
-            "sourceColumn": "altura",
-            "summarizeBy": "none",
-            "lineageTag": "34005f13-c751-57db-9381-1e9267031720",
-            "formatString": "0.00"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "DimAltura",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
-                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimAltura\"]}[Data]",
-                "in",
-                "    Tabla"
-              ]
-            }
-          }
-        ]
-      },
-      {
         "name": "DimGeometria",
         "lineageTag": "e34d85e0-b930-51d0-8b99-8113e0d9d95e",
         "columns": [
@@ -89,12 +51,12 @@
             "formatString": "0.00"
           },
           {
-            "name": "id_altura",
-            "dataType": "int64",
-            "sourceColumn": "id_altura",
+            "name": "altura",
+            "dataType": "double",
+            "sourceColumn": "altura",
             "summarizeBy": "none",
-            "lineageTag": "e6f9e05e-206d-50e9-9c8e-efeabe5c857c",
-            "formatString": "0"
+            "lineageTag": "77b83527-5d82-5adf-b4c2-44434029aad5",
+            "formatString": "0.00"
           }
         ],
         "partitions": [
@@ -152,81 +114,6 @@
         ]
       },
       {
-        "name": "DimPorcentajeCristal",
-        "lineageTag": "eea6920d-46db-5252-899a-07141c456946",
-        "columns": [
-          {
-            "name": "id_porcentaje",
-            "dataType": "int64",
-            "sourceColumn": "id_porcentaje",
-            "summarizeBy": "none",
-            "lineageTag": "20bc035e-1c5d-53d9-be5d-d041de333ad9",
-            "formatString": "0"
-          },
-          {
-            "name": "proporcion_cristal",
-            "dataType": "double",
-            "sourceColumn": "proporcion_cristal",
-            "summarizeBy": "none",
-            "lineageTag": "afdf1a98-b12b-585a-8334-d3823d86b2a7",
-            "formatString": "0.00"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "DimPorcentajeCristal",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
-                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimPorcentajeCristal\"]}[Data]",
-                "in",
-                "    Tabla"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "DimDistribucion",
-        "lineageTag": "25a160f3-5259-5faa-b387-3573838faa2c",
-        "columns": [
-          {
-            "name": "id_distribucion",
-            "dataType": "int64",
-            "sourceColumn": "id_distribucion",
-            "summarizeBy": "none",
-            "lineageTag": "0fea92c6-681c-5f0a-b638-88db5e5e3bbf",
-            "formatString": "0"
-          },
-          {
-            "name": "distribucion",
-            "dataType": "string",
-            "sourceColumn": "distribucion",
-            "summarizeBy": "none",
-            "lineageTag": "25ffbebb-f6e7-5177-bfa3-1a552d6d9d09"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "DimDistribucion",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "let",
-                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
-                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimDistribucion\"]}[Data]",
-                "in",
-                "    Tabla"
-              ]
-            }
-          }
-        ]
-      },
-      {
         "name": "DimAcristalamiento",
         "lineageTag": "115acdae-e281-582e-bb03-b9781ae03342",
         "columns": [
@@ -239,19 +126,19 @@
             "formatString": "0"
           },
           {
-            "name": "id_porcentaje",
-            "dataType": "int64",
-            "sourceColumn": "id_porcentaje",
+            "name": "proporcion_cristal",
+            "dataType": "double",
+            "sourceColumn": "proporcion_cristal",
             "summarizeBy": "none",
-            "lineageTag": "85bb2877-1697-5b13-8707-a083fc0081d3",
-            "formatString": "0"
+            "lineageTag": "0795ccb7-4894-5cfc-978c-765b5985eea2",
+            "formatString": "0.00"
           },
           {
-            "name": "id_distribucion",
+            "name": "distribucion_codigo",
             "dataType": "int64",
-            "sourceColumn": "id_distribucion",
+            "sourceColumn": "distribucion_codigo",
             "summarizeBy": "none",
-            "lineageTag": "591f8c21-0003-5ab9-afd4-953726f19481",
+            "lineageTag": "86aaaac5-8838-5115-a41d-5a2f134cf9b4",
             "formatString": "0"
           }
         ],
@@ -1010,36 +897,6 @@
     ],
     "relationships": [
       {
-        "name": "DimGeometria_DimAltura",
-        "fromTable": "DimGeometria",
-        "fromColumn": "id_altura",
-        "toTable": "DimAltura",
-        "toColumn": "id_altura",
-        "crossFilteringBehavior": "oneDirection",
-        "fromCardinality": "many",
-        "toCardinality": "one"
-      },
-      {
-        "name": "DimAcristalamiento_DimPorcentajeCristal",
-        "fromTable": "DimAcristalamiento",
-        "fromColumn": "id_porcentaje",
-        "toTable": "DimPorcentajeCristal",
-        "toColumn": "id_porcentaje",
-        "crossFilteringBehavior": "oneDirection",
-        "fromCardinality": "many",
-        "toCardinality": "one"
-      },
-      {
-        "name": "DimAcristalamiento_DimDistribucion",
-        "fromTable": "DimAcristalamiento",
-        "fromColumn": "id_distribucion",
-        "toTable": "DimDistribucion",
-        "toColumn": "id_distribucion",
-        "crossFilteringBehavior": "oneDirection",
-        "fromCardinality": "many",
-        "toCardinality": "one"
-      },
-      {
         "name": "HECHOS_DimGeometria",
         "fromTable": "HECHOS",
         "fromColumn": "id_geometria",
@@ -1103,7 +960,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"DimAltura\", \"DimGeometria\", \"DimOrientacion\", \"DimPorcentajeCristal\", \"DimDistribucion\", \"DimAcristalamiento\", \"DimClase\", \"DimConjunto\", \"DimCluster\", \"HECHOS\", \"MetricasRegresion\", \"MetricasClasificacion\", \"EvaluacionClusters\", \"VarianzaPCA\", \"PerfilesClusters\", \"ImportanciaVariables\", \"MatrizConfusion\"]"
+        "value": "[\"DimGeometria\", \"DimOrientacion\", \"DimAcristalamiento\", \"DimClase\", \"DimConjunto\", \"DimCluster\", \"HECHOS\", \"MetricasRegresion\", \"MetricasClasificacion\", \"EvaluacionClusters\", \"VarianzaPCA\", \"PerfilesClusters\", \"ImportanciaVariables\", \"MatrizConfusion\"]"
       },
       {
         "name": "PBI_ProTooling",
