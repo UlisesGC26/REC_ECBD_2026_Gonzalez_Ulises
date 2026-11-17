@@ -1,0 +1,345 @@
+EXTRACCIÓN DE CONOCIMIENTO
+
+EN BASES DE DATOS
+RECUSAMIENTO 2026
+
+Programa de actividades restantes y cierre del Proyecto Integrador
+
+Periodo de trabajo: 9 al 20 de noviembre de 2026
+
+Propósito del documento
+Establecer en un solo documento las actividades, evidencias, fechas de entrega y revisión que deberán cumplir los estudiantes que
+continúan en el recursamiento. El trabajo se desarrollará sobre el mismo proyecto y dataset asignados desde la Unidad I.
+
+Recursamiento ECBD 2026
+
+Proyecto Integrador - Cierre del recursamiento
+
+1. Indicaciones generales
+A partir de este momento, todas las actividades forman parte del mismo Proyecto Integrador. Cada evidencia deberá
+construirse a partir del trabajo anterior; no se trata de proyectos independientes.
+• Trabajar únicamente con el dataset y proyecto asignados.
+• Mantener actualizado el repositorio GitHub durante todo el proceso.
+• Conservar sin modificaciones el dataset original dentro de data/raw/.
+• Guardar los datos limpios y transformados dentro de data/processed/.
+• Entregar código ejecutable y poder explicar personalmente su funcionamiento.
+• Mantener organizadas las evidencias en las carpetas indicadas del repositorio.
+• Realizar la revisión integradora obligatoria antes de la entrega final.
+• La entrega final del recursamiento será el 20 de noviembre de 2026.
+Importante
+La entrega de archivos sin capacidad para explicar el procedimiento, las decisiones tomadas y los resultados obtenidos no será
+considerada evidencia suficiente del dominio de la actividad.
+
+2. Calendario de actividades y entregas
+Fecha límite Unidad Actividad Evidencia principal Valor
+11 nov. II AE1. Exploración y
+diagnóstico
+
+Notebook + PDF +
+GitHub 6 pts
+
+13 nov. II
+
+AE2. Limpieza,
+transformación, ETL y
+Data Mart
+
+Notebook + dataset
+procesado + SQL + PDF 9 pts
+
+16 nov. III Análisis supervisado Regresión + clasificación
+
++ evaluación 25 pts
+
+18 nov. 12:00 IV Análisis no supervisado Clustering + PCA +
+
+evaluación 25 pts
+
+18 nov. Integración
+
+Revisión integradora
+obligatoria previa al
+cierre
+
+Repositorio
+completo +
+dashboard mínimo
+70% + informe en
+borrador
+
+Requisito
+
+20 nov. V
+
+Dashboard, storytelling y
+defensa final
+
+Dashboard + informe
+final + repositorio +
+defensa
+
+15 pts
+
+La Unidad I conserva la calificación obtenida previamente (20 puntos). Las actividades restantes completan la
+evaluación del recursamiento. El 19 de noviembre se destina exclusivamente a atender observaciones y cerrar
+pendientes detectados en la revisión integradora.
+
+3. Unidad II - Actividad de Evaluación 1
+Exploración y diagnóstico del conjunto de datos
+Fecha límite: 11 de noviembre de 2026. Valor: 6 puntos.
+Propósito
+Conocer la estructura, características y calidad del conjunto de datos antes de realizar cualquier proceso de limpieza o
+transformación.
+Actividades
+• Identificar nombre, fuente, formato, número de registros y número de variables del dataset.
+
+Recursamiento ECBD 2026
+
+Proyecto Integrador - Cierre del recursamiento
+
+• Cargar el conjunto de datos con Python y Pandas.
+• Realizar exploración con head(), shape, columns, info(), dtypes y describe().
+• Elaborar un diccionario de datos con nombre, descripción, tipo, clasificación, unidad de medida y posible utilidad
+de cada variable.
+• Clasificar la procedencia y fuente de los datos: estructurados, semiestructurados o no estructurados, según
+corresponda.
+• Detectar valores faltantes, registros duplicados, inconsistencias, tipos de datos incorrectos y posibles valores
+atípicos.
+• Analizar al menos tres variables numéricas mediante media, mediana, mínimo, máximo y desviación estándar.
+• Generar al menos tres visualizaciones y escribir una interpretación para cada una.
+• Proponer variables que podrían utilizarse posteriormente para regresión, clasificación y agrupamiento.
+• Redactar una conclusión sobre la calidad y viabilidad del dataset.
+Evidencias
+• Apellido_Nombre_U2_AE1_Exploracion.ipynb
+• Apellido_Nombre_U2_AE1_Diagnostico.pdf
+• Repositorio GitHub actualizado.
+• Dataset original conservado en data/raw/.
+
+4. Unidad II - Actividad de Evaluación 2
+Limpieza, transformación, ETL y construcción del Data Mart
+Fecha límite: 13 de noviembre de 2026. Valor: 9 puntos.
+Propósito
+Aplicar las decisiones propuestas en el diagnóstico para generar un conjunto de datos limpio, consistente y preparado
+para el análisis, documentando un proceso ETL y un modelo dimensional.
+Actividades
+• Crear una copia de trabajo del dataset sin modificar el archivo original.
+• Tratar valores faltantes de forma justificada.
+• Eliminar o resolver registros duplicados cuando corresponda.
+• Corregir tipos de datos y estandarizar categorías.
+• Tratar valores atípicos únicamente cuando exista justificación.
+• Realizar transformaciones y crear atributos derivados cuando sean útiles.
+• Codificar variables categóricas cuando sea necesario para análisis posteriores.
+• Construir y documentar un proceso ETL: extracción, transformación y carga.
+• Guardar el dataset resultante en data/processed/.
+• Diseñar un Data Mart con tabla de hechos, dimensiones, llaves primarias, llaves foráneas y medidas.
+• Implementar el esquema en SQL Server u otro gestor autorizado cuando el proyecto lo permita.
+• Cargar los datos procesados en el modelo de almacenamiento.
+Evidencias
+• Apellido_Nombre_U2_AE2_ETL.ipynb
+• Apellido_Nombre_U2_AE2_PreparacionDatos.pdf
+• dataset_limpio.csv o formato equivalente.
+• script_creacion_datamart.sql
+• Diagrama del esquema dimensional.
+• Repositorio GitHub actualizado.
+
+Recursamiento ECBD 2026
+
+Proyecto Integrador - Cierre del recursamiento
+
+Verificación esperada
+El estudiante deberá poder comparar el dataset original contra el dataset procesado y explicar qué cambió, por qué cambió y qué
+problema resolvió cada transformación.
+
+5. Unidad III - Actividad de Evaluación
+Implementación y evaluación de modelos de análisis supervisado
+Fecha límite: 16 de noviembre de 2026. Valor: 25 puntos.
+Propósito
+Implementar modelos de regresión y clasificación, evaluar su desempeño e interpretar los resultados en relación con el
+problema del proyecto.
+Parte A. Preparación de datos
+• Seleccionar variables predictoras (X) y variable objetivo (y).
+• Justificar la selección de variables.
+• Separar datos de entrenamiento y prueba.
+• Aplicar escalamiento o codificación cuando sea necesario.
+Parte B. Regresión
+• Implementar al menos un modelo de regresión adecuado al proyecto.
+• Evaluar mediante MAE y al menos una métrica adicional entre MSE, RMSE o R2.
+• Interpretar el resultado y explicar la utilidad de la predicción.
+Parte C. Clasificación
+• Implementar al menos un modelo de clasificación adecuado al proyecto.
+• Evaluar mediante Accuracy, Precision, Recall, F1-score y matriz de confusión.
+• Interpretar los errores y explicar la utilidad del modelo.
+Parte D. Evaluación y mejora
+• Comparar resultados cuando se pruebe más de un algoritmo.
+• Realizar al menos un ajuste u optimización justificada del modelo.
+• Explicar qué variables parecen ser relevantes para la predicción o clasificación.
+• Relacionar los resultados con el problema planteado desde la Unidad I.
+Evidencias
+• Apellido_Nombre_U3_AnalisisSupervisado.ipynb
+• Apellido_Nombre_U3_Informe.pdf
+• Archivos de modelos cuando aplique.
+• Gráficas y métricas de evaluación.
+• Repositorio GitHub actualizado.
+
+6. Unidad IV - Actividad de Evaluación
+Descubrimiento de patrones mediante análisis no supervisado
+Fecha límite: 18 de noviembre de 2026 a las 12:00 h. Valor: 25 puntos.
+
+Recursamiento ECBD 2026
+
+Proyecto Integrador - Cierre del recursamiento
+
+Propósito
+Identificar patrones y agrupamientos potencialmente útiles en los datos mediante técnicas de clustering y reducción de
+dimensionalidad.
+Parte A. Preparación
+• Seleccionar variables numéricas relevantes.
+• Justificar la selección.
+• Aplicar estandarización cuando corresponda.
+Parte B. Agrupamiento
+• Aplicar K-Means como técnica base de agrupamiento.
+• Determinar un número razonable de clusters mediante método del codo y/o Silhouette Score.
+• Describir las características principales de cada cluster.
+• Explicar qué diferencias existen entre los grupos encontrados.
+Parte C. Reducción dimensional
+• Aplicar PCA.
+• Analizar la varianza explicada.
+• Representar gráficamente los datos utilizando componentes principales.
+• Interpretar si los grupos observados tienen sentido en el contexto del proyecto.
+Parte D. Interpretación
+• Explicar los patrones encontrados.
+• Relacionar los clusters con las variables originales.
+• Identificar conocimiento nuevo obtenido mediante el análisis no supervisado.
+• Explicar cómo podría utilizarse ese conocimiento para apoyar decisiones.
+Evidencias
+• Apellido_Nombre_U4_AnalisisNoSupervisado.ipynb
+• Apellido_Nombre_U4_Informe.pdf
+• Visualizaciones de clusters y PCA.
+• Repositorio GitHub actualizado.
+
+7. Revisión integradora obligatoria previa al cierre
+Fecha: 18 de noviembre de 2026, después de la entrega de la Unidad IV. Esta revisión es requisito para presentar la
+entrega final.
+Objetivo de la revisión
+Detectar errores de ejecución, evidencias incompletas, problemas en el repositorio, fallas en la interpretación y
+aspectos pendientes del dashboard antes de la entrega final del 20 de noviembre. Las correcciones derivadas de esta
+revisión deberán realizarse el 19 de noviembre.
+
+El estudiante deberá presentar
+• Repositorio GitHub completo y actualizado hasta la Unidad IV.
+• Todos los notebooks ejecutables de principio a fin.
+• Dataset original y dataset procesado claramente separados.
+• Script y diagrama del Data Mart.
+• Resultados de regresión y clasificación.
+• Resultados de clustering y PCA.
+
+Recursamiento ECBD 2026
+
+Proyecto Integrador - Cierre del recursamiento
+
+• README.md actualizado.
+• Borrador del informe final.
+• Dashboard con al menos 70% de avance.
+• Lista personal de pendientes para el cierre.
+Durante la revisión se verificará
+• Que el código ejecute sin errores críticos.
+• Que exista coherencia entre el problema, los datos y los modelos aplicados.
+• Que las métricas estén interpretadas y no sólo copiadas.
+• Que el estudiante pueda explicar sus decisiones técnicas.
+• Que el dashboard represente los hallazgos relevantes.
+• Que las evidencias estén organizadas en el repositorio.
+• Que exista una ruta clara de correcciones para la entrega final.
+Las observaciones realizadas en esta revisión deberán atenderse antes de la entrega y defensa final.
+
+8. Unidad V - Actividad de Evaluación Final
+Dashboard, storytelling y defensa del Proyecto Integrador
+Fecha límite y defensa: 20 de noviembre de 2026. Valor: 15 puntos.
+Propósito
+Integrar y comunicar el conocimiento obtenido durante el proyecto mediante visualizaciones, indicadores, resultados
+de modelos y recomendaciones útiles para la toma de decisiones.
+Dashboard
+• Incluir indicadores generales relevantes para el caso.
+• Presentar al menos tres visualizaciones descriptivas.
+• Mostrar resultados relevantes del modelo de regresión.
+• Mostrar resultados relevantes del modelo de clasificación.
+• Mostrar los clusters obtenidos y sus características.
+• Incluir una representación del análisis PCA cuando sea pertinente.
+• Utilizar títulos, etiquetas y elementos visuales claros.
+• Evitar gráficas sin interpretación o sin relación con el objetivo del proyecto.
+Storytelling
+La presentación deberá seguir una secuencia lógica:
+Problema -> Datos -> Preparación -> Análisis -> Patrones/Predicciones -> Conocimiento ->
+Recomendaciones
+Defensa final
+• Explicar el problema y el objetivo del proyecto.
+• Explicar brevemente la preparación de los datos.
+• Presentar los principales resultados supervisados y no supervisados.
+• Interpretar el dashboard.
+• Presentar al menos tres conclusiones sustentadas en los datos.
+• Plantear al menos dos recomendaciones de decisión derivadas del análisis.
+• Responder preguntas sobre código, datos, métricas y decisiones técnicas.
+Evidencias finales
+• Dashboard terminado.
+
+Recursamiento ECBD 2026
+
+Proyecto Integrador - Cierre del recursamiento
+
+• Informe final en PDF.
+• Repositorio GitHub completo y actualizado.
+• README.md final.
+• Código fuente y notebooks.
+• Dataset original y procesado.
+• Script y esquema del Data Mart.
+• Modelos y resultados.
+• Presentación/defensa final.
+
+9. Estructura final del repositorio
+REC_ECBD_2026_Apellido_Nombre/
+|
+|-- README.md
+|-- data/
+| |-- raw/
+| `-- processed/
+|-- notebooks/
+| |-- U2_AE1_Exploracion.ipynb
+| |-- U2_AE2_ETL.ipynb
+| |-- U3_AnalisisSupervisado.ipynb
+| `-- U4_AnalisisNoSupervisado.ipynb
+|-- sql/
+| `-- datamart.sql
+|-- modelos/
+|-- dashboard/
+`-- docs/
+|-- U1.pdf
+|-- U2_AE1.pdf
+|-- U2_AE2.pdf
+|-- U3.pdf
+|-- U4.pdf
+`-- Informe_Final.pdf
+
+10. Lista de verificación antes de la entrega final
+☐ Mi repositorio está actualizado.
+☐ El dataset original permanece intacto.
+☐ El dataset procesado está separado del original.
+☐ Todos mis notebooks ejecutan sin errores críticos.
+☐ Puedo explicar las transformaciones realizadas.
+☐ Puedo justificar la variable objetivo de regresión.
+☐ Puedo justificar la variable objetivo de clasificación.
+☐ Puedo interpretar las métricas de mis modelos.
+☐ Puedo explicar los clusters encontrados.
+☐ Puedo explicar qué representa PCA en mi proyecto.
+☐ Mi dashboard comunica hallazgos y no sólo muestra gráficas.
+☐ Mis conclusiones se basan en los datos.
+☐ Atendí las observaciones de la revisión integradora del 18 de noviembre.
+
+Recursamiento ECBD 2026
+
+Proyecto Integrador - Cierre del recursamiento
+
+☐ Mi informe final y README están actualizados.
+☐ Estoy preparado para ejecutar y explicar mi proyecto durante la defensa.
+Criterio general del recursamiento
+El Proyecto Integrador se evalúa como un proceso progresivo. La calidad técnica de las evidencias, la interpretación de los
+resultados, la organización del repositorio y la capacidad del estudiante para explicar su trabajo son parte fundamental de la
+acreditación.

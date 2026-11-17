@@ -1,0 +1,8 @@
+modelo,parametros,metrica_cv,desviacion_cv
+Ridge,"{""modelo__alpha"": 0.1}",6.561770410284454,1.9017902238596063
+Ridge,"{""modelo__alpha"": 1.0}",4.147673446450355,0.7760698594065634
+Ridge,"{""modelo__alpha"": 10.0}",4.152673242986487,0.4303474795113791
+RandomForest,"{""modelo__max_depth"": 8, ""modelo__min_samples_leaf"": 1}",3.589574190959907,1.5101901059927172
+RandomForest,"{""modelo__max_depth"": 8, ""modelo__min_samples_leaf"": 3}",3.6480719322146253,1.518889497992379
+RandomForest,"{""modelo__max_depth"": null, ""modelo__min_samples_leaf"": 1}",3.593470381944444,1.4680144833735815
+RandomForest,"{""modelo__max_depth"": null, ""modelo__min_samples_leaf"": 3}",3.6417198345369832,1.514129112505621

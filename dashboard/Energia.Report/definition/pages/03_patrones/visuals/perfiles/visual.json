@@ -1,0 +1,171 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "perfiles",
+  "position": {
+    "x": 24,
+    "y": 566,
+    "width": 600,
+    "height": 204,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "PerfilesClusters"
+                    }
+                  },
+                  "Property": "id_cluster"
+                }
+              },
+              "queryRef": "PerfilesClusters.id_cluster",
+              "nativeQueryRef": "id_cluster"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "PerfilesClusters"
+                    }
+                  },
+                  "Property": "registros"
+                }
+              },
+              "queryRef": "PerfilesClusters.registros",
+              "nativeQueryRef": "registros"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "PerfilesClusters"
+                    }
+                  },
+                  "Property": "altura_media"
+                }
+              },
+              "queryRef": "PerfilesClusters.altura_media",
+              "nativeQueryRef": "altura_media"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "PerfilesClusters"
+                    }
+                  },
+                  "Property": "compacidad_media"
+                }
+              },
+              "queryRef": "PerfilesClusters.compacidad_media",
+              "nativeQueryRef": "compacidad_media"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "PerfilesClusters"
+                    }
+                  },
+                  "Property": "calefaccion_media"
+                }
+              },
+              "queryRef": "PerfilesClusters.calefaccion_media",
+              "nativeQueryRef": "calefaccion_media"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Perfil de los grupos'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#173848'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

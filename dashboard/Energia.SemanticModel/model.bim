@@ -1,0 +1,1114 @@
+{
+  "name": "Energia",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "es-MX",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "es-MX",
+    "tables": [
+      {
+        "name": "DimAltura",
+        "lineageTag": "1b99c479-b9be-5985-b705-8a42f1ab7b2f",
+        "columns": [
+          {
+            "name": "id_altura",
+            "dataType": "int64",
+            "sourceColumn": "id_altura",
+            "summarizeBy": "none",
+            "lineageTag": "2104ce27-9753-536c-830c-949bc5a02cb0",
+            "formatString": "0"
+          },
+          {
+            "name": "altura",
+            "dataType": "double",
+            "sourceColumn": "altura",
+            "summarizeBy": "none",
+            "lineageTag": "34005f13-c751-57db-9381-1e9267031720",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimAltura",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimAltura\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimGeometria",
+        "lineageTag": "e34d85e0-b930-51d0-8b99-8113e0d9d95e",
+        "columns": [
+          {
+            "name": "id_geometria",
+            "dataType": "int64",
+            "sourceColumn": "id_geometria",
+            "summarizeBy": "none",
+            "lineageTag": "ed7e60d8-9c15-5a30-a725-a5c25e2e1db0",
+            "formatString": "0"
+          },
+          {
+            "name": "compacidad",
+            "dataType": "double",
+            "sourceColumn": "compacidad",
+            "summarizeBy": "none",
+            "lineageTag": "95d1eae8-529a-5b31-8d62-9324f3993dba",
+            "formatString": "0.00"
+          },
+          {
+            "name": "superficie",
+            "dataType": "double",
+            "sourceColumn": "superficie",
+            "summarizeBy": "none",
+            "lineageTag": "a874cae4-bdf9-53b7-a36f-397713c21a09",
+            "formatString": "0.00"
+          },
+          {
+            "name": "area_pared",
+            "dataType": "double",
+            "sourceColumn": "area_pared",
+            "summarizeBy": "none",
+            "lineageTag": "2b2a3c79-99b2-51a4-9263-c9c8be559625",
+            "formatString": "0.00"
+          },
+          {
+            "name": "area_techo",
+            "dataType": "double",
+            "sourceColumn": "area_techo",
+            "summarizeBy": "none",
+            "lineageTag": "45c157fe-cc5d-5dcc-afa6-c2fa70e6cfc5",
+            "formatString": "0.00"
+          },
+          {
+            "name": "id_altura",
+            "dataType": "int64",
+            "sourceColumn": "id_altura",
+            "summarizeBy": "none",
+            "lineageTag": "e6f9e05e-206d-50e9-9c8e-efeabe5c857c",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimGeometria",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimGeometria\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimOrientacion",
+        "lineageTag": "9b354cc8-7418-5a9c-a212-3387a8500439",
+        "columns": [
+          {
+            "name": "id_orientacion",
+            "dataType": "int64",
+            "sourceColumn": "id_orientacion",
+            "summarizeBy": "none",
+            "lineageTag": "d0f06e45-1917-565c-82f3-986ae51167c6",
+            "formatString": "0"
+          },
+          {
+            "name": "orientacion",
+            "dataType": "string",
+            "sourceColumn": "orientacion",
+            "summarizeBy": "none",
+            "lineageTag": "6d53660a-ea34-5e00-88a3-3dfe85b4fa44"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimOrientacion",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimOrientacion\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimPorcentajeCristal",
+        "lineageTag": "eea6920d-46db-5252-899a-07141c456946",
+        "columns": [
+          {
+            "name": "id_porcentaje",
+            "dataType": "int64",
+            "sourceColumn": "id_porcentaje",
+            "summarizeBy": "none",
+            "lineageTag": "20bc035e-1c5d-53d9-be5d-d041de333ad9",
+            "formatString": "0"
+          },
+          {
+            "name": "proporcion_cristal",
+            "dataType": "double",
+            "sourceColumn": "proporcion_cristal",
+            "summarizeBy": "none",
+            "lineageTag": "afdf1a98-b12b-585a-8334-d3823d86b2a7",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimPorcentajeCristal",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimPorcentajeCristal\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDistribucion",
+        "lineageTag": "25a160f3-5259-5faa-b387-3573838faa2c",
+        "columns": [
+          {
+            "name": "id_distribucion",
+            "dataType": "int64",
+            "sourceColumn": "id_distribucion",
+            "summarizeBy": "none",
+            "lineageTag": "0fea92c6-681c-5f0a-b638-88db5e5e3bbf",
+            "formatString": "0"
+          },
+          {
+            "name": "distribucion",
+            "dataType": "string",
+            "sourceColumn": "distribucion",
+            "summarizeBy": "none",
+            "lineageTag": "25ffbebb-f6e7-5177-bfa3-1a552d6d9d09"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDistribucion",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimDistribucion\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimAcristalamiento",
+        "lineageTag": "115acdae-e281-582e-bb03-b9781ae03342",
+        "columns": [
+          {
+            "name": "id_acristalamiento",
+            "dataType": "int64",
+            "sourceColumn": "id_acristalamiento",
+            "summarizeBy": "none",
+            "lineageTag": "78bd5149-2830-5bcd-9206-8e9c1867314c",
+            "formatString": "0"
+          },
+          {
+            "name": "id_porcentaje",
+            "dataType": "int64",
+            "sourceColumn": "id_porcentaje",
+            "summarizeBy": "none",
+            "lineageTag": "85bb2877-1697-5b13-8707-a083fc0081d3",
+            "formatString": "0"
+          },
+          {
+            "name": "id_distribucion",
+            "dataType": "int64",
+            "sourceColumn": "id_distribucion",
+            "summarizeBy": "none",
+            "lineageTag": "591f8c21-0003-5ab9-afd4-953726f19481",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimAcristalamiento",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimAcristalamiento\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimClase",
+        "lineageTag": "b6ca3559-ccfc-5dad-918c-f20b109358d8",
+        "columns": [
+          {
+            "name": "id_clase",
+            "dataType": "int64",
+            "sourceColumn": "id_clase",
+            "summarizeBy": "none",
+            "lineageTag": "e95201bc-7b84-5b07-99df-bd1938d07e3f",
+            "formatString": "0"
+          },
+          {
+            "name": "clase",
+            "dataType": "string",
+            "sourceColumn": "clase",
+            "summarizeBy": "none",
+            "lineageTag": "0658e0ce-2a9e-57cf-8087-49fd8187c69b"
+          },
+          {
+            "name": "regla",
+            "dataType": "string",
+            "sourceColumn": "regla",
+            "summarizeBy": "none",
+            "lineageTag": "351a6a2a-dc7a-5426-9f11-9aeb64af2544"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimClase",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimClase\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimConjunto",
+        "lineageTag": "2d3bc4a2-a51b-502e-af1c-a686a70e4520",
+        "columns": [
+          {
+            "name": "id_conjunto",
+            "dataType": "int64",
+            "sourceColumn": "id_conjunto",
+            "summarizeBy": "none",
+            "lineageTag": "ad6a7d12-710e-5938-b760-5ec7b6d36280",
+            "formatString": "0"
+          },
+          {
+            "name": "conjunto",
+            "dataType": "string",
+            "sourceColumn": "conjunto",
+            "summarizeBy": "none",
+            "lineageTag": "5347de1a-71fe-510e-81fa-c9ce97c2b108"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimConjunto",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimConjunto\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimCluster",
+        "lineageTag": "92caf85d-b184-5130-a1a5-123b38380a51",
+        "columns": [
+          {
+            "name": "id_cluster",
+            "dataType": "int64",
+            "sourceColumn": "id_cluster",
+            "summarizeBy": "none",
+            "lineageTag": "31c3f97a-7faf-525b-9080-f013c3beb7e5",
+            "formatString": "0"
+          },
+          {
+            "name": "cluster",
+            "dataType": "string",
+            "sourceColumn": "cluster",
+            "summarizeBy": "none",
+            "lineageTag": "1107d458-3f99-568e-803c-5c022082315c"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimCluster",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimCluster\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "HECHOS",
+        "lineageTag": "eaba90b8-8090-55ca-81ee-b69ae94d1ab6",
+        "columns": [
+          {
+            "name": "id_registro",
+            "dataType": "int64",
+            "sourceColumn": "id_registro",
+            "summarizeBy": "none",
+            "lineageTag": "613bf573-d164-5ef4-a47f-4e1c64a86103",
+            "formatString": "0"
+          },
+          {
+            "name": "id_geometria",
+            "dataType": "int64",
+            "sourceColumn": "id_geometria",
+            "summarizeBy": "none",
+            "lineageTag": "e73d6500-1faf-588c-abd1-2fdc3baafc2f",
+            "formatString": "0"
+          },
+          {
+            "name": "id_orientacion",
+            "dataType": "int64",
+            "sourceColumn": "id_orientacion",
+            "summarizeBy": "none",
+            "lineageTag": "955fb16c-4b0b-5a4c-bcfd-8191b5771cd9",
+            "formatString": "0"
+          },
+          {
+            "name": "id_acristalamiento",
+            "dataType": "int64",
+            "sourceColumn": "id_acristalamiento",
+            "summarizeBy": "none",
+            "lineageTag": "e0942e54-6519-52d1-b499-439d1e448741",
+            "formatString": "0"
+          },
+          {
+            "name": "id_clase",
+            "dataType": "int64",
+            "sourceColumn": "id_clase",
+            "summarizeBy": "none",
+            "lineageTag": "e3243965-e8ec-5b78-a293-430443f780a3",
+            "formatString": "0"
+          },
+          {
+            "name": "id_conjunto",
+            "dataType": "int64",
+            "sourceColumn": "id_conjunto",
+            "summarizeBy": "none",
+            "lineageTag": "1ad6684b-f4fd-5684-8031-4d3a5015abba",
+            "formatString": "0"
+          },
+          {
+            "name": "id_cluster",
+            "dataType": "int64",
+            "sourceColumn": "id_cluster",
+            "summarizeBy": "none",
+            "lineageTag": "f1b3a438-3f0a-55e3-aa90-86e3c7dbf6e0",
+            "formatString": "0"
+          },
+          {
+            "name": "Y1",
+            "dataType": "double",
+            "sourceColumn": "Y1",
+            "summarizeBy": "none",
+            "lineageTag": "8ca9b98a-4f09-5b4b-ab25-3162a3bd5133",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Y2",
+            "dataType": "double",
+            "sourceColumn": "Y2",
+            "summarizeBy": "none",
+            "lineageTag": "9ebddc7c-e7ca-526b-a32a-5bd6f29d2e68",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Y1_predicha",
+            "dataType": "double",
+            "sourceColumn": "Y1_predicha",
+            "summarizeBy": "none",
+            "lineageTag": "b37fc8d5-638f-5602-8274-20d215c180d2",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Y2_predicha",
+            "dataType": "double",
+            "sourceColumn": "Y2_predicha",
+            "summarizeBy": "none",
+            "lineageTag": "a9c0408a-5dc9-506c-ab43-993bbfae388f",
+            "formatString": "0.00"
+          },
+          {
+            "name": "clase_predicha",
+            "dataType": "string",
+            "sourceColumn": "clase_predicha",
+            "summarizeBy": "none",
+            "lineageTag": "4ed7a680-e03f-50ec-8775-5efc7ca9b212"
+          },
+          {
+            "name": "error_absoluto_Y1",
+            "dataType": "double",
+            "sourceColumn": "error_absoluto_Y1",
+            "summarizeBy": "none",
+            "lineageTag": "db7b5194-b7e3-5313-b5c3-254145e37f6d",
+            "formatString": "0.00"
+          },
+          {
+            "name": "error_absoluto_Y2",
+            "dataType": "double",
+            "sourceColumn": "error_absoluto_Y2",
+            "summarizeBy": "none",
+            "lineageTag": "a35eed73-5a17-5b8e-81a9-1805906add47",
+            "formatString": "0.00"
+          },
+          {
+            "name": "PC1",
+            "dataType": "double",
+            "sourceColumn": "PC1",
+            "summarizeBy": "none",
+            "lineageTag": "8e270d6a-7215-5729-95a5-89721dbf9c0c",
+            "formatString": "0.00"
+          },
+          {
+            "name": "PC2",
+            "dataType": "double",
+            "sourceColumn": "PC2",
+            "summarizeBy": "none",
+            "lineageTag": "541e9a49-de13-500b-8cc9-6f71359c326e",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "HECHOS",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"HECHOS\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ],
+        "description": "Una simulación por fila. Predicciones solo en 192 casos de prueba. Cargas no aditivas: usar medias.",
+        "measures": [
+          {
+            "name": "Simulaciones",
+            "expression": "COUNTROWS(HECHOS)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Calefaccion media",
+            "expression": "AVERAGE(HECHOS[Y1])",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Refrigeracion media",
+            "expression": "AVERAGE(HECHOS[Y2])",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Geometrias",
+            "expression": "DISTINCTCOUNT(HECHOS[id_geometria])",
+            "formatString": "0"
+          },
+          {
+            "name": "MAE calefaccion",
+            "expression": "AVERAGE(HECHOS[error_absoluto_Y1])",
+            "formatString": "0.000"
+          },
+          {
+            "name": "MAE refrigeracion",
+            "expression": "AVERAGE(HECHOS[error_absoluto_Y2])",
+            "formatString": "0.000"
+          },
+          {
+            "name": "Casos de prueba",
+            "expression": "CALCULATE(COUNTROWS(HECHOS), HECHOS[id_conjunto]=2)",
+            "formatString": "0"
+          },
+          {
+            "name": "Accuracy prueba",
+            "expression": "DIVIDE(COUNTROWS(FILTER(HECHOS, HECHOS[id_conjunto]=2 && HECHOS[clase_predicha]=RELATED(DimClase[clase]))), [Casos de prueba])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "F1 macro global",
+            "expression": "CALCULATE(MAX(MetricasClasificacion[F1_macro]), MetricasClasificacion[modelo]=\"Logistica\")",
+            "formatString": "0.000"
+          },
+          {
+            "name": "Silhouette elegido",
+            "expression": "MAX(EvaluacionClusters[silhouette])",
+            "formatString": "0.000"
+          },
+          {
+            "name": "Varianza dos PC",
+            "expression": "CALCULATE(SUM(VarianzaPCA[varianza_explicada]), VarianzaPCA[componente] IN {\"PC1\", \"PC2\"})",
+            "formatString": "0.0%"
+          }
+        ]
+      },
+      {
+        "name": "MetricasRegresion",
+        "lineageTag": "e8bd12e5-775d-5b4d-a536-7dffbc029cbb",
+        "columns": [
+          {
+            "name": "modelo",
+            "dataType": "string",
+            "sourceColumn": "modelo",
+            "summarizeBy": "none",
+            "lineageTag": "929f88d3-c3b4-55d9-8f68-aaf8d2b272a2"
+          },
+          {
+            "name": "objetivo",
+            "dataType": "string",
+            "sourceColumn": "objetivo",
+            "summarizeBy": "none",
+            "lineageTag": "86cfa5af-b068-5128-a231-db816340b3f9"
+          },
+          {
+            "name": "MAE",
+            "dataType": "double",
+            "sourceColumn": "MAE",
+            "summarizeBy": "none",
+            "lineageTag": "8fc24c16-c06b-5fde-9888-a5c3ce38f718",
+            "formatString": "0.00"
+          },
+          {
+            "name": "RMSE",
+            "dataType": "double",
+            "sourceColumn": "RMSE",
+            "summarizeBy": "none",
+            "lineageTag": "fae01f65-2c81-520e-853e-cf7b890ac8d9",
+            "formatString": "0.00"
+          },
+          {
+            "name": "R2",
+            "dataType": "double",
+            "sourceColumn": "R2",
+            "summarizeBy": "none",
+            "lineageTag": "d470996b-ef2b-5fd1-b691-4686c782d5c1",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "MetricasRegresion",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"MetricasRegresion\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "MetricasClasificacion",
+        "lineageTag": "fa7a3b3a-58ce-5e48-b863-67725d5d9724",
+        "columns": [
+          {
+            "name": "modelo",
+            "dataType": "string",
+            "sourceColumn": "modelo",
+            "summarizeBy": "none",
+            "lineageTag": "815f5f38-0f29-54c1-bc2a-4e4bec42a282"
+          },
+          {
+            "name": "accuracy",
+            "dataType": "double",
+            "sourceColumn": "accuracy",
+            "summarizeBy": "none",
+            "lineageTag": "d6c85747-5fcd-5421-9731-d619088dbd10",
+            "formatString": "0.00"
+          },
+          {
+            "name": "precision_macro",
+            "dataType": "double",
+            "sourceColumn": "precision_macro",
+            "summarizeBy": "none",
+            "lineageTag": "6ff33954-734b-5bf5-8875-e19331b5d0d6",
+            "formatString": "0.00"
+          },
+          {
+            "name": "recall_macro",
+            "dataType": "double",
+            "sourceColumn": "recall_macro",
+            "summarizeBy": "none",
+            "lineageTag": "1fb58465-8e9e-5fca-94ec-73d32b53e525",
+            "formatString": "0.00"
+          },
+          {
+            "name": "F1_macro",
+            "dataType": "double",
+            "sourceColumn": "F1_macro",
+            "summarizeBy": "none",
+            "lineageTag": "2645c887-02cc-57e3-8ae2-b146cc89aadd",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "MetricasClasificacion",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"MetricasClasificacion\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "EvaluacionClusters",
+        "lineageTag": "a2c20b5e-176e-551a-9265-94cee6f809f1",
+        "columns": [
+          {
+            "name": "k",
+            "dataType": "int64",
+            "sourceColumn": "k",
+            "summarizeBy": "none",
+            "lineageTag": "9fb5a4ec-2a7a-5b92-8021-942b29f21cf2",
+            "formatString": "0"
+          },
+          {
+            "name": "inercia",
+            "dataType": "double",
+            "sourceColumn": "inercia",
+            "summarizeBy": "none",
+            "lineageTag": "5f85ac9e-087b-5f2b-9aa0-bc0a05e9f019",
+            "formatString": "0.00"
+          },
+          {
+            "name": "silhouette",
+            "dataType": "double",
+            "sourceColumn": "silhouette",
+            "summarizeBy": "none",
+            "lineageTag": "073491c7-e39e-564c-8c1d-8e5ac0b040c0",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "EvaluacionClusters",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"EvaluacionClusters\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "VarianzaPCA",
+        "lineageTag": "ebdd81a6-d8be-5f0a-b91a-90b7c48402a9",
+        "columns": [
+          {
+            "name": "componente",
+            "dataType": "string",
+            "sourceColumn": "componente",
+            "summarizeBy": "none",
+            "lineageTag": "60430ce4-04ee-5178-8309-52fee527e82c"
+          },
+          {
+            "name": "varianza_explicada",
+            "dataType": "double",
+            "sourceColumn": "varianza_explicada",
+            "summarizeBy": "none",
+            "lineageTag": "7940b7c4-a210-5c10-8b60-2858e2ad7d64",
+            "formatString": "0.00"
+          },
+          {
+            "name": "varianza_acumulada",
+            "dataType": "double",
+            "sourceColumn": "varianza_acumulada",
+            "summarizeBy": "none",
+            "lineageTag": "51c1eaae-d35c-552b-8485-f6c351564366",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "VarianzaPCA",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"VarianzaPCA\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "PerfilesClusters",
+        "lineageTag": "0c515646-a79c-5f38-96a2-2357207d9b43",
+        "columns": [
+          {
+            "name": "id_cluster",
+            "dataType": "int64",
+            "sourceColumn": "id_cluster",
+            "summarizeBy": "none",
+            "lineageTag": "5269e7e1-05ed-5d4f-8740-dd380d39bd08",
+            "formatString": "0"
+          },
+          {
+            "name": "registros",
+            "dataType": "int64",
+            "sourceColumn": "registros",
+            "summarizeBy": "none",
+            "lineageTag": "be9ec20a-43b3-5e99-80e5-8ba16c894747",
+            "formatString": "0"
+          },
+          {
+            "name": "compacidad_media",
+            "dataType": "double",
+            "sourceColumn": "compacidad_media",
+            "summarizeBy": "none",
+            "lineageTag": "c9e12d01-2a55-50c3-a467-b5a9dd101d1d",
+            "formatString": "0.00"
+          },
+          {
+            "name": "superficie_media",
+            "dataType": "double",
+            "sourceColumn": "superficie_media",
+            "summarizeBy": "none",
+            "lineageTag": "bbc652cb-c05c-548f-b7ec-90f9d9f33d1c",
+            "formatString": "0.00"
+          },
+          {
+            "name": "pared_media",
+            "dataType": "double",
+            "sourceColumn": "pared_media",
+            "summarizeBy": "none",
+            "lineageTag": "debcc74f-2b09-5f85-8d2f-61c68bfe952b",
+            "formatString": "0.00"
+          },
+          {
+            "name": "techo_medio",
+            "dataType": "double",
+            "sourceColumn": "techo_medio",
+            "summarizeBy": "none",
+            "lineageTag": "4d3e32b0-e83c-5537-a319-af4681e3fcc7",
+            "formatString": "0.00"
+          },
+          {
+            "name": "altura_media",
+            "dataType": "double",
+            "sourceColumn": "altura_media",
+            "summarizeBy": "none",
+            "lineageTag": "4b8b6926-f16e-5867-b29d-aae611d8b382",
+            "formatString": "0.00"
+          },
+          {
+            "name": "cristal_medio",
+            "dataType": "double",
+            "sourceColumn": "cristal_medio",
+            "summarizeBy": "none",
+            "lineageTag": "252dc91f-72c7-5abd-a305-0c4fedb4f0fc",
+            "formatString": "0.00"
+          },
+          {
+            "name": "calefaccion_media",
+            "dataType": "double",
+            "sourceColumn": "calefaccion_media",
+            "summarizeBy": "none",
+            "lineageTag": "f606bafd-1959-55ff-9fd8-4ee373879a3a",
+            "formatString": "0.00"
+          },
+          {
+            "name": "refrigeracion_media",
+            "dataType": "double",
+            "sourceColumn": "refrigeracion_media",
+            "summarizeBy": "none",
+            "lineageTag": "076964c2-2cf0-5fca-bf30-4387e71bc5ac",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "PerfilesClusters",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"PerfilesClusters\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ImportanciaVariables",
+        "lineageTag": "33160bae-03e6-50b2-9b9f-73f6565ec99e",
+        "columns": [
+          {
+            "name": "tarea",
+            "dataType": "string",
+            "sourceColumn": "tarea",
+            "summarizeBy": "none",
+            "lineageTag": "178e344f-5924-5efe-9a6e-791ef7c03890"
+          },
+          {
+            "name": "variable",
+            "dataType": "string",
+            "sourceColumn": "variable",
+            "summarizeBy": "none",
+            "lineageTag": "a84ea6c9-9384-5b13-ade9-0ce44bea7e65"
+          },
+          {
+            "name": "importancia_media",
+            "dataType": "double",
+            "sourceColumn": "importancia_media",
+            "summarizeBy": "none",
+            "lineageTag": "59c3db3e-cfaa-5fda-9b1e-bc8a0e728fb4",
+            "formatString": "0.00"
+          },
+          {
+            "name": "desviacion",
+            "dataType": "double",
+            "sourceColumn": "desviacion",
+            "summarizeBy": "none",
+            "lineageTag": "977bd862-5431-5073-91b3-95d9a73cdefc",
+            "formatString": "0.00"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ImportanciaVariables",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"ImportanciaVariables\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "MatrizConfusion",
+        "lineageTag": "8f4b701c-c34e-5079-b05d-261066d3986e",
+        "columns": [
+          {
+            "name": "clase_real",
+            "dataType": "string",
+            "sourceColumn": "clase_real",
+            "summarizeBy": "none",
+            "lineageTag": "794f5e4c-0241-50fe-ab85-02d8c5755e86"
+          },
+          {
+            "name": "clase_predicha",
+            "dataType": "string",
+            "sourceColumn": "clase_predicha",
+            "summarizeBy": "none",
+            "lineageTag": "a50a49e8-0f78-590e-ae81-f6cb5aecba77"
+          },
+          {
+            "name": "registros",
+            "dataType": "int64",
+            "sourceColumn": "registros",
+            "summarizeBy": "none",
+            "lineageTag": "d669a59b-3214-58a9-9dd1-ef016fabd2d4",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "MatrizConfusion",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"MatrizConfusion\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "DimGeometria_DimAltura",
+        "fromTable": "DimGeometria",
+        "fromColumn": "id_altura",
+        "toTable": "DimAltura",
+        "toColumn": "id_altura",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "DimAcristalamiento_DimPorcentajeCristal",
+        "fromTable": "DimAcristalamiento",
+        "fromColumn": "id_porcentaje",
+        "toTable": "DimPorcentajeCristal",
+        "toColumn": "id_porcentaje",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "DimAcristalamiento_DimDistribucion",
+        "fromTable": "DimAcristalamiento",
+        "fromColumn": "id_distribucion",
+        "toTable": "DimDistribucion",
+        "toColumn": "id_distribucion",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "HECHOS_DimGeometria",
+        "fromTable": "HECHOS",
+        "fromColumn": "id_geometria",
+        "toTable": "DimGeometria",
+        "toColumn": "id_geometria",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "HECHOS_DimOrientacion",
+        "fromTable": "HECHOS",
+        "fromColumn": "id_orientacion",
+        "toTable": "DimOrientacion",
+        "toColumn": "id_orientacion",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "HECHOS_DimAcristalamiento",
+        "fromTable": "HECHOS",
+        "fromColumn": "id_acristalamiento",
+        "toTable": "DimAcristalamiento",
+        "toColumn": "id_acristalamiento",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "HECHOS_DimClase",
+        "fromTable": "HECHOS",
+        "fromColumn": "id_clase",
+        "toTable": "DimClase",
+        "toColumn": "id_clase",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "HECHOS_DimConjunto",
+        "fromTable": "HECHOS",
+        "fromColumn": "id_conjunto",
+        "toTable": "DimConjunto",
+        "toColumn": "id_conjunto",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      },
+      {
+        "name": "HECHOS_DimCluster",
+        "fromTable": "HECHOS",
+        "fromColumn": "id_cluster",
+        "toTable": "DimCluster",
+        "toColumn": "id_cluster",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DimAltura\", \"DimGeometria\", \"DimOrientacion\", \"DimPorcentajeCristal\", \"DimDistribucion\", \"DimAcristalamiento\", \"DimClase\", \"DimConjunto\", \"DimCluster\", \"HECHOS\", \"MetricasRegresion\", \"MetricasClasificacion\", \"EvaluacionClusters\", \"VarianzaPCA\", \"PerfilesClusters\", \"ImportanciaVariables\", \"MatrizConfusion\"]"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ]
+  }
+}

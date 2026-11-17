@@ -1,0 +1,3 @@
+id_clase,clase,regla
+1,baja,Y1 < 25
+2,alta,Y1 >= 25

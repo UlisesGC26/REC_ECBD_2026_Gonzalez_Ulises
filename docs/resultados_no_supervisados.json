@@ -1,0 +1,27 @@
+{
+  "variables": [
+    "X1",
+    "X2",
+    "X3",
+    "X4",
+    "X5",
+    "X7"
+  ],
+  "excluidas": {
+    "X6": "Código nominal de orientación",
+    "X8": "Código nominal de distribución",
+    "Y1_Y2": "Respuestas; solo se usan para describir grupos después"
+  },
+  "k_elegido": 2,
+  "criterio": "Mayor silhouette entre k=2..8; menor k ante empate",
+  "silhouette": 0.5244404334792286,
+  "varianza_PC1_PC2": 0.8237984333178338,
+  "componentes_95_por_ciento": 3,
+  "ARI_otras_semillas": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "n_registros": 768,
+  "alcance": "Exploración de las 768 simulaciones, sin evaluación predictiva. La geometría domina y sus variables están correlacionadas."
+}

@@ -1,0 +1,30 @@
+{
+  "fecha": "2026-11-17",
+  "tipo": "Validación funcional de dashboards",
+  "paginas_verificadas": [
+    "Vista general",
+    "Pregunta principal",
+    "Simulador",
+    "Explorar variables",
+    "Evaluación",
+    "Datos y Data Mart"
+  ],
+  "combinaciones_validas_comprobadas": 768,
+  "predicciones_prueba_reproducidas": 192,
+  "consultas_sqlite_verificadas": 3,
+  "filtros_vacios_y_reducidos": "correctos",
+  "cambios_de_acristalamiento_y_distribucion": "correctos",
+  "dataset_original_y_pdf": "sin modificaciones",
+  "prueba_funcional": "Streamlit AppTest y funciones de consulta y predicción",
+  "verificacion_visual_navegador": "El panel Streamlit no fue la entrega principal; su evidencia histórica se conserva.",
+  "power_bi": {
+    "archivo": "dashboard/Energia.pbip",
+    "conexion": "SQL Server localhost; REC_ECBD_Energia; autenticación Windows",
+    "tablas_importadas": 17,
+    "paginas": 4,
+    "modelo": "HECHOS con 768 filas y 9 relaciones 1:N de copo de nieve",
+    "interaccion_comprobada": "Filtro de altura 3.50: 768 a 384 simulaciones; Y1=13.34 y Y2=16.07, consistente con data/processed/resumen_altura.csv",
+    "evidencias": ["docs/evidencia_powerbi/01_descriptivo.png", "docs/evidencia_powerbi/02_filtro_altura.png"]
+  },
+  "pendiente": "Durante la revisión, el estudiante debe abrir y explicar personalmente Power BI, SQL Server y los notebooks."
+}

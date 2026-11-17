@@ -1,0 +1,36 @@
+{
+  "fecha_utc": "2026-11-17T01:23:36.066214+00:00",
+  "kernel": "Jupyter python3",
+  "resultados": [
+    {
+      "notebook": "01_preparacion_datos.ipynb",
+      "celdas_codigo": 5,
+      "errores": 0
+    },
+    {
+      "notebook": "02_analisis_supervisado.ipynb",
+      "celdas_codigo": 5,
+      "errores": 0
+    },
+    {
+      "notebook": "Gonzalez_Coronado_Ulises_U2_AE1_Exploracion.ipynb",
+      "celdas_codigo": 22,
+      "errores": 0
+    },
+    {
+      "notebook": "Gonzalez_Coronado_Ulises_U2_AE2_ETL.ipynb",
+      "celdas_codigo": 5,
+      "errores": 0
+    },
+    {
+      "notebook": "Gonzalez_Coronado_Ulises_U3_AnalisisSupervisado.ipynb",
+      "celdas_codigo": 6,
+      "errores": 0
+    },
+    {
+      "notebook": "Gonzalez_Coronado_Ulises_U4_AnalisisNoSupervisado.ipynb",
+      "celdas_codigo": 5,
+      "errores": 0
+    }
+  ]
+}

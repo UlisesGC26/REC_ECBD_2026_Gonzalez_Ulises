@@ -1,0 +1,18 @@
+{
+  "filas_originales": 768,
+  "filas_procesadas": 768,
+  "columnas_originales": 10,
+  "entradas": 8,
+  "objetivos": 2,
+  "faltantes": 0,
+  "duplicados_completos": 0,
+  "duplicados_entradas": 0,
+  "filas_eliminadas": 0,
+  "valores_imputados": 0,
+  "geometrias": 12,
+  "sha256_original": "0089fcffc1415e41e2ff63730cca5280efe54fc43d722dfde1b0aaa808e35dc4",
+  "compacidades_con_ambas_alturas": 0,
+  "umbral_clasificacion": 25.0,
+  "regla_clasificacion": "alta si Y1 >= 25; baja si Y1 < 25. Regla didáctica, no normativa.",
+  "unidades_cargas": "Escala original. La ficha UCI consultada no declara unidades."
+}

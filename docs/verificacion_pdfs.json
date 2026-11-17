@@ -1,0 +1,29 @@
+{
+  "informes": [
+    {
+      "archivo": "Gonzalez_Coronado_Ulises_U2_AE1_Diagnostico.pdf",
+      "paginas": 3,
+      "texto_dentro_pagina": true
+    },
+    {
+      "archivo": "Gonzalez_Coronado_Ulises_U2_AE2_PreparacionDatos.pdf",
+      "paginas": 2,
+      "texto_dentro_pagina": true
+    },
+    {
+      "archivo": "Gonzalez_Coronado_Ulises_U3_Informe.pdf",
+      "paginas": 3,
+      "texto_dentro_pagina": true
+    },
+    {
+      "archivo": "Gonzalez_Coronado_Ulises_U4_Informe.pdf",
+      "paginas": 3,
+      "texto_dentro_pagina": true
+    },
+    {
+      "archivo": "Informe_Final.pdf",
+      "paginas": 10,
+      "texto_dentro_pagina": true
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+EXTRACCIÓN DE CONOCIMIENTO
+
+EN BASES DE DATOS
+RECUSAMIENTO 2026
+
+Programa de trabajo continuo, revisiones de avance y cierre del Proyecto
+
+Integrador
+
+Periodo final: 9 al 20 de noviembre de 2026
+
+Forma de trabajo
+Los estudiantes desarrollarán el proyecto de manera continua y mantendrán sus evidencias actualizadas en GitHub y Classroom.
+El docente no realizará revisiones diarias. Se realizarán dos revisiones formales de avance: martes 10 y martes 17 de noviembre.
+La entrega y defensa final será el viernes 20 de noviembre de 2026.
+
+Recursamiento ECBD 2026
+
+1. Indicaciones generales
+• Continuar con el mismo proyecto y dataset asignados desde la Unidad I.
+• Trabajar de forma progresiva sobre el mismo repositorio GitHub.
+• Mantener el dataset original sin modificaciones en data/raw/.
+• Guardar los datos limpios y transformados en data/processed/.
+• Subir los avances al repositorio y, cuando corresponda, a Classroom.
+• No es necesario esperar una revisión del docente para continuar con la siguiente etapa.
+• Las revisiones formales serán únicamente los martes 10 y 17 de noviembre.
+• Las observaciones realizadas en las revisiones deberán ser atendidas antes de la entrega final.
+• La entrega final y defensa será el 20 de noviembre de 2026.
+Responsabilidad del estudiante
+El hecho de que el docente no revise diariamente no elimina la obligación de mantener avances reales y verificables. El historial de
+actualización del repositorio y las evidencias cargadas en Classroom podrán utilizarse para comprobar la continuidad del trabajo.
+
+2. Calendario general
+
+Fecha Tipo Actividad Qué se espera
+9 nov. Trabajo continuo Desarrollo de Unidad II Actualizar GitHub/Classroom.
+No hay revisión docente.
+Martes 10 nov. REVISIÓN 1 Primer corte formal Avance mínimo 70% de UII-AE1
+
+y explicación oral.
+
+11 al 16 nov. Trabajo continuo Finalizar UII y desarrollar UIII;
+iniciar UIV y dashboard
+
+Subir avances progresivos. No
+hay revisión diaria.
+
+16 nov. 23:59 Corte de evidencia Dejar actualizado el avance para
+
+revisión
+
+GitHub y Classroom
+actualizados.
+
+Martes 17 nov. REVISIÓN 2 Revisión integradora
+
+UII y UIII completas; UIV y
+dashboard con avance
+suficiente.
+
+18 y 19 nov. Correcciones Atender observaciones y
+terminar proyecto
+
+Cerrar UIV, dashboard, informe
+y repositorio.
+
+Viernes 20 nov. CIERRE Entrega y defensa final Proyecto completo, dashboard,
+informe, repositorio y defensa.
+
+3. Evidencias de trabajo continuo
+Entre una revisión y otra, el estudiante deberá continuar desarrollando las actividades y mantener evidencias
+actualizadas. El docente no está obligado a revisar cada actualización en el momento en que se realiza.
+• Repositorio GitHub actualizado.
+• Notebooks de Jupyter en desarrollo y ejecutables.
+• Documentos PDF o informes parciales.
+• Dataset procesado cuando corresponda.
+• Scripts SQL y modelo dimensional.
+• Modelos de análisis supervisado y no supervisado.
+• Dashboard en desarrollo.
+• README.md actualizado con el estado del proyecto.
+
+4. Revisión formal 1 - Martes 10 de noviembre
+Objetivo: comprobar que el estudiante comprende su dataset y presenta un avance real de la Unidad II.
+
+Recursamiento ECBD 2026
+
+El estudiante deberá mostrar
+• Repositorio GitHub correctamente creado y organizado.
+• Dataset original dentro de data/raw/.
+• Notebook de la Actividad de Evaluación 1 de Unidad II.
+• Carga correcta del dataset con Pandas.
+• Uso e interpretación de head(), shape, columns, info(), dtypes y describe().
+• Diccionario de datos con avance significativo.
+• Análisis de valores faltantes.
+• Revisión de registros duplicados.
+• Identificación inicial de inconsistencias y posibles valores atípicos.
+• Análisis estadístico preliminar.
+• Al menos una visualización interpretada.
+• Propuesta preliminar de variables para regresión, clasificación y clustering.
+• Avance del informe PDF.
+Criterios de revisión - Martes 10
+
+Criterio Evidencia esperada Valor de seguimiento
+Organización del proyecto GitHub, estructura y data/raw/ 1
+Carga del dataset Carga correcta con Pandas 1
+Exploración inicial head, shape, columns, info, dtypes, describe 2
+Comprensión de variables Explica y clasifica las variables 1.5
+Calidad de datos Nulos, duplicados, inconsistencias 1.5
+Estadística y gráfica Análisis preliminar y una gráfica
+
+interpretada 1
+
+Preparación posterior Variables para regresión, clasificación y
+
+clustering 1
+Explicación oral Comprende y explica su trabajo 1
+Estatus de revisión: Satisfactorio / Requiere correcciones / Avance insuficiente.
+
+5. Trabajo continuo del 11 al 16 de noviembre
+Después de la primera revisión, el estudiante continuará trabajando de manera autónoma. No habrá revisión diaria.
+Deberá avanzar en las siguientes etapas:
+• Concluir la exploración y diagnóstico de la Unidad II.
+• Realizar limpieza, transformación y preparación de datos.
+• Generar el dataset procesado.
+• Documentar el proceso ETL.
+• Diseñar e implementar el Data Mart cuando corresponda.
+• Desarrollar la Unidad III: regresión y clasificación.
+• Evaluar e interpretar los modelos supervisados.
+• Iniciar la Unidad IV: clustering y PCA.
+• Comenzar el dashboard y actualizar el README.
+Corte de evidencia
+El lunes 16 de noviembre a las 23:59 h el repositorio GitHub y las evidencias en Classroom deberán quedar actualizados. El
+docente realizará la revisión formal al día siguiente, martes 17.
+
+6. Revisión formal 2 - Martes 17 de noviembre
+Objetivo: realizar una revisión integradora antes del cierre y establecer las correcciones finales que deberán resolverse
+el 18 y 19 de noviembre.
+
+Recursamiento ECBD 2026
+
+El estudiante deberá presentar
+• Unidad II completa: diagnóstico, limpieza, transformación, ETL, dataset procesado y Data Mart.
+• Unidad III completa: modelo de regresión, modelo de clasificación, métricas e interpretación.
+• Repositorio GitHub organizado y actualizado.
+• Dataset original y dataset procesado claramente separados.
+• Scripts SQL y diagrama del Data Mart cuando corresponda.
+• Unidad IV con avance suficiente: selección de variables, estandarización, K-Means y PCA iniciados.
+• Dashboard con avance mínimo aproximado del 50-70%.
+• README.md actualizado.
+• Borrador del informe final.
+• Capacidad para ejecutar y explicar las principales partes del proyecto.
+Criterios de revisión - Martes 17
+
+Criterio Evidencia esperada Valor de seguimiento
+Repositorio y organización Estructura clara y evidencias actualizadas 1
+Unidad II completa Preparación, ETL, datos procesados y Data
+
+Mart 2
+Unidad III completa Regresión, clasificación y evaluación 2
+Interpretación de resultados Comprende métricas y decisiones 1
+Unidad IV en avance K-Means y PCA en desarrollo 1.5
+Dashboard Avance suficiente y visualizaciones
+
+pertinentes 1
+Informe/README Documentación actualizada 0.5
+Explicación oral Puede ejecutar y defender el trabajo 1
+Estatus de revisión: Satisfactorio / Requiere correcciones / Avance insuficiente.
+
+7. Actividades técnicas que deben quedar terminadas
+Unidad II - Preparación de los datos
+• Exploración y diagnóstico del dataset.
+• Diccionario de datos.
+• Análisis de valores faltantes, duplicados, inconsistencias y atípicos.
+• Limpieza y transformación justificada.
+• Dataset procesado en data/processed/.
+• Proceso ETL documentado.
+• Data Mart con tabla de hechos, dimensiones, llaves y medidas.
+Unidad III - Análisis supervisado
+• Definición de X e y.
+• Separación entrenamiento/prueba.
+• Modelo de regresión y evaluación mediante métricas adecuadas.
+• Modelo de clasificación.
+• Accuracy, Precision, Recall, F1-score y matriz de confusión.
+• Interpretación de resultados y al menos una mejora u optimización justificada.
+Unidad IV - Análisis no supervisado
+• Selección y estandarización de variables.
+• K-Means.
+• Determinación razonable del número de clusters.
+• Silhouette Score y/o método del codo.
+• Caracterización e interpretación de los clusters.
+
+Recursamiento ECBD 2026
+
+• PCA y análisis de varianza explicada.
+• Visualización e interpretación de resultados.
+Unidad V - Presentación y visualización
+• Dashboard final.
+• Indicadores generales relevantes.
+• Visualizaciones descriptivas.
+• Resultados de regresión y clasificación.
+• Resultados de clustering y PCA.
+• Storytelling: problema -> datos -> análisis -> conocimiento -> recomendaciones.
+• Informe final y conclusiones.
+• Defensa del proyecto.
+
+8. Cierre final - Viernes 20 de noviembre
+El estudiante deberá entregar y defender el Proyecto Integrador completo.
+• Repositorio GitHub completo.
+• Dataset original y procesado.
+• Notebooks ejecutables.
+• Scripts SQL y Data Mart.
+• Modelos supervisados y no supervisados.
+• Dashboard terminado.
+• Informe final en PDF.
+• README.md final.
+• Conclusiones y recomendaciones.
+• Defensa oral y ejecución del proyecto.
+Condición de acreditación
+La entrega de archivos no sustituye la demostración de dominio. El estudiante deberá ser capaz de ejecutar, interpretar y explicar
+el trabajo realizado, así como justificar las decisiones tomadas durante el proyecto.
+
+9. Estructura recomendada del repositorio
+REC_ECBD_2026_Apellido_Nombre/
+|
+|-- README.md
+|-- data/
+| |-- raw/
+| `-- processed/
+|-- notebooks/
+|-- sql/
+|-- modelos/
+|-- dashboard/
+`-- docs/

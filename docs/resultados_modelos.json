@@ -1,0 +1,57 @@
+{
+  "semilla": 42,
+  "entrenamiento_filas": 576,
+  "prueba_filas": 192,
+  "geometrias_entrenamiento": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    12
+  ],
+  "geometrias_prueba": [
+    1,
+    10,
+    11
+  ],
+  "geometrias_compartidas": 0,
+  "validacion": "GroupKFold de 3 particiones solo en entrenamiento",
+  "regresion": {
+    "modelo": "RandomForest",
+    "parametros": {
+      "modelo__max_depth": 8,
+      "modelo__min_samples_leaf": 1
+    },
+    "MAE_cv": 3.589574190959907
+  },
+  "clasificacion": {
+    "modelo": "Logistica",
+    "parametros": {
+      "modelo__C": 1.0
+    },
+    "F1_macro_cv": 0.8847255141372788,
+    "umbral_Y1": 25.0,
+    "matriz_confusion_baja_alta": [
+      [
+        72,
+        0
+      ],
+      [
+        40,
+        80
+      ]
+    ]
+  },
+  "versiones": {
+    "python": "3.13.2",
+    "sklearn": "1.8.0",
+    "pandas": "2.3.3",
+    "numpy": "2.5.4",
+    "joblib": "1.6.0"
+  },
+  "limite": "Una sola separación y 12 geometrías simuladas. No prueba desempeño en edificios reales."
+}
