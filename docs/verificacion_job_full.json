@@ -1,0 +1,9 @@
+{
+  "fecha": "2026-11-20",
+  "job": "ECBD_Carga_FULL_Energia",
+  "estado_creado": true,
+  "habilitado": true,
+  "tipo_carga": "FULL",
+  "descripcion": "Elimina y reconstruye las tablas del Data Mart mediante el ETL Python y sqlcmd.",
+  "nota": "SQL Server Agent estaba detenido al crear el job; debe iniciarse para programar o ejecutar sp_start_job."
+}
