@@ -1,8 +1,10 @@
 {
   "semilla": 42,
-  "entrenamiento_filas": 576,
-  "prueba_filas": 192,
+  "entrenamiento_filas": 537,
+  "prueba_filas": 231,
+  "estrategia_particion": "Corte cronológico 70/30 con fecha simulada; prueba representa horizonte futuro simulado",
   "geometrias_entrenamiento": [
+    1,
     2,
     3,
     4,
@@ -11,38 +13,48 @@
     7,
     8,
     9,
+    10,
+    11,
     12
   ],
   "geometrias_prueba": [
     1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
     10,
-    11
+    11,
+    12
   ],
-  "geometrias_compartidas": 0,
+  "geometrias_compartidas": 12,
   "validacion": "GroupKFold de 3 particiones solo en entrenamiento",
   "regresion": {
-    "modelo": "RandomForest",
+    "modelo": "Ridge",
     "parametros": {
-      "modelo__max_depth": 8,
-      "modelo__min_samples_leaf": 1
+      "modelo__alpha": 10.0
     },
-    "MAE_cv": 3.589574190959907
+    "MAE_cv": 3.9177439424372142
   },
   "clasificacion": {
     "modelo": "Logistica",
     "parametros": {
-      "modelo__C": 1.0
+      "modelo__C": 0.1
     },
-    "F1_macro_cv": 0.8847255141372788,
+    "F1_macro_cv": 0.846567245825927,
     "umbral_Y1": 25.0,
     "matriz_confusion_baja_alta": [
       [
-        72,
+        120,
         0
       ],
       [
-        40,
-        80
+        0,
+        111
       ]
     ]
   },
@@ -53,5 +65,5 @@
     "numpy": "2.5.4",
     "joblib": "1.6.0"
   },
-  "limite": "Una sola separación y 12 geometrías simuladas. No prueba desempeño en edificios reales."
+  "limite": "La fecha es sintética y solo permite demostrar un flujo temporal. No prueba desempeño futuro ni causalidad en edificios reales."
 }

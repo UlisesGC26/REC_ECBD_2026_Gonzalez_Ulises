@@ -278,6 +278,89 @@
         ]
       },
       {
+        "name": "DimTime",
+        "lineageTag": "8586b4cb-0e7c-54e5-946c-582b7b7e0a61",
+        "columns": [
+          {
+            "name": "id_tiempo",
+            "dataType": "int64",
+            "sourceColumn": "id_tiempo",
+            "summarizeBy": "none",
+            "lineageTag": "3dce1f9e-891a-599e-89a0-1eae81228126",
+            "formatString": "0"
+          },
+          {
+            "name": "fecha",
+            "dataType": "string",
+            "sourceColumn": "fecha",
+            "summarizeBy": "none",
+            "lineageTag": "fbf98633-965b-5387-a3e4-16e5ae3441b0"
+          },
+          {
+            "name": "anio",
+            "dataType": "int64",
+            "sourceColumn": "anio",
+            "summarizeBy": "none",
+            "lineageTag": "14547505-7edf-5b4c-8d43-5a4fde5a785e",
+            "formatString": "0"
+          },
+          {
+            "name": "trimestre",
+            "dataType": "int64",
+            "sourceColumn": "trimestre",
+            "summarizeBy": "none",
+            "lineageTag": "252a9af3-fac3-5c6f-93f4-0975909471ad",
+            "formatString": "0"
+          },
+          {
+            "name": "mes_numero",
+            "dataType": "int64",
+            "sourceColumn": "mes_numero",
+            "summarizeBy": "none",
+            "lineageTag": "4f271590-a571-556a-8eb7-1788bfc2f433",
+            "formatString": "0"
+          },
+          {
+            "name": "mes_nombre",
+            "dataType": "string",
+            "sourceColumn": "mes_nombre",
+            "summarizeBy": "none",
+            "lineageTag": "c112b0dc-6bc2-5c4b-84a6-7fc7024aa454"
+          },
+          {
+            "name": "dia",
+            "dataType": "int64",
+            "sourceColumn": "dia",
+            "summarizeBy": "none",
+            "lineageTag": "2b2e3241-baf3-543d-8a78-f31f53e76b5c",
+            "formatString": "0"
+          },
+          {
+            "name": "origen",
+            "dataType": "string",
+            "sourceColumn": "origen",
+            "summarizeBy": "none",
+            "lineageTag": "d9068fac-9a26-5f1f-a182-1fa0a65c5de6"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimTime",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Sql.Database(\"localhost\", \"REC_ECBD_Energia\", [CreateNavigationProperties=false]),",
+                "    Tabla = Origen{[Schema=\"dbo\",Item=\"DimTime\"]}[Data]",
+                "in",
+                "    Tabla"
+              ]
+            }
+          }
+        ]
+      },
+      {
         "name": "HECHOS",
         "lineageTag": "eaba90b8-8090-55ca-81ee-b69ae94d1ab6",
         "columns": [
@@ -335,6 +418,14 @@
             "sourceColumn": "id_cluster",
             "summarizeBy": "none",
             "lineageTag": "f1b3a438-3f0a-55e3-aa90-86e3c7dbf6e0",
+            "formatString": "0"
+          },
+          {
+            "name": "id_tiempo",
+            "dataType": "int64",
+            "sourceColumn": "id_tiempo",
+            "summarizeBy": "none",
+            "lineageTag": "0eafd34b-4458-53ca-90f7-0992909e29a7",
             "formatString": "0"
           },
           {
@@ -955,12 +1046,22 @@
         "crossFilteringBehavior": "oneDirection",
         "fromCardinality": "many",
         "toCardinality": "one"
+      },
+      {
+        "name": "HECHOS_DimTime",
+        "fromTable": "HECHOS",
+        "fromColumn": "id_tiempo",
+        "toTable": "DimTime",
+        "toColumn": "id_tiempo",
+        "crossFilteringBehavior": "oneDirection",
+        "fromCardinality": "many",
+        "toCardinality": "one"
       }
     ],
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"DimGeometria\", \"DimOrientacion\", \"DimAcristalamiento\", \"DimClase\", \"DimConjunto\", \"DimCluster\", \"HECHOS\", \"MetricasRegresion\", \"MetricasClasificacion\", \"EvaluacionClusters\", \"VarianzaPCA\", \"PerfilesClusters\", \"ImportanciaVariables\", \"MatrizConfusion\"]"
+        "value": "[\"DimGeometria\", \"DimOrientacion\", \"DimAcristalamiento\", \"DimClase\", \"DimConjunto\", \"DimCluster\", \"DimTime\", \"HECHOS\", \"MetricasRegresion\", \"MetricasClasificacion\", \"EvaluacionClusters\", \"VarianzaPCA\", \"PerfilesClusters\", \"ImportanciaVariables\", \"MatrizConfusion\"]"
       },
       {
         "name": "PBI_ProTooling",

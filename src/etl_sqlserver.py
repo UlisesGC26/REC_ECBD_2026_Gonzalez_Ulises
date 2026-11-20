@@ -17,6 +17,7 @@ RELACIONES = [
     ('HECHOS', 'id_clase', 'DimClase', 'id_clase'),
     ('HECHOS', 'id_conjunto', 'DimConjunto', 'id_conjunto'),
     ('HECHOS', 'id_cluster', 'DimCluster', 'id_cluster'),
+    ('HECHOS', 'id_tiempo', 'DimTime', 'id_tiempo'),
 ]
 TABLAS_OBSOLETAS = ['DimAltura', 'DimPorcentajeCristal', 'DimDistribucion']
 
@@ -45,6 +46,11 @@ def tablas_estrella():
     perfiles = pd.read_csv(ROOT / 'data/processed/perfiles_clusters.csv')
     tablas['DimCluster'] = pd.DataFrame({'id_cluster': perfiles.id_cluster,
         'cluster': [f'Cluster {i}' for i in perfiles.id_cluster]})
+    tiempo = pd.to_datetime(df['fecha_simulada'])
+    tablas['DimTime'] = pd.DataFrame({'id_tiempo': tiempo.dt.strftime('%Y%m%d').astype(int),
+        'fecha': tiempo.dt.strftime('%Y-%m-%d'), 'anio': tiempo.dt.year, 'trimestre': tiempo.dt.quarter,
+        'mes_numero': tiempo.dt.month, 'mes_nombre': tiempo.dt.month_name(), 'dia': tiempo.dt.day,
+        'origen': 'fecha simulada para práctica ETL'}).drop_duplicates().sort_values('id_tiempo')
     h = (df.merge(a[['X7', 'X8', 'id_acristalamiento']], on=['X7', 'X8'], validate='many_to_one')
           .merge(division[['id_registro', 'conjunto']], on='id_registro', validate='one_to_one')
           .merge(pred[['id_registro', 'Y1_predicha', 'Y2_predicha', 'clase_predicha']],
@@ -53,9 +59,10 @@ def tablas_estrella():
     h['id_conjunto'] = h.conjunto.map({'entrenamiento': 1, 'prueba': 2})
     h['error_absoluto_Y1'] = (h.Y1 - h.Y1_predicha).abs()
     h['error_absoluto_Y2'] = (h.Y2 - h.Y2_predicha).abs()
+    h['id_tiempo'] = pd.to_datetime(h['fecha_simulada']).dt.strftime('%Y%m%d').astype(int)
     h = h.rename(columns={'grupo_geometria': 'id_geometria', 'X6': 'id_orientacion'})
     tablas['HECHOS'] = h[['id_registro', 'id_geometria', 'id_orientacion', 'id_acristalamiento',
-        'id_clase', 'id_conjunto', 'id_cluster', 'Y1', 'Y2', 'Y1_predicha', 'Y2_predicha',
+        'id_clase', 'id_conjunto', 'id_cluster', 'id_tiempo', 'Y1', 'Y2', 'Y1_predicha', 'Y2_predicha',
         'clase_predicha', 'error_absoluto_Y1', 'error_absoluto_Y2', 'PC1', 'PC2']].sort_values('id_registro')
     tablas['MetricasRegresion'] = pd.read_csv(ROOT / 'docs/metricas_regresion.csv')
     tablas['MetricasClasificacion'] = pd.read_csv(ROOT / 'docs/metricas_clasificacion.csv')
@@ -126,7 +133,7 @@ BEGIN TRANSACTION;'''])
             carga.append(f"INSERT INTO dbo.[{nombre}] ({','.join('[' + c + ']' for c in tabla.columns)}) VALUES\n{valores};")
     cierre = '''
 IF (SELECT COUNT(*) FROM dbo.HECHOS) <> 768 THROW 51000, 'Conteo incorrecto en HECHOS', 1;
-IF (SELECT COUNT(Y1_predicha) FROM dbo.HECHOS) <> 192 THROW 51001, 'Prueba debe tener 192 predicciones', 1;
+IF (SELECT COUNT(Y1_predicha) FROM dbo.HECHOS) <> 231 THROW 51001, 'Prueba temporal debe tener 231 predicciones', 1;
 COMMIT;
 END TRY
 BEGIN CATCH
@@ -148,8 +155,8 @@ GO
 IF EXISTS (SELECT * FROM dbo.DatasetOriginal EXCEPT SELECT * FROM dbo.vDatasetReconstruido)
  OR EXISTS (SELECT * FROM dbo.vDatasetReconstruido EXCEPT SELECT * FROM dbo.DatasetOriginal)
  THROW 51002, 'La reconstruccion difiere del dataset original', 1;
-IF (SELECT COUNT(*) FROM sys.foreign_keys WHERE parent_object_id=OBJECT_ID(N'dbo.HECHOS') AND is_disabled=0 AND is_not_trusted=0) <> 6
- THROW 51003, 'HECHOS debe tener seis llaves foraneas activas', 1;
+IF (SELECT COUNT(*) FROM sys.foreign_keys WHERE parent_object_id=OBJECT_ID(N'dbo.HECHOS') AND is_disabled=0 AND is_not_trusted=0) <> 7
+ THROW 51003, 'HECHOS debe tener siete llaves foraneas activas', 1;
 SELECT 'HECHOS' tabla, COUNT(*) filas FROM dbo.HECHOS;
 SELECT 'DatasetOriginal' tabla, COUNT(*) filas FROM dbo.DatasetOriginal;
 SELECT 'Llaves foraneas activas' control, COUNT(*) valor FROM sys.foreign_keys WHERE is_disabled=0 AND is_not_trusted=0;

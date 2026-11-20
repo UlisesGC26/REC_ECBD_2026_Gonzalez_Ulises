@@ -51,6 +51,17 @@ CREATE TABLE dbo.[DimCluster] (
     [cluster] NVARCHAR(120) NOT NULL,
     CONSTRAINT [PK_DimCluster] PRIMARY KEY ([id_cluster])
 );
+CREATE TABLE dbo.[DimTime] (
+    [id_tiempo] INT NOT NULL,
+    [fecha] NVARCHAR(120) NOT NULL,
+    [anio] INT NOT NULL,
+    [trimestre] INT NOT NULL,
+    [mes_numero] INT NOT NULL,
+    [mes_nombre] NVARCHAR(120) NOT NULL,
+    [dia] INT NOT NULL,
+    [origen] NVARCHAR(120) NOT NULL,
+    CONSTRAINT [PK_DimTime] PRIMARY KEY ([id_tiempo])
+);
 CREATE TABLE dbo.[HECHOS] (
     [id_registro] INT NOT NULL,
     [id_geometria] INT NOT NULL,
@@ -59,6 +70,7 @@ CREATE TABLE dbo.[HECHOS] (
     [id_clase] INT NOT NULL,
     [id_conjunto] INT NOT NULL,
     [id_cluster] INT NOT NULL,
+    [id_tiempo] INT NOT NULL,
     [Y1] FLOAT NOT NULL,
     [Y2] FLOAT NOT NULL,
     [Y1_predicha] FLOAT NULL,
@@ -75,6 +87,7 @@ CREATE TABLE dbo.[HECHOS] (
     CONSTRAINT [FK_HECHOS_DimClase] FOREIGN KEY ([id_clase]) REFERENCES dbo.[DimClase]([id_clase]),
     CONSTRAINT [FK_HECHOS_DimConjunto] FOREIGN KEY ([id_conjunto]) REFERENCES dbo.[DimConjunto]([id_conjunto]),
     CONSTRAINT [FK_HECHOS_DimCluster] FOREIGN KEY ([id_cluster]) REFERENCES dbo.[DimCluster]([id_cluster]),
+    CONSTRAINT [FK_HECHOS_DimTime] FOREIGN KEY ([id_tiempo]) REFERENCES dbo.[DimTime]([id_tiempo]),
     CONSTRAINT CK_HECHOS_cargas CHECK (Y1 > 0 AND Y2 > 0),
     CONSTRAINT CK_HECHOS_prueba CHECK ((id_conjunto=1 AND Y1_predicha IS NULL AND Y2_predicha IS NULL AND clase_predicha IS NULL) OR (id_conjunto=2 AND Y1_predicha IS NOT NULL AND Y2_predicha IS NOT NULL AND clase_predicha IS NOT NULL))
 );

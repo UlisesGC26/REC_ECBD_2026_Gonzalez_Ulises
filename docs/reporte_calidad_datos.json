@@ -14,5 +14,6 @@
   "compacidades_con_ambas_alturas": 0,
   "umbral_clasificacion": 25.0,
   "regla_clasificacion": "alta si Y1 >= 25; baja si Y1 < 25. Regla didáctica, no normativa.",
-  "unidades_cargas": "Escala original. La ficha UCI consultada no declara unidades."
+  "unidades_cargas": "Escala original. La ficha UCI consultada no declara unidades.",
+  "tiempo": "Fecha sintética diaria 2025-01-01 a 2027-02-07; creada para ETL y DimTime, no observación real."
 }

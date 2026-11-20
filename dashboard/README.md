@@ -18,6 +18,8 @@
 
 ## Modelo real en estrella
 
-Abrir la **Vista de modelo**. `HECHOS` se conecta directamente a `DimGeometria`, `DimOrientacion`, `DimAcristalamiento`, `DimClase`, `DimConjunto` y `DimCluster`: son seis relaciones 1:N de filtro simple, iguales a las llaves de SQL Server. `DimGeometria` ya contiene altura y `DimAcristalamiento` ya contiene proporción y distribución de cristal; no hay relaciones entre dimensiones.
+Abrir la **Vista de modelo**. `HECHOS` se conecta directamente a `DimGeometria`, `DimOrientacion`, `DimAcristalamiento`, `DimClase`, `DimConjunto`, `DimCluster` y `DimTime`: son siete relaciones 1:N de filtro simple. `DimTime` contiene fechas sintéticas diarias solo para demostrar el ETL temporal y el slicer de fecha; no son observaciones temporales reales.
+
+La página 1 incluye slicers de **fecha** y **altura**. El corte temporal usa el 70% inicial de fechas para entrenamiento y el 30% final para prueba futura simulada.
 
 Las tablas de métricas globales quedan separadas porque representan la evaluación fija de prueba. Las cargas se muestran como medias. `src/generar_powerbi.py` reconstruye el PBIP y `src/validar_powerbi.py` valida sus JSON; después de regenerar, abrir y actualizar el proyecto para revisarlo visualmente.

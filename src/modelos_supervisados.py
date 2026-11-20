@@ -38,19 +38,20 @@ def ajustar_modelos():
     df = pd.read_csv(archivo)
     X, y = df[ENTRADAS], df[OBJETIVOS]
     grupos = df.grupo_geometria
-    # Todas las variantes de una geometría quedan en un solo conjunto.
-    entrenamiento, prueba = next(GroupShuffleSplit(n_splits=1, test_size=.25, random_state=42).split(X, y, grupos))
+    # Corte temporal 70/30: la última porción simula predicciones futuras.
+    df = df.sort_values('fecha_simulada').reset_index(drop=True)
+    X, y, grupos = df[ENTRADAS], df[OBJETIVOS], df.grupo_geometria
+    corte = int(len(df) * .70)
+    entrenamiento, prueba = np.arange(corte), np.arange(corte, len(df))
     X_train, X_test = X.iloc[entrenamiento], X.iloc[prueba]
     y_train, y_test = y.iloc[entrenamiento], y.iloc[prueba]
     grupos_train = grupos.iloc[entrenamiento]
-    assert not set(grupos_train).intersection(grupos.iloc[prueba])
     folds = list(GroupKFold(n_splits=3).split(X_train, y_train, grupos_train))
     clases = df.clase_calefaccion
     c_train, c_test = clases.iloc[entrenamiento], clases.iloc[prueba]
     for tr, va in folds:
-        assert not set(grupos_train.iloc[tr]).intersection(grupos_train.iloc[va])
         assert c_train.iloc[tr].nunique() == 2 and c_train.iloc[va].nunique() == 2
-    division = df[["id_registro", "grupo_geometria"]].copy()
+    division = df[["id_registro", "grupo_geometria", "fecha_simulada"]].copy()
     division["conjunto"] = "entrenamiento"
     division.loc[prueba, "conjunto"] = "prueba"
     division.to_csv(ROOT / "data/processed/division_modelos.csv", index=False)
@@ -141,19 +142,19 @@ def ajustar_modelos():
     plt.close(fig)
     resultado = {
         "semilla": 42, "entrenamiento_filas": len(entrenamiento), "prueba_filas": len(prueba),
+        "estrategia_particion": "Corte cronológico 70/30 con fecha simulada; prueba representa horizonte futuro simulado",
         "geometrias_entrenamiento": sorted(int(v) for v in grupos_train.unique()),
         "geometrias_prueba": sorted(int(v) for v in grupos.iloc[prueba].unique()),
-        "geometrias_compartidas": 0, "validacion": "GroupKFold de 3 particiones solo en entrenamiento",
+        "geometrias_compartidas": int(len(set(grupos_train).intersection(grupos.iloc[prueba]))), "validacion": "GroupKFold de 3 particiones solo en entrenamiento",
         "regresion": {"modelo": nombre_reg, "parametros": parametros_reg, "MAE_cv": -cv_reg},
         "clasificacion": {"modelo": nombre_cls, "parametros": parametros_cls, "F1_macro_cv": cv_cls,
                           "umbral_Y1": UMBRAL_CALOR, "matriz_confusion_baja_alta": cm.tolist()},
         "versiones": {"python": platform.python_version(), "sklearn": sklearn.__version__,
                       "pandas": pd.__version__, "numpy": np.__version__, "joblib": joblib.__version__},
-        "limite": "Una sola separación y 12 geometrías simuladas. No prueba desempeño en edificios reales."
+        "limite": "La fecha es sintética y solo permite demostrar un flujo temporal. No prueba desempeño futuro ni causalidad en edificios reales."
     }
     guardar_json(ROOT / "docs/resultados_modelos.json", resultado)
-    print(f"Separación por geometría: {len(entrenamiento)} entrenamiento / {len(prueba)} prueba.")
-    print("Geometrías compartidas entre ambos conjuntos: 0.")
+    print(f"Separación temporal 70/30: {len(entrenamiento)} entrenamiento / {len(prueba)} prueba.")
     print("Regresión seleccionada mediante validación:", nombre_reg, parametros_reg)
     print(metricas_reg.round(4).to_string(index=False))
     print("Clasificación seleccionada mediante validación:", nombre_cls, parametros_cls)

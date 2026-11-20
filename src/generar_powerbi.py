@@ -131,8 +131,9 @@ def generar():
     p=nombres[0]
     pagina(p, '01 | Edificios y demanda energética', 'Ulises González Coronado · 768 simulaciones UCI · SQL Server / Data Mart estrella')
     for i,(m,t) in enumerate([('Simulaciones','Simulaciones'),('Geometrias','Geometrías'),('Calefaccion media','Y1 | calefacción media'),('Refrigeracion media','Y2 | refrigeración media')]):
-        visual(p,'kpi'+str(i),'card',24+i*250,130,236,106,{'Values':[medida(m)]},t)
-    visual(p,'altura','slicer',1030,130,226,106,{'Values':[field('DimGeometria','altura')]},'Filtrar por altura')
+        visual(p,'kpi'+str(i),'card',24+i*220,130,206,106,{'Values':[medida(m)]},t)
+    visual(p,'fecha','slicer',910,130,170,106,{'Values':[field('DimTime','fecha')]},'Filtrar por fecha')
+    visual(p,'altura','slicer',1090,130,166,106,{'Values':[field('DimGeometria','altura')]},'Filtrar por altura')
     visual(p,'cargas_altura','clusteredColumnChart',24,254,600,270,{'Category':[field('DimGeometria','altura')],
         'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Cargas medias por altura')
     visual(p,'cargas_compacidad','lineChart',646,254,610,270,{'Category':[field('DimGeometria','compacidad')],
@@ -141,7 +142,7 @@ def generar():
         'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Cargas por proporción de cristal')
     texto(p,'hallazgo','LECTURA DEL RESULTADO\nLos diseños de altura 7 tienen cargas medias mayores. También cambia su geometría: no se puede aislar un efecto causal de altura o compacidad.\nLas cargas se muestran en la escala original del dataset.',646,542,610,220,16)
     p=nombres[1]
-    pagina(p,'02 | Predicción y evaluación','Prueba: 192 casos de 3 geometrías nuevas · Entrenamiento: 576 casos · Sin geometrías compartidas')
+    pagina(p,'02 | Predicción y evaluación','Corte temporal: 231 fechas posteriores como prueba futura simulada · Entrenamiento: 537 casos')
     for i,(m,t) in enumerate([('MAE calefaccion','MAE de Y1'),('MAE refrigeracion','MAE de Y2'),('Accuracy prueba','Accuracy de prueba'),('F1 macro global','F1 macro global')]):
         visual(p,'kpi'+str(i),'card',24+i*310,130,294,100,{'Values':[medida(m)]},t)
     # HECHOS contiene predicciones nulas en entrenamiento: no mezclar evaluaciones.
@@ -166,7 +167,7 @@ def generar():
     texto(p,'patron','CONOCIMIENTO Y USO\nLos dos clusters separan las alturas y sus geometrías. Ambos tienen 384 casos. La correlación geométrica domina este resultado.\nUsar grupos para comparar diseños similares; validar con datos reales antes de recomendar una construcción.',646,566,610,204,15)
     p=nombres[3]
     pagina(p,'04 | Del Excel al conocimiento','Extracción → validación → dimensiones → HECHOS → SQL Server → Power BI')
-    texto(p,'modelo','MODELO ESTRELLA\nDimGeometria (incluye altura) → HECHOS\nDimAcristalamiento (incluye proporción y distribución) → HECHOS\nDimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS\n\nGrano: una simulación por id_registro. 768 hechos, 6 relaciones, llaves primarias y foráneas.\nAbrir la Vista de modelo para inspeccionar las relaciones reales.',24,136,720,330,19)
+    texto(p,'modelo','MODELO ESTRELLA\nDimGeometria (incluye altura) → HECHOS\nDimAcristalamiento (incluye proporción y distribución) → HECHOS\nDimTime (calendario sintético) → HECHOS\nDimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS\n\nGrano: una simulación por id_registro. 768 hechos, 7 relaciones, llaves primarias y foráneas.\nAbrir la Vista de modelo para inspeccionar las relaciones reales.',24,136,720,330,19)
     visual(p,'filas','card',770,136,230,120,{'Values':[medida('Simulaciones')]},'Filas en HECHOS')
     visual(p,'prueba','card',1020,136,236,120,{'Values':[medida('Casos de prueba')]},'Filas de prueba')
     texto(p,'calidad','CALIDAD\nOriginal intacto.\nSin nulos ni duplicados.\nSin imputaciones ni filas eliminadas.\nReconstrucción SQL idéntica al original.',770,276,486,190,17)

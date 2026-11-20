@@ -1,8 +1,8 @@
 modelo,parametros,metrica_cv,desviacion_cv
-Logistica,"{""modelo__C"": 0.1}",0.8413148255253518,0.006343590590310687
-Logistica,"{""modelo__C"": 1.0}",0.8847255141372788,0.06681080039552306
-Logistica,"{""modelo__C"": 10.0}",0.849958061262409,0.017887395691585477
-RandomForest,"{""modelo__max_depth"": 6, ""modelo__min_samples_leaf"": 1}",0.8771824781435386,0.07316272256209495
-RandomForest,"{""modelo__max_depth"": 6, ""modelo__min_samples_leaf"": 3}",0.8771824781435386,0.07316272256209495
-RandomForest,"{""modelo__max_depth"": null, ""modelo__min_samples_leaf"": 1}",0.8598897734231477,0.06955886915481142
-RandomForest,"{""modelo__max_depth"": null, ""modelo__min_samples_leaf"": 3}",0.8771824781435386,0.07316272256209495
+Logistica,"{""modelo__C"": 0.1}",0.846567245825927,0.10513899476262857
+Logistica,"{""modelo__C"": 1.0}",0.8202507684604873,0.07441672223071177
+Logistica,"{""modelo__C"": 10.0}",0.8123399635295652,0.07084063376450757
+RandomForest,"{""modelo__max_depth"": 6, ""modelo__min_samples_leaf"": 1}",0.7765853078555341,0.04241796701516614
+RandomForest,"{""modelo__max_depth"": 6, ""modelo__min_samples_leaf"": 3}",0.7765853078555341,0.04241796701516614
+RandomForest,"{""modelo__max_depth"": null, ""modelo__min_samples_leaf"": 1}",0.7741383462488084,0.05164147755769715
+RandomForest,"{""modelo__max_depth"": null, ""modelo__min_samples_leaf"": 3}",0.7765853078555341,0.04241796701516614

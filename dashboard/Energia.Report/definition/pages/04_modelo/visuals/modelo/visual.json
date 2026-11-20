@@ -59,6 +59,19 @@
               {
                 "textRuns": [
                   {
+                    "value": "DimTime (calendario sintético) → HECHOS",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "19pt",
+                      "fontWeight": "normal",
+                      "color": "#516572"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
                     "value": "DimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
@@ -85,7 +98,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Grano: una simulación por id_registro. 768 hechos, 6 relaciones, llaves primarias y foráneas.",
+                    "value": "Grano: una simulación por id_registro. 768 hechos, 7 relaciones, llaves primarias y foráneas.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "19pt",

@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Prueba: 192 casos de 3 geometrías nuevas · Entrenamiento: 576 casos · Sin geometrías compartidas",
+                    "value": "Corte temporal: 231 fechas posteriores como prueba futura simulada · Entrenamiento: 537 casos",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",

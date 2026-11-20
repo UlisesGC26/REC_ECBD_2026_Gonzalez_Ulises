@@ -67,6 +67,19 @@
         "cluster"
       ]
     },
+    "DimTime": {
+      "filas": 768,
+      "columnas": [
+        "id_tiempo",
+        "fecha",
+        "anio",
+        "trimestre",
+        "mes_numero",
+        "mes_nombre",
+        "dia",
+        "origen"
+      ]
+    },
     "HECHOS": {
       "filas": 768,
       "columnas": [
@@ -77,6 +90,7 @@
         "id_clase",
         "id_conjunto",
         "id_cluster",
+        "id_tiempo",
         "Y1",
         "Y2",
         "Y1_predicha",
@@ -149,7 +163,7 @@
       ]
     },
     "MatrizConfusion": {
-      "filas": 3,
+      "filas": 2,
       "columnas": [
         "clase_real",
         "clase_predicha",
@@ -193,6 +207,12 @@
       "llave_foranea": "id_cluster",
       "tabla_padre": "DimCluster",
       "llave_primaria": "id_cluster"
+    },
+    {
+      "tabla_hija": "HECHOS",
+      "llave_foranea": "id_tiempo",
+      "tabla_padre": "DimTime",
+      "llave_primaria": "id_tiempo"
     }
   ]
 }

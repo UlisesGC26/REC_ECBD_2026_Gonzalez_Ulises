@@ -46,6 +46,9 @@ def preparar():
         raise ValueError("Revisar el rango de acristalamiento.")
     df[["X6", "X8"]] = df[["X6", "X8"]].astype(int)
     df.insert(0, "id_registro", range(1, len(df) + 1))
+    # El conjunto UCI no trae tiempo. Se crea un calendario sintético diario para
+    # practicar DimTime y un corte temporal; no representa mediciones reales.
+    df["fecha_simulada"] = pd.date_range("2025-01-01", periods=len(df), freq="D")
     df["grupo_geometria"] = df.groupby(GEOMETRIA, sort=True).ngroup() + 1
     df["clase_calefaccion"] = np.where(df.Y1 >= UMBRAL_CALOR, "alta", "baja")
     destino = ROOT / "data/processed"
@@ -64,6 +67,7 @@ def preparar():
         "umbral_clasificacion": UMBRAL_CALOR,
         "regla_clasificacion": "alta si Y1 >= 25; baja si Y1 < 25. Regla didáctica, no normativa.",
         "unidades_cargas": "Escala original. La ficha UCI consultada no declara unidades.",
+        "tiempo": "Fecha sintética diaria 2025-01-01 a 2027-02-07; creada para ETL y DimTime, no observación real.",
     }
     guardar_json(ROOT / "docs/reporte_calidad_datos.json", calidad)
     df[columnas].describe().T.to_csv(destino / "estadistica_descriptiva.csv", index_label="variable")
