@@ -27,6 +27,7 @@ Se utilizan 768 simulaciones de Energy Efficiency (UCI), ocho entradas X1-X8 y d
 | Informes | Cuatro PDF por actividad y `docs/Informe_Final.pdf` |
 | Defensa y requisitos | `docs/guia_revision_proyecto.md`, `docs/matriz_cumplimiento.md` |
 | Presentación de defensa | `docs/Defensa_Proyecto.pptx` |
+| Guía de demostración | `docs/guia_demostracion_modelos_y_etl.md` |
 
 Los archivos de `docs/entregas_previas/` y el informe U2_U3 conservan evidencias anteriores. El panel Streamlit y SQLite se mantienen como complemento; el modelo final solicitado es SQL Server + Power BI. Las observaciones de una revisión futura y la defensa oral deben realizarlas el estudiante y el docente; no se acreditan por generar archivos.
 

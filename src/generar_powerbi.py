@@ -77,6 +77,16 @@ def pagina(name, title, subtitle):
     texto(name, 'subtitulo', subtitle,24,72,1232,48,12)
 
 
+def estilo_tabla_legible():
+    """Formato consistente para que tablas breves se lean en proyección."""
+    return {
+        'values': [{'properties': {'fontSize': lit(16), 'fontColor': color('#1D3640')}}],
+        'columnHeaders': [{'properties': {'fontSize': lit(16), 'fontColor': color('#173848'),
+            'backColor': color('#DCECEF')}}],
+        'grid': [{'properties': {'rowPadding': lit(10), 'outlineColor': color('#C9D8DC')}}],
+    }
+
+
 def generar():
     tablas = tablas_estrella()
     medidas = {
@@ -155,7 +165,7 @@ def generar():
         'Columns':[field('MatrizConfusion','clase_predicha')],'Values':[field('MatrizConfusion','registros',0)]},'Matriz de confusión | filas reales, columnas predichas')
     texto(p,'nota_regresion','QUÉ REPRESENTA: cada punto es una simulación del 30% futuro simulado. Mientras más se aproxime a la diagonal, menor es el error de Y1.',24,500,600,38,11)
     texto(p,'nota_confusion','QUÉ REPRESENTA: cuenta aciertos y errores de la clase alta/baja. La diagonal contiene los aciertos; fuera de ella están los errores.',646,500,610,38,11)
-    visual(p,'metricas','tableEx',24,556,600,210,{'Values':[field('MetricasRegresion',c) for c in ['modelo','objetivo','MAE','RMSE','R2']]},'Métricas de regresión | menor MAE/RMSE y mayor R² es mejor')
+    visual(p,'metricas','tableEx',24,548,600,218,{'Values':[field('MetricasRegresion',c) for c in ['modelo','objetivo','MAE','RMSE','R2']]},'Métricas de regresión | menor MAE/RMSE y mayor R² es mejor', estilo_tabla_legible())
     texto(p,'interpretacion','ALCANCE Y EVALUACIÓN\nRidge reduce claramente el MAE frente a la referencia de la media. La clasificación logística obtuvo 100% en este corte temporal sintético; no equivale a desempeño garantizado con datos reales.\n\nAlta significa Y1 ≥ 25: regla didáctica, no certificación. El ajuste se seleccionó dentro del entrenamiento con validación por geometría.',646,556,610,210,14)
     p=nombres[2]
     pagina(p,'03 | Patrones y componentes principales','K-Means y PCA sobre X1, X2, X3, X4, X5 y X7 estandarizadas · Y1/Y2 no participan en el agrupamiento')
@@ -171,7 +181,7 @@ def generar():
     texto(p,'nota_pca','QUÉ REPRESENTA: reducción de seis variables físicas a dos ejes. Puntos cercanos tienen perfiles geométricos semejantes.',24,516,600,38,11)
     texto(p,'nota_k','QUÉ REPRESENTA: se comparan alternativas de 2 a 8 grupos. Se selecciona k = 2 porque obtiene el mayor silhouette.',646,516,300,38,11)
     texto(p,'nota_varianza','QUÉ REPRESENTA: porcentaje de información retenida por cada componente. PC1 + PC2 resume 82.38%.',966,516,290,38,11)
-    visual(p,'perfiles','tableEx',24,566,600,204,{'Values':[field('PerfilesClusters',c) for c in ['id_cluster','registros','altura_media','compacidad_media','calefaccion_media']]},'Perfil de los grupos')
+    visual(p,'perfiles','tableEx',24,556,600,214,{'Values':[field('PerfilesClusters',c) for c in ['id_cluster','registros','altura_media','compacidad_media','calefaccion_media']]},'Perfil de los grupos | lectura ampliada', estilo_tabla_legible())
     texto(p,'patron','CONOCIMIENTO Y USO\nLos dos clusters separan las alturas y sus geometrías. Ambos tienen 384 casos. La correlación geométrica domina este resultado.\nUsar grupos para comparar diseños similares; validar con datos reales antes de recomendar una construcción.',646,566,610,204,15)
     p=nombres[3]
     pagina(p,'04 | Del Excel al conocimiento','Extracción → validación → dimensiones → HECHOS → SQL Server → Power BI')
