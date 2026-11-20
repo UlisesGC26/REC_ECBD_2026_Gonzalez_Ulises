@@ -23,7 +23,7 @@
                     "value": "LECTURA DEL RESULTADO",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "16pt",
+                      "fontSize": "15pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -36,7 +36,7 @@
                     "value": "Los diseños de altura 7 tienen cargas medias mayores. También cambia su geometría: no se puede aislar un efecto causal de altura o compacidad.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "16pt",
+                      "fontSize": "15pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -46,10 +46,23 @@
               {
                 "textRuns": [
                   {
-                    "value": "Las cargas se muestran en la escala original del dataset.",
+                    "value": "",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "16pt",
+                      "fontSize": "15pt",
+                      "fontWeight": "normal",
+                      "color": "#516572"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Cómo usar esta página: selecciona una fecha o altura y compara los promedios. Las cargas se muestran en la escala original del dataset.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "15pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -92,7 +105,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }

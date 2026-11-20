@@ -1,4 +1,4 @@
-"""Comparación y ajuste de modelos con separación por geometría de edificio."""
+"""Comparación y ajuste de modelos con corte temporal sintético 70/30."""
 from pathlib import Path
 import json
 import platform
@@ -18,7 +18,7 @@ from sklearn.metrics import (accuracy_score, classification_report, confusion_ma
                              ConfusionMatrixDisplay, f1_score, mean_absolute_error,
                              mean_squared_error, r2_score, precision_score, recall_score)
 from sklearn.inspection import permutation_importance
-from sklearn.model_selection import GridSearchCV, GroupKFold, GroupShuffleSplit
+from sklearn.model_selection import GridSearchCV, GroupKFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from src.preparacion_datos import ROOT, ENTRADAS, OBJETIVOS, UMBRAL_CALOR, guardar_json
@@ -125,7 +125,7 @@ def ajustar_modelos():
     cm = confusion_matrix(c_test, pred_cls, labels=["baja", "alta"])
     fig, ax = plt.subplots(figsize=(5, 4.3))
     ConfusionMatrixDisplay(cm, display_labels=["Baja", "Alta"]).plot(ax=ax, colorbar=False, cmap="Blues")
-    ax.set(xlabel="Clase predicha", ylabel="Clase real", title="Clasificación de calefacción: prueba")
+    ax.set(xlabel="Clase predicha", ylabel="Clase real", title="Clasificación de calefacción: prueba futura simulada")
     fig.tight_layout()
     fig.savefig(ROOT / "docs/figuras/03_matriz_confusion.png", dpi=180)
     plt.close(fig)
@@ -136,7 +136,7 @@ def ajustar_modelos():
         limites = [min(real.min(), pred_reg[:, i].min()), max(real.max(), pred_reg[:, i].max())]
         ax.plot(limites, limites, "--", color="#d87932")
         ax.set(xlabel="Carga real (escala original)", ylabel="Carga predicha", title=OBJETIVOS[i])
-    fig.suptitle("Regresión sobre geometrías reservadas para prueba", fontsize=13)
+    fig.suptitle("Regresión: carga real vs. predicha en prueba futura simulada", fontsize=13)
     fig.tight_layout()
     fig.savefig(ROOT / "docs/figuras/04_regresion_prueba.png", dpi=180)
     plt.close(fig)

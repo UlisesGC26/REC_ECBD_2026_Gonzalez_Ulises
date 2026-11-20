@@ -1,6 +1,6 @@
 # Unidad IV · Análisis no supervisado
 
-Ulises González Coronado · Actualización técnica: 16 de noviembre de 2026
+Ulises González Coronado · Actualización técnica: 20 de noviembre de 2026
 
 ## Variables y estandarización
 

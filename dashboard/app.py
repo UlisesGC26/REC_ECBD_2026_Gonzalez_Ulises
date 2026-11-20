@@ -311,7 +311,7 @@ def simulador():
         mr=R["regresion"]
         mr=mr[mr.modelo==R["modelos"]["regresion"]["modelo"]].set_index("objetivo")
         st.markdown(f"**Error medio en prueba**\n\nCalefacción: **{mr.loc['Y1','MAE']:.2f}** · Refrigeración: **{mr.loc['Y2','MAE']:.2f}**")
-        st.caption("Este error resume 192 casos reservados; no es un intervalo de confianza para cada predicción. Un caso de entrenamiento no sirve para demostrar generalización.")
+        st.caption("Este error resume 231 casos de prueba futura simulada; no es un intervalo de confianza para cada predicción. Un caso de entrenamiento no sirve para demostrar generalización.")
     st.subheader("Otros diseños con la misma orientación y cristal que A")
     base=DF[(DF.X6==caso_a.X6.iloc[0]) & np.isclose(DF.X7,caso_a.X7.iloc[0]) & (DF.X8==caso_a.X8.iloc[0])].copy()
     pred=reg.predict(base[ENTRADAS])

@@ -22,14 +22,15 @@ erDiagram
     DimClase ||--o{ HECHOS : id_clase
     DimConjunto ||--o{ HECHOS : id_conjunto
     DimCluster ||--o{ HECHOS : id_cluster
+    DimTime ||--o{ HECHOS : id_tiempo
 ```
 
-El grano de `HECHOS` es una simulación por `id_registro`. Contiene Y1/Y2, predicciones, errores absolutos y PC1/PC2. Las 576 filas de entrenamiento tienen predicciones `NULL` por diseño; las 192 de prueba sí tienen predicción.
+El grano de `HECHOS` es una simulación por `id_registro`. Contiene Y1/Y2, predicciones, errores absolutos y PC1/PC2. Las 537 filas de entrenamiento tienen predicciones `NULL` por diseño; las 231 de prueba futura simulada sí tienen predicción.
 
-Para mantener una estrella real, `DimGeometria` incluye altura junto con compacidad y superficies. `DimAcristalamiento` incluye proporción de cristal y código de distribución. Así, las seis dimensiones se relacionan directamente con `HECHOS`, sin relaciones entre dimensiones. Los códigos X6/X8 se conservan sin inventar etiquetas cardinales.
+Para mantener una estrella real, `DimGeometria` incluye altura junto con compacidad y superficies. `DimAcristalamiento` incluye proporción de cristal y código de distribución. `DimTime` contiene las fechas sintéticas diarias creadas para demostrar la dimensión temporal y el corte 70/30; no representa fechas originales del experimento. Así, las siete dimensiones se relacionan directamente con `HECHOS`, sin relaciones entre dimensiones. Los códigos X6/X8 se conservan sin inventar etiquetas cardinales.
 
 Las cargas son medidas no aditivas entre escenarios alternativos y se presentan como promedios. Las tablas de métricas son auxiliares, con grano propio por algoritmo/objetivo o componente, y no se mezclan con HECHOS.
 
-La carga es idempotente: reconstruye únicamente las tablas del proyecto. Además elimina las tres dimensiones normalizadas que pertenecían al diseño anterior para impedir un modelo mixto. `SET XACT_ABORT ON` y `TRY/CATCH` revierten cambios ante fallos. La evidencia de ejecución está en `docs/verificacion_sqlserver.json`.
+La carga FULL es repetible: `sql/limpiar_datamart_full.sql` ejecuta `DELETE` en orden seguro (HECHOS, auxiliares, dimensiones y origen cargado); luego el ETL vuelve a cargar las 768 filas. El Job `ECBD_Carga_FULL_Energia` automatiza ese ciclo. Ambos scripts afectan únicamente `REC_ECBD_Energia`. `SET XACT_ABORT ON` y `TRY/CATCH` revierten cambios ante fallos. La evidencia de ejecución está en `docs/verificacion_sqlserver.json`.
 
 El esquema vigente y la defensa utilizan `sql/datamart.sql`, `docs/diagrama_estrella.svg` y `docs/modelo_estrella.json`.

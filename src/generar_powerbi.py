@@ -52,10 +52,10 @@ def visual(page, name, tipo, x, y, w, h, roles=None, title=None, objects=None):
     if objects: config['objects'] = objects
     config['visualContainerObjects'] = {
         'background': [{'properties': {'color': color('#FFFFFF'), 'transparency': lit(0)}}],
-        'border': [{'properties': {'show': lit(False)}}]}
+        'border': [{'properties': {'show': lit(True), 'color': color('#C9D8DC')}}]}
     if title:
         config['visualContainerObjects']['title'] = [{'properties': {
-            'show': lit(True), 'text': lit(title), 'fontSize': lit(13), 'fontColor': color('#173848')}}]
+            'show': lit(True), 'text': lit(title), 'fontSize': lit(14), 'fontColor': color('#173848')}}]
     data = {'$schema': SCHEMA+'visualContainer/1.0.0/schema.json', 'name': name,
             'position': {'x': x, 'y': y, 'width': w, 'height': h, 'z': 0, 'tabOrder': 0}, 'visual': config}
     escribir(REPORT / 'definition/pages' / page / 'visuals' / name / 'visual.json', data)
@@ -107,7 +107,7 @@ def generar():
         t = {'name': nombre, 'lineageTag': str(uuid.uuid5(uuid.NAMESPACE_URL,nombre)), 'columns': columns,
              'partitions': [{'name': nombre, 'mode': 'import', 'source': {'type': 'm', 'expression': m}}]}
         if nombre == 'HECHOS':
-            t['description'] = 'Una simulación por fila. Predicciones solo en 192 casos de prueba. Cargas no aditivas: usar medias.'
+            t['description'] = 'Una simulación por fila. Predicciones solo en 231 casos de prueba futura simulada. Cargas no aditivas: usar medias.'
             t['measures'] = [{'name': n, 'expression': e, 'formatString': f} for n, (e,f) in medidas.items()]
         model_tables.append(t)
     relationships = [{'name': f'{h}_{p}', 'fromTable': h, 'fromColumn': fk, 'toTable': p, 'toColumn': pk,
@@ -129,45 +129,53 @@ def generar():
     escribir(REPORT / 'definition/pages/pages.json', {'$schema': SCHEMA+'pagesMetadata/1.0.0/schema.json',
         'pageOrder': nombres, 'activePageName': nombres[0]})
     p=nombres[0]
-    pagina(p, '01 | Edificios y demanda energética', 'Ulises González Coronado · 768 simulaciones UCI · SQL Server / Data Mart estrella')
+    pagina(p, '01 | Edificios y demanda energética', 'Explora promedios de carga por diseño. Los filtros cambian todos los visuales; la fecha es sintética y se usa para demostrar el ETL temporal.')
     for i,(m,t) in enumerate([('Simulaciones','Simulaciones'),('Geometrias','Geometrías'),('Calefaccion media','Y1 | calefacción media'),('Refrigeracion media','Y2 | refrigeración media')]):
         visual(p,'kpi'+str(i),'card',24+i*220,130,206,106,{'Values':[medida(m)]},t)
     visual(p,'fecha','slicer',910,130,170,106,{'Values':[field('DimTime','fecha')]},'Filtrar por fecha')
     visual(p,'altura','slicer',1090,130,166,106,{'Values':[field('DimGeometria','altura')]},'Filtrar por altura')
-    visual(p,'cargas_altura','clusteredColumnChart',24,254,600,270,{'Category':[field('DimGeometria','altura')],
-        'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Cargas medias por altura')
-    visual(p,'cargas_compacidad','lineChart',646,254,610,270,{'Category':[field('DimGeometria','compacidad')],
-        'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Compacidad y cargas: asociación observada')
-    visual(p,'cristal','clusteredColumnChart',24,542,600,220,{'Category':[field('DimAcristalamiento','proporcion_cristal')],
-        'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Cargas por proporción de cristal')
-    texto(p,'hallazgo','LECTURA DEL RESULTADO\nLos diseños de altura 7 tienen cargas medias mayores. También cambia su geometría: no se puede aislar un efecto causal de altura o compacidad.\nLas cargas se muestran en la escala original del dataset.',646,542,610,220,16)
+    visual(p,'cargas_altura','clusteredColumnChart',24,254,600,238,{'Category':[field('DimGeometria','altura')],
+        'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Media de Y1 y Y2 por altura')
+    visual(p,'cargas_compacidad','lineChart',646,254,610,238,{'Category':[field('DimGeometria','compacidad')],
+        'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Media de Y1 y Y2 según compacidad')
+    visual(p,'cristal','clusteredColumnChart',24,542,600,184,{'Category':[field('DimAcristalamiento','proporcion_cristal')],
+        'Y':[medida('Calefaccion media'),medida('Refrigeracion media')]},'Media de Y1 y Y2 por proporción de cristal')
+    texto(p,'nota_altura','QUÉ REPRESENTA: cada barra es la carga promedio de las simulaciones filtradas. Una barra más alta implica mayor carga media; no se deben sumar escenarios.',24,500,600,34,11)
+    texto(p,'nota_compacidad','QUÉ REPRESENTA: cada punto resume la carga media para una compacidad. Describe asociación observada, no demuestra causalidad.',646,500,610,34,11)
+    texto(p,'nota_cristal','QUÉ REPRESENTA: compara cargas promedio por proporción de cristal bajo los filtros activos.',24,734,600,34,11)
+    texto(p,'hallazgo','LECTURA DEL RESULTADO\nLos diseños de altura 7 tienen cargas medias mayores. También cambia su geometría: no se puede aislar un efecto causal de altura o compacidad.\n\nCómo usar esta página: selecciona una fecha o altura y compara los promedios. Las cargas se muestran en la escala original del dataset.',646,542,610,220,15)
     p=nombres[1]
     pagina(p,'02 | Predicción y evaluación','Corte temporal: 231 fechas posteriores como prueba futura simulada · Entrenamiento: 537 casos')
     for i,(m,t) in enumerate([('MAE calefaccion','MAE de Y1'),('MAE refrigeracion','MAE de Y2'),('Accuracy prueba','Accuracy de prueba'),('F1 macro global','F1 macro global')]):
         visual(p,'kpi'+str(i),'card',24+i*310,130,294,100,{'Values':[medida(m)]},t)
     # HECHOS contiene predicciones nulas en entrenamiento: no mezclar evaluaciones.
-    visual(p,'regresion','scatterChart',24,248,600,290,{'Category':[field('HECHOS','id_registro')],
-        'X':[field('HECHOS','Y1',1)],'Y':[field('HECHOS','Y1_predicha',1)]},'Calefacción real frente a predicha (prueba)')
-    visual(p,'confusion','pivotTable',646,248,610,290,{'Rows':[field('MatrizConfusion','clase_real')],
-        'Columns':[field('MatrizConfusion','clase_predicha')],'Values':[field('MatrizConfusion','registros',0)]},'Matriz de confusión | filas = real / columnas = predicha')
-    visual(p,'metricas','tableEx',24,556,600,210,{'Values':[field('MetricasRegresion',c) for c in ['modelo','objetivo','MAE','RMSE','R2']]},'Regresión frente a la referencia de la media')
-    texto(p,'interpretacion','ALCANCE Y ERROR\nRandom Forest reduce el MAE frente a predecir la media. La regresión logística falla en 40 casos de carga alta.\nAlta significa Y1 ≥ 25: regla didáctica, no certificación. El ajuste se eligió con validación por geometría.',646,556,610,210,15)
+    visual(p,'regresion','scatterChart',24,248,600,244,{'Category':[field('HECHOS','id_registro')],
+        'X':[field('HECHOS','Y1',1)],'Y':[field('HECHOS','Y1_predicha',1)]},'Calefacción real vs. predicha | solo prueba')
+    visual(p,'confusion','pivotTable',646,248,610,244,{'Rows':[field('MatrizConfusion','clase_real')],
+        'Columns':[field('MatrizConfusion','clase_predicha')],'Values':[field('MatrizConfusion','registros',0)]},'Matriz de confusión | filas reales, columnas predichas')
+    texto(p,'nota_regresion','QUÉ REPRESENTA: cada punto es una simulación del 30% futuro simulado. Mientras más se aproxime a la diagonal, menor es el error de Y1.',24,500,600,38,11)
+    texto(p,'nota_confusion','QUÉ REPRESENTA: cuenta aciertos y errores de la clase alta/baja. La diagonal contiene los aciertos; fuera de ella están los errores.',646,500,610,38,11)
+    visual(p,'metricas','tableEx',24,556,600,210,{'Values':[field('MetricasRegresion',c) for c in ['modelo','objetivo','MAE','RMSE','R2']]},'Métricas de regresión | menor MAE/RMSE y mayor R² es mejor')
+    texto(p,'interpretacion','ALCANCE Y EVALUACIÓN\nRidge reduce claramente el MAE frente a la referencia de la media. La clasificación logística obtuvo 100% en este corte temporal sintético; no equivale a desempeño garantizado con datos reales.\n\nAlta significa Y1 ≥ 25: regla didáctica, no certificación. El ajuste se seleccionó dentro del entrenamiento con validación por geometría.',646,556,610,210,14)
     p=nombres[2]
     pagina(p,'03 | Patrones y componentes principales','K-Means y PCA sobre X1, X2, X3, X4, X5 y X7 estandarizadas · Y1/Y2 no participan en el agrupamiento')
     visual(p,'silhouette','card',24,130,270,100,{'Values':[medida('Silhouette elegido')]},'Silhouette | k = 2')
     visual(p,'varianza','card',310,130,270,100,{'Values':[medida('Varianza dos PC')]},'Varianza en PC1 + PC2')
     texto(p,'criterio','Se compararon k = 2 a 8. Dos grupos maximizan silhouette. Tres componentes conservan al menos 95% de la varianza.',600,130,656,100,15)
-    visual(p,'pca','scatterChart',24,248,600,300,{'Category':[field('HECHOS','id_registro')],
-        'Series':[field('DimCluster','cluster')], 'X':[field('HECHOS','PC1',1)], 'Y':[field('HECHOS','PC2',1)]},'PCA | color = cluster')
-    visual(p,'seleccion','lineChart',646,248,300,300,{'Category':[field('EvaluacionClusters','k')],
-        'Y':[field('EvaluacionClusters','silhouette',1)]},'Elección de k')
-    visual(p,'varianzas','clusteredColumnChart',966,248,290,300,{'Category':[field('VarianzaPCA','componente')],
-        'Y':[field('VarianzaPCA','varianza_explicada',0)]},'Varianza por componente')
+    visual(p,'pca','scatterChart',24,248,600,260,{'Category':[field('HECHOS','id_registro')],
+        'Series':[field('DimCluster','cluster')], 'X':[field('HECHOS','PC1',1)], 'Y':[field('HECHOS','PC2',1)]},'PCA | cada punto es un edificio; color = cluster')
+    visual(p,'seleccion','lineChart',646,248,300,260,{'Category':[field('EvaluacionClusters','k')],
+        'Y':[field('EvaluacionClusters','silhouette',1)]},'Selección de k | silhouette más alto es mejor')
+    visual(p,'varianzas','clusteredColumnChart',966,248,290,260,{'Category':[field('VarianzaPCA','componente')],
+        'Y':[field('VarianzaPCA','varianza_explicada',0)]},'Varianza explicada por componente')
+    texto(p,'nota_pca','QUÉ REPRESENTA: reducción de seis variables físicas a dos ejes. Puntos cercanos tienen perfiles geométricos semejantes.',24,516,600,38,11)
+    texto(p,'nota_k','QUÉ REPRESENTA: se comparan alternativas de 2 a 8 grupos. Se selecciona k = 2 porque obtiene el mayor silhouette.',646,516,300,38,11)
+    texto(p,'nota_varianza','QUÉ REPRESENTA: porcentaje de información retenida por cada componente. PC1 + PC2 resume 82.38%.',966,516,290,38,11)
     visual(p,'perfiles','tableEx',24,566,600,204,{'Values':[field('PerfilesClusters',c) for c in ['id_cluster','registros','altura_media','compacidad_media','calefaccion_media']]},'Perfil de los grupos')
     texto(p,'patron','CONOCIMIENTO Y USO\nLos dos clusters separan las alturas y sus geometrías. Ambos tienen 384 casos. La correlación geométrica domina este resultado.\nUsar grupos para comparar diseños similares; validar con datos reales antes de recomendar una construcción.',646,566,610,204,15)
     p=nombres[3]
     pagina(p,'04 | Del Excel al conocimiento','Extracción → validación → dimensiones → HECHOS → SQL Server → Power BI')
-    texto(p,'modelo','MODELO ESTRELLA\nDimGeometria (incluye altura) → HECHOS\nDimAcristalamiento (incluye proporción y distribución) → HECHOS\nDimTime (calendario sintético) → HECHOS\nDimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS\n\nGrano: una simulación por id_registro. 768 hechos, 7 relaciones, llaves primarias y foráneas.\nAbrir la Vista de modelo para inspeccionar las relaciones reales.',24,136,720,330,19)
+    texto(p,'modelo','MODELO ESTRELLA\nDimGeometria (incluye altura) → HECHOS\nDimAcristalamiento (incluye proporción y distribución) → HECHOS\nDimTime (calendario sintético) → HECHOS\nDimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS\n\nGrano: una simulación por id_registro. 768 hechos, 7 relaciones, llaves primarias y foráneas.\nCarga FULL: DELETE de tablas del proyecto → ETL → recarga completa → Actualizar en Power BI.',24,136,720,330,18)
     visual(p,'filas','card',770,136,230,120,{'Values':[medida('Simulaciones')]},'Filas en HECHOS')
     visual(p,'prueba','card',1020,136,236,120,{'Values':[medida('Casos de prueba')]},'Filas de prueba')
     texto(p,'calidad','CALIDAD\nOriginal intacto.\nSin nulos ni duplicados.\nSin imputaciones ni filas eliminadas.\nReconstrucción SQL idéntica al original.',770,276,486,190,17)

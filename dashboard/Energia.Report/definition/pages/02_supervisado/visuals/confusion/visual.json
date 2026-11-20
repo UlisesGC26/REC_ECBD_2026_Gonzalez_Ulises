@@ -5,7 +5,7 @@
     "x": 646,
     "y": 248,
     "width": 610,
-    "height": 290,
+    "height": 244,
     "z": 0,
     "tabOrder": 0
   },
@@ -106,7 +106,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }
@@ -126,14 +137,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Matriz de confusión | filas = real / columnas = predicha'"
+                  "Value": "'Matriz de confusión | filas reales, columnas predichas'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "14D"
                 }
               }
             },

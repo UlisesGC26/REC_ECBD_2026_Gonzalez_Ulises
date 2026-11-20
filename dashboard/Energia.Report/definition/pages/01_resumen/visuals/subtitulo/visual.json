@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Ulises González Coronado · 768 simulaciones UCI · SQL Server / Data Mart estrella",
+                    "value": "Explora promedios de carga por diseño. Los filtros cambian todos los visuales; la fecha es sintética y se usa para demostrar el ETL temporal.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12pt",
@@ -66,7 +66,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }

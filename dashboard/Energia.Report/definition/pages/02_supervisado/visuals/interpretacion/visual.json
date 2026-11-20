@@ -20,10 +20,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "ALCANCE Y ERROR",
+                    "value": "ALCANCE Y EVALUACIÓN",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "15pt",
+                      "fontSize": "14pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -33,10 +33,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Random Forest reduce el MAE frente a predecir la media. La regresión logística falla en 40 casos de carga alta.",
+                    "value": "Ridge reduce claramente el MAE frente a la referencia de la media. La clasificación logística obtuvo 100% en este corte temporal sintético; no equivale a desempeño garantizado con datos reales.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "15pt",
+                      "fontSize": "14pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -46,10 +46,23 @@
               {
                 "textRuns": [
                   {
-                    "value": "Alta significa Y1 ≥ 25: regla didáctica, no certificación. El ajuste se eligió con validación por geometría.",
+                    "value": "",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "15pt",
+                      "fontSize": "14pt",
+                      "fontWeight": "normal",
+                      "color": "#516572"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Alta significa Y1 ≥ 25: regla didáctica, no certificación. El ajuste se seleccionó dentro del entrenamiento con validación por geometría.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "14pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -92,7 +105,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }

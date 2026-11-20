@@ -121,7 +121,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }
@@ -141,14 +152,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Regresión frente a la referencia de la media'"
+                  "Value": "'Métricas de regresión | menor MAE/RMSE y mayor R² es mejor'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "14D"
                 }
               }
             },

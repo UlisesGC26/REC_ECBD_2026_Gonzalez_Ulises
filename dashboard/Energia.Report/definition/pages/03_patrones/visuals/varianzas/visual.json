@@ -5,7 +5,7 @@
     "x": 966,
     "y": 248,
     "width": 290,
-    "height": 300,
+    "height": 260,
     "z": 0,
     "tabOrder": 0
   },
@@ -88,7 +88,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }
@@ -108,14 +119,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Varianza por componente'"
+                  "Value": "'Varianza explicada por componente'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "14D"
                 }
               }
             },

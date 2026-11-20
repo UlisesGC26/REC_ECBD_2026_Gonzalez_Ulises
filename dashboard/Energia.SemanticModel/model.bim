@@ -516,7 +516,7 @@
             }
           }
         ],
-        "description": "Una simulación por fila. Predicciones solo en 192 casos de prueba. Cargas no aditivas: usar medias.",
+        "description": "Una simulación por fila. Predicciones solo en 231 casos de prueba futura simulada. Cargas no aditivas: usar medias.",
         "measures": [
           {
             "name": "Simulaciones",

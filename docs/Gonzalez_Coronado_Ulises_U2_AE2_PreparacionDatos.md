@@ -1,6 +1,6 @@
 # Unidad II · ETL y Data Mart
 
-Ulises González Coronado · Actualización técnica: 16 de noviembre de 2026
+Ulises González Coronado · Actualización técnica: 20 de noviembre de 2026
 
 ## Extracción y preparación
 
@@ -23,10 +23,10 @@ El SHA-256 del original es 0089fcffc1415e41e2ff63730cca5280efe54fc43d722dfde1b0a
 
 ![Figura](figuras/08_estrella.png)
 
-Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. La altura se integra en DimGeometria y la proporción/distribución de cristal se integran en DimAcristalamiento. HECHOS referencia directamente seis dimensiones: geometría, orientación, acristalamiento, clase, conjunto y cluster. Se implementan seis llaves foráneas. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.
+Grano: una simulación por fila en HECHOS, con id_registro como llave primaria. La altura se integra en DimGeometria, la proporción/distribución de cristal en DimAcristalamiento y DimTime contiene un calendario sintético para el ETL temporal. HECHOS referencia directamente siete dimensiones: geometría, orientación, acristalamiento, clase, conjunto, cluster y tiempo. Las medidas Y1/Y2 se analizan con promedios; sumar cargas de escenarios alternativos no representa consumo real.
 
 ## Carga y validación en SQL Server
 
-La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. El script sql/datamart.sql crea la base si hace falta y reemplaza únicamente las tablas del proyecto en transacciones con XACT_ABORT y manejo de errores. No modifica otras bases. Se conserva evidencia de la carga real en docs/verificacion_sqlserver.json.
+La base REC_ECBD_Energia contiene DatasetOriginal, HECHOS, dimensiones y tablas de evaluación. `sql/limpiar_datamart_full.sql` ejecuta DELETE en orden seguro y el ETL vuelve a cargar el Data Mart; el Job ECBD_Carga_FULL_Energia automatiza la misma secuencia. Los scripts afectan únicamente la base del proyecto y usan transacciones con XACT_ABORT y manejo de errores.
 
-La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, seis llaves foráneas directas a HECHOS y 192 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.
+La vista vDatasetReconstruido vuelve a unir hechos y dimensiones. EXCEPT en ambos sentidos no encuentra diferencias respecto a DatasetOriginal. Se verifican 768 hechos, siete llaves foráneas directas a HECHOS y 231 predicciones. En entrenamiento las predicciones son NULL deliberadamente. Power BI importa estas mismas tablas y reproduce sus relaciones.

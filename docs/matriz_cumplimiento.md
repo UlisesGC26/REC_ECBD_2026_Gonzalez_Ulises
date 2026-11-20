@@ -1,6 +1,6 @@
 # Matriz de cumplimiento y trazabilidad
 
-Actualización: 16 de noviembre de 2026. Esta matriz describe evidencias técnicas, no calificaciones ni entregas acreditadas.
+Actualización: 20 de noviembre de 2026. Esta matriz describe evidencias técnicas, no calificaciones ni entregas acreditadas.
 
 | Requisito | Evidencia verificable |
 |---|---|
@@ -13,7 +13,8 @@ Actualización: 16 de noviembre de 2026. Esta matriz describe evidencias técnic
 | Original frente a procesado | assert_frame_equal en U2_AE2 y SHA-256 |
 | ETL y dataset procesado | src/preparacion_datos.py, src/etl_sqlserver.py, data/processed/ |
 | HECHOS, dimensiones, PK/FK, medidas | SQL Server REC_ECBD_Energia; sql/datamart.sql |
-| Modelo estrella y diagrama | docs/diagrama_estrella.svg; 6 relaciones SQL y Power BI |
+| Modelo estrella, DimTime y diagrama | docs/diagrama_estrella.svg; 7 relaciones SQL y Power BI |
+| Carga FULL repetible | sql/limpiar_datamart_full.sql; sql/job_carga_full.sql; DELETE → ETL → recarga |
 | Regresión con MAE y RMSE/R² | U3; metricas_regresion.csv |
 | Clasificación con accuracy, precision, recall, F1 y matriz | U3; metricas_clasificacion.csv; reporte_clasificacion.json |
 | Comparación, optimización y relevancia | GridSearchCV/GroupKFold; validacion_*.csv; importancia_variables.csv |

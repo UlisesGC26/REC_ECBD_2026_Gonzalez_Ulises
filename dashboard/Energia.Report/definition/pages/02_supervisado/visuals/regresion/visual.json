@@ -5,7 +5,7 @@
     "x": 24,
     "y": 248,
     "width": 600,
-    "height": 290,
+    "height": 244,
     "z": 0,
     "tabOrder": 0
   },
@@ -111,7 +111,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }
@@ -131,14 +142,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Calefacción real frente a predicha (prueba)'"
+                  "Value": "'Calefacción real vs. predicha | solo prueba'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "14D"
                 }
               }
             },

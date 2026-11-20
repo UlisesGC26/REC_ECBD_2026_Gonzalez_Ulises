@@ -47,9 +47,11 @@ def tablas_estrella():
     tablas['DimCluster'] = pd.DataFrame({'id_cluster': perfiles.id_cluster,
         'cluster': [f'Cluster {i}' for i in perfiles.id_cluster]})
     tiempo = pd.to_datetime(df['fecha_simulada'])
+    nombres_meses = {1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5: 'Mayo', 6: 'Junio',
+                      7: 'Julio', 8: 'Agosto', 9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'}
     tablas['DimTime'] = pd.DataFrame({'id_tiempo': tiempo.dt.strftime('%Y%m%d').astype(int),
         'fecha': tiempo.dt.strftime('%Y-%m-%d'), 'anio': tiempo.dt.year, 'trimestre': tiempo.dt.quarter,
-        'mes_numero': tiempo.dt.month, 'mes_nombre': tiempo.dt.month_name(), 'dia': tiempo.dt.day,
+        'mes_numero': tiempo.dt.month, 'mes_nombre': tiempo.dt.month.map(nombres_meses), 'dia': tiempo.dt.day,
         'origen': 'fecha simulada para práctica ETL'}).drop_duplicates().sort_values('id_tiempo')
     h = (df.merge(a[['X7', 'X8', 'id_acristalamiento']], on=['X7', 'X8'], validate='many_to_one')
           .merge(division[['id_registro', 'conjunto']], on='id_registro', validate='one_to_one')

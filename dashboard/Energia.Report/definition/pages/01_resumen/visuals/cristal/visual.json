@@ -5,7 +5,7 @@
     "x": 24,
     "y": 542,
     "width": 600,
-    "height": 220,
+    "height": 184,
     "z": 0,
     "tabOrder": 0
   },
@@ -97,7 +97,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }
@@ -117,14 +128,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cargas por proporción de cristal'"
+                  "Value": "'Media de Y1 y Y2 por proporción de cristal'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "14D"
                 }
               }
             },

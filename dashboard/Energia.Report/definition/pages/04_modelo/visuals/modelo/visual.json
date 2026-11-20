@@ -23,7 +23,7 @@
                     "value": "MODELO ESTRELLA",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -36,7 +36,7 @@
                     "value": "DimGeometria (incluye altura) → HECHOS",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -49,7 +49,7 @@
                     "value": "DimAcristalamiento (incluye proporción y distribución) → HECHOS",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -62,7 +62,7 @@
                     "value": "DimTime (calendario sintético) → HECHOS",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -75,7 +75,7 @@
                     "value": "DimOrientacion / DimClase / DimConjunto / DimCluster → HECHOS",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -88,7 +88,7 @@
                     "value": "",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -101,7 +101,7 @@
                     "value": "Grano: una simulación por id_registro. 768 hechos, 7 relaciones, llaves primarias y foráneas.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -111,10 +111,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Abrir la Vista de modelo para inspeccionar las relaciones reales.",
+                    "value": "Carga FULL: DELETE de tablas del proyecto → ETL → recarga completa → Actualizar en Power BI.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "19pt",
+                      "fontSize": "18pt",
                       "fontWeight": "normal",
                       "color": "#516572"
                     }
@@ -157,7 +157,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }

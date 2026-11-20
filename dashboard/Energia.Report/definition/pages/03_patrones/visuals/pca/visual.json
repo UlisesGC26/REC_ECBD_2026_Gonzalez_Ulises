@@ -5,7 +5,7 @@
     "x": 24,
     "y": 248,
     "width": 600,
-    "height": 300,
+    "height": 260,
     "z": 0,
     "tabOrder": 0
   },
@@ -129,7 +129,18 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C9D8DC'"
+                    }
+                  }
                 }
               }
             }
@@ -149,14 +160,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PCA | color = cluster'"
+                  "Value": "'PCA | cada punto es un edificio; color = cluster'"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "14D"
                 }
               }
             },

@@ -1,5 +1,5 @@
 {
-  "fecha": "2026-11-17",
+  "fecha": "2026-11-20",
   "tipo": "Validación funcional de dashboards",
   "paginas_verificadas": [
     "Vista general",
@@ -10,7 +10,7 @@
     "Datos y Data Mart"
   ],
   "combinaciones_validas_comprobadas": 768,
-  "predicciones_prueba_reproducidas": 192,
+  "predicciones_prueba_reproducidas": 231,
   "consultas_sqlite_verificadas": 3,
   "filtros_vacios_y_reducidos": "correctos",
   "cambios_de_acristalamiento_y_distribucion": "correctos",
@@ -20,11 +20,11 @@
   "power_bi": {
     "archivo": "dashboard/Energia.pbip",
     "conexion": "SQL Server localhost; REC_ECBD_Energia; autenticación Windows",
-    "tablas_importadas": 14,
+    "tablas_importadas": 15,
     "paginas": 4,
-    "modelo": "HECHOS con 768 filas y 6 relaciones 1:N directas del modelo estrella",
-    "interaccion_comprobada": "Filtro de altura 3.50: 768 a 384 simulaciones; Y1=13.34 y Y2=16.07, consistente con data/processed/resumen_altura.csv",
-    "evidencias": ["docs/evidencia_powerbi/01_descriptivo.png", "docs/evidencia_powerbi/02_filtro_altura.png"]
+    "modelo": "HECHOS con 768 filas y 7 relaciones 1:N directas del modelo estrella, incluida DimTime",
+    "interaccion_comprobada": "Actualización real desde SQL Server local tras la carga FULL: 768 simulaciones, 12 geometrías, Y1=22.31, Y2=24.59. Se revisaron las páginas descriptiva, supervisada y de patrones; títulos y notas QUÉ REPRESENTA sin superposición.",
+    "evidencias": ["dashboard/Energia.pbip", "docs/verificacion_sqlserver.json"]
   },
   "pendiente": "Durante la revisión, el estudiante debe abrir y explicar personalmente Power BI, SQL Server y los notebooks."
 }
